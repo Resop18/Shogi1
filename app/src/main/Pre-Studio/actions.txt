@@ -1,0 +1,26 @@
+Actions for Shogi game
+
+
+-select (and show coordinates), deselect, move, place, promote a Shogi piece
+
+-capture other player's Shogi piece
+
+-undo a move (certain amount per game)
+
+-select, deselect, place a new (captured) Shogi piece on the board
+
+
+-restart game
+-surrender and/or quit game
+
+-select options
+	
+-check records
+	
+-toggle music
+	
+-choose mode
+	
+-choose LANGUAGE
+	-
+

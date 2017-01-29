@@ -25,29 +25,40 @@ public class ShogiGui extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
+        //creates the various paints used in the board
         Paint shogiboard = new Paint();
         Paint opponent = new Paint();
         Paint player = new Paint();
         Paint captured = new Paint();
         Paint square = new Paint();
         Paint text = new Paint();
+
+        //creates the colors used
         shogiboard.setColor(0xFFB69B4C);
         opponent.setColor(0xFFFF0F0F);
-        player.setColor(0xFF0F0FFF);
+        player.setColor(0xFF85bff8);
         captured.setColor(0xFFC7AC5D);
         square.setColor(0xFF000000);
         text.setColor(0xFF000000);
+
+        //misc settings for paints
         square.setStyle(Paint.Style.STROKE);
         text.setTextSize(48f);
+        Paint text2 = text;
+
+        //backgroung for the main display
         Bitmap background =
                 BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
         canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(background, 0, 0, null);
+
+        //the board and player sides
         canvas.drawRect(230.5f, 100f, 1500f,250f, captured);
         canvas.drawCircle(230.5f, 275f,180f,opponent);
-        canvas.drawText("Opponent",130f,200f,text);
+        canvas.drawText("Opponent",130f,200f,text2);
         canvas.drawRect(50f, 1650f, 1319f,1800f, captured);
         canvas.drawCircle(1319f, 1625f,180f,player);
+        text.setUnderlineText(true);
         canvas.drawText("Player",1250f,1725f,text);
         canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
         canvas.drawRect(50f, 250f, 1500f, 1650f, square);
@@ -68,6 +79,9 @@ public class ShogiGui extends SurfaceView {
         canvas.drawLine(75f, 1175f, 1475f, 1175f, square);
         canvas.drawLine(75f, 1325f, 1475f, 1325f, square);
         canvas.drawLine(75f, 1475f, 1475f, 1475f, square);
+        canvas.drawCircle(1210,1710, 20,text);
+
+        //pieces for the game
         Bitmap jewel =
                 BitmapFactory.decodeResource(getResources(), R.drawable.king);
         canvas.drawColor(00000000);
