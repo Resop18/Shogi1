@@ -39,14 +39,14 @@ public class ShogiGui extends SurfaceView {
         text.setColor(0xFF000000);
         square.setStyle(Paint.Style.STROKE);
         text.setTextSize(48f);
-        Bitmap myImageBMP =
+        Bitmap background =
                 BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
         canvas.drawColor(Color.BLACK);
-        canvas.drawBitmap(myImageBMP, 0, 0, null);
-        canvas.drawRect(230.5f, 150f, 1500f,250f, captured);
+        canvas.drawBitmap(background, 0, 0, null);
+        canvas.drawRect(230.5f, 100f, 1500f,250f, captured);
         canvas.drawCircle(230.5f, 275f,180f,opponent);
         canvas.drawText("Opponent",130f,200f,text);
-        canvas.drawRect(50f, 1650f, 1319f,1750f, captured);
+        canvas.drawRect(50f, 1650f, 1319f,1800f, captured);
         canvas.drawCircle(1319f, 1625f,180f,player);
         canvas.drawText("Player",1250f,1725f,text);
         canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
@@ -68,6 +68,65 @@ public class ShogiGui extends SurfaceView {
         canvas.drawLine(75f, 1175f, 1475f, 1175f, square);
         canvas.drawLine(75f, 1325f, 1475f, 1325f, square);
         canvas.drawLine(75f, 1475f, 1475f, 1475f, square);
+        Bitmap jewel =
+                BitmapFactory.decodeResource(getResources(), R.drawable.king);
+        canvas.drawColor(00000000);
+        canvas.drawBitmap(jewel, 710, 1470, null);
+        Bitmap king =
+                BitmapFactory.decodeResource(getResources(), R.drawable.king2);
+        canvas.drawBitmap(king, 710, 275, null);
+        Bitmap pawn =
+                BitmapFactory.decodeResource(getResources(), R.drawable.pawn_s);
+        canvas.drawBitmap(pawn, 95, 725, null);
+        canvas.drawBitmap(pawn, 710, 1025, null);
+        canvas.drawBitmap(pawn, 560, 725, null);
+        canvas.drawBitmap(pawn, 410, 875, null);
+        canvas.drawBitmap(pawn, 75, 1650, null);
+        Bitmap pawn2 =
+                BitmapFactory.decodeResource(getResources(), R.drawable.pawn2);
+        canvas.drawBitmap(pawn2, 225, 575, null);
+        canvas.drawBitmap(pawn2, 860, 1025, null);
+        canvas.drawBitmap(pawn2, 410, 100, null);
+        canvas.drawBitmap(pawn2, 1330, 570, null);
+        canvas.drawBitmap(pawn2, 1163, 725, null);
+        Bitmap knight =
+                BitmapFactory.decodeResource(getResources(), R.drawable.horse);
+        canvas.drawBitmap(knight, 400, 1170, null);
+        canvas.drawBitmap(knight, 225, 1640, null);
+        Bitmap knight2 =
+                BitmapFactory.decodeResource(getResources(), R.drawable.horse2);
+        canvas.drawBitmap(knight2, 560, 100, null);
+        Bitmap bishop =
+                BitmapFactory.decodeResource(getResources(), R.drawable.bishop);
+        canvas.drawBitmap(bishop, 860, 720, null);
+        Bitmap bishop2 =
+                BitmapFactory.decodeResource(getResources(), R.drawable.bishop2);
+        canvas.drawBitmap(bishop2, 240, 1325, null);
+        Bitmap lance =
+                BitmapFactory.decodeResource(getResources(), R.drawable.lance);
+        canvas.drawBitmap(lance, 1330, 720, null);
+        canvas.drawBitmap(lance, 90, 870, null);
+        canvas.drawBitmap(lance, 375, 1640, null);
+        Bitmap lance2 =
+                BitmapFactory.decodeResource(getResources(), R.drawable.lance2);
+        canvas.drawBitmap(lance2, 95, 575, null);
+        Bitmap rook =
+                BitmapFactory.decodeResource(getResources(), R.drawable.rook);
+        canvas.drawBitmap(rook, 525, 1640, null);
+        canvas.drawBitmap(rook, 1172, 1320, null);
+        Bitmap silver =
+                BitmapFactory.decodeResource(getResources(), R.drawable.silver);
+        canvas.drawBitmap(silver, 710, 720, null);
+        Bitmap silver2 =
+                BitmapFactory.decodeResource(getResources(), R.drawable.silver2);
+        canvas.drawBitmap(silver2, 710, 100, null);
+        canvas.drawBitmap(silver2, 1008, 1025, null);
+        canvas.drawBitmap(silver2, 230, 875, null);
+        Bitmap gold =
+                BitmapFactory.decodeResource(getResources(), R.drawable.goldgeneral);
+        canvas.drawBitmap(gold, 225, 1475, null);
+        canvas.drawBitmap(gold, 675,1640, null);
+
     }
 
 
