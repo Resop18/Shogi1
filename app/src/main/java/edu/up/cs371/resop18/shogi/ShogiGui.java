@@ -68,9 +68,6 @@ public class ShogiGui extends SurfaceView {
         canvas.drawLine(75f, 1175f, 1475f, 1175f, square);
         canvas.drawLine(75f, 1325f, 1475f, 1325f, square);
         canvas.drawLine(75f, 1475f, 1475f, 1475f, square);
-        Bitmap jewelGen =
-                BitmapFactory.decodeResource(getResources(), R.drawable.jewel);
-        canvas.drawBitmap(jewelGen, 697f, 1475f, null);
     }
 
 
