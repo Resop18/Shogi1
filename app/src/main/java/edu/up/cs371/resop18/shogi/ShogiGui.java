@@ -45,7 +45,7 @@ public class ShogiGui extends SurfaceView {
         text.setTextSize(48f);
         Paint text2 = text;
 
-        //backgroung for the main display
+        //background for the main display
         Bitmap background =
                 BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
         canvas.drawColor(Color.BLACK);
