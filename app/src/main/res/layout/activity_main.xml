@@ -22,7 +22,7 @@
         android:layout_gravity="top|right"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="50dp" />
+        android:layout_height="51dp" />
 
     <Button
         android:text="Undo"
