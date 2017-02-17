@@ -16,20 +16,20 @@
         android:clickable="false" />
 
     <Button
-        android:text="Options"
         android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Options"
         android:id="@+id/Options"
-        android:layout_gravity="top|right"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_height="51dp" />
+        android:layout_marginLeft="550dp" />
 
     <Button
+        android:layout_height="50dp"
         android:text="Undo"
-        android:layout_width="150dp"
         android:id="@+id/Undo"
-        android:layout_gravity="right"
-        android:layout_marginRight="190dp"
-        android:layout_height="50dp" />
-
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="150dp"
+        android:layout_marginLeft="350dp" />
 </FrameLayout>

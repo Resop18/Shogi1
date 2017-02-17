@@ -6,8 +6,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.os.Vibrator;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
+
+import static android.content.Context.VIBRATOR_SERVICE;
 
 /**
  * Created by Javier on 25-Jan-17.
@@ -24,6 +31,13 @@ public class ShogiGui extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
         //creates the various paints used in the board
         Paint shogiboard = new Paint();
         Paint opponent = new Paint();
@@ -44,6 +58,7 @@ public class ShogiGui extends SurfaceView {
         square.setStyle(Paint.Style.STROKE);
         text.setTextSize(48f);
         Paint text2 = text;
+        square.setStrokeWidth(5f);
 
         //background for the main display
         Bitmap background =
@@ -141,6 +156,8 @@ public class ShogiGui extends SurfaceView {
         canvas.drawBitmap(gold, 675,1640, null);
 
     }
+
+
 
 
 }
