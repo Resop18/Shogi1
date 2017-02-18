@@ -33,6 +33,7 @@ public class MenuGui extends SurfaceView {
         back = back.createScaledBitmap(back, 1550, 1900, false);
         canvas.drawBitmap(back, 0, 0, null);
 
+        //draws the menu screen --Works best on API 24
         Paint menustuff = new Paint();
         menustuff.setColor(Color.RED);
         menustuff.setTypeface(yozakura);
