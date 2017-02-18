@@ -12,6 +12,9 @@ import android.widget.Button;
  * Created by Javier on 15-Feb-17.
  */
 
+/**
+ * The actual game
+ */
 public class Game extends AppCompatActivity {
 
 
@@ -23,15 +26,20 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        //creates and sets the Options Button
         options = (Button)findViewById(R.id.Options);
         options.setOnClickListener(new optionsButt());
 
+        //creates and sets the Undo button
         undo = (Button)findViewById(R.id.Undo);
         undo.setOnClickListener(new undoButt());
     }
 
+    /**
+     * Makes a onClickListener for the undo button
+     * makes a Vibrator to vibrate when undo is pressed (Currently it is the
+     * Mortal Kombat theme)
+     */
     public class undoButt implements View.OnClickListener {
 
     Vibrator vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -43,6 +51,10 @@ public class Game extends AppCompatActivity {
         }
     }
 
+    /**
+     * Makes a onClickListener for Options
+     * opens up to a new activity
+     */
     public class optionsButt implements View.OnClickListener {
 
 

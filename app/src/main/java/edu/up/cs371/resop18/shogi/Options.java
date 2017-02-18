@@ -47,23 +47,46 @@ public class Options extends AppCompatActivity {
 
         initControls();
 
+        /**
+         * External Citation
+         *      Date: 17 February 2017
+         *      Problem: Couldn't figure out how to add sound
+         *      Resource: http://stackoverflow.com/questions/18459122/play-
+         *          sound-on-button-click-android
+         *      Solution: Used some example code along with my own
+         */
+
+        //creates various sound effects for when a button is pressed
         final MediaPlayer timallen = MediaPlayer.create(this, R.raw.allenarrogh);
         final MediaPlayer carlin = MediaPlayer.create(this, R.raw.carlinlogic);
         final MediaPlayer ironman = MediaPlayer.create(this, R.raw.ironman);
+
         Button playMe = (Button)findViewById(R.id.EasterEgg);
         playMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sounds.getSelectedItem().toString().contentEquals("swoosh")) {timallen.start();}
-                if(sounds.getSelectedItem().toString().contentEquals("bazzinga")){carlin.start();}
-                if(sounds.getSelectedItem().toString().contentEquals("waffles")){ironman.start();}
+                if(sounds.getSelectedItem().toString().contentEquals("swoosh"))
+                    {timallen.start();}
+                if(sounds.getSelectedItem().toString().contentEquals("bazzinga"))
+                    {carlin.start();}
+                if(sounds.getSelectedItem().toString().contentEquals("waffles"))
+                    {ironman.start();}
             }
         });
     }
 
 
-
-
+    /**
+    External Citation
+        Date: 17 February 2017
+        Problem: getting a seekbar to associate with the devices' volume control
+        Resource: http://stackoverflow.com/questions/10134338/using-seekbar-to-control-volume-in
+                    -android
+        Solution: I used the example code from there.
+     */
+    /**
+     * makes it so that a seekbar controls the volume
+     */
     private void initControls()
     {
         try
