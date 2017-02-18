@@ -10,16 +10,15 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
-/**
- * Created by Javier on 28-Jan-17.
+/*
+ * @author Javier Resop
  */
 
 public class MenuGui extends SurfaceView {
 
     Typeface yozakura;
 
-    public MenuGui(Context context, AttributeSet attrs)
-    {
+    public MenuGui(Context context, AttributeSet attrs){
         super(context, attrs);
         setWillNotDraw(false);
         yozakura = Typeface.createFromAsset(context.getAssets(), "fonts/yozakura.ttf");

@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Javier on 15-Feb-17.
+ * @author Javier Resop
  */
 
 public class Game extends AppCompatActivity {
