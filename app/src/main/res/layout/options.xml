@@ -15,7 +15,7 @@
 
     <SeekBar
         android:layout_width="match_parent"
-        android:id="@+id/seekBar"
+        android:id="@+id/vol"
         android:layout_height="50dp"
         android:max="100"
         android:progress="50" />
@@ -27,7 +27,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/spinner" />
+        android:id="@+id/Easter" />
 
     <Button
         android:text="Press Me"
