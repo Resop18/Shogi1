@@ -27,6 +27,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
     public static final float topLeftX = backBoardTopLeftX + spaceDim / 2; //95 is good
     public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
     private boolean pieceIsSelected = false;
+    private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
 
     private int i, j; //for iterating and managing the Pieces array
     private int row, col; //for iterating and managing the Pieces array
@@ -34,6 +35,9 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
     public ShogiGui(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
+
+        //set up bamboo background
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
 
 
         //Defines Pieces to be drawn
@@ -108,8 +112,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         square.setStrokeWidth(5f);
 
         //background for the main display
-        Bitmap background =
-                BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
+
         canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(background, 0, 0, null);
 
@@ -153,6 +156,17 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
             return false;
         }
+
+        //check if user tapped inside the board lines
+        if (event.getY() > topLeftY + 9 * spaceDim || event.getX() > topLeftX + 9 * spaceDim )
+        {
+            return false;
+        }
+        if ( event.getY() < topLeftY  )
+        {
+            return false;
+        }
+
 
 
         //This determine space that was tapped
