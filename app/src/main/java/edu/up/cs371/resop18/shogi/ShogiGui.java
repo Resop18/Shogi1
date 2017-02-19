@@ -28,6 +28,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
     public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
     private boolean pieceIsSelected = false;
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
+    private Bitmap Board; // make  a board
 
     private int i, j; //for iterating and managing the Pieces array
     private int row, col; //for iterating and managing the Pieces array
@@ -38,6 +39,8 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
 
         //set up bamboo background
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
+
+        Board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
 
 
         //Defines Pieces to be drawn
@@ -112,9 +115,11 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         square.setStrokeWidth(5f);
 
         //background for the main display
-
         canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(background, 0, 0, null);
+
+
+
 
         //the board and player sides
         canvas.drawRect(230.5f, 100f, 1500f,250f, captured);
@@ -124,9 +129,15 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         canvas.drawCircle(1319f, 1625f, 180f,player);
         text.setUnderlineText(true);
         canvas.drawText("Player",1250f,1725f,text);
-        canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
-        canvas.drawRect(50f, 250f, 1500f, 1650f, square);
+        //canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
+        //canvas.drawRect(50f, 250f, 1500f, 1650f, square);
         canvas.drawCircle(1210, 1710, 20, text);
+
+        Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false);//1500 1650
+        //canvas.drawColor(Color.BLACK);
+        canvas.drawBitmap(Board, 50f, 250f, null);
+
+
 
         //draw vertical lines; start xy is top point, end xy is bottom point
         for(i = 0; i < 10; i++) {
