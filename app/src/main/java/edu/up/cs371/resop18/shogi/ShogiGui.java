@@ -31,7 +31,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
     private Bitmap Board; // make  a board
 
     private int i, j; //for iterating and managing the Pieces array
-    private int row, col; //for iterating and managing the Pieces array
+    private int row, col; //for iterating and managing Pieces
 
     public ShogiGui(Context context, AttributeSet attrs) {
         super(context, attrs);
