@@ -290,10 +290,6 @@ public class shogiPiece {
                 C.rotate(180f, x, y);
             }
         }else if(s[3].equals("Rook")){
-            if(!player){
-                C.rotate(180f, x, y);
-            }
-
             xPos = x;
             yPos = y - ShogiGui.spaceDim;
 
@@ -323,10 +319,6 @@ public class shogiPiece {
             while(xPos < ShogiGui.topLeftX + 9*ShogiGui.spaceDim){
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
                 xPos += ShogiGui.spaceDim;
-            }
-
-            if(!player){
-                C.rotate(180f, x, y);
             }
         }else if(s[3].equals("Lance")){
             xPos = x;
