@@ -79,13 +79,19 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         }
 
         row = 2;
+        for(col = 0; col < 9; col++){
+            aPiece = new shogiPiece(row, col, "Pawn");
+            aPiece.setPlayer(false);
+            Pieces[row][col] = aPiece;
+        }
+
         col = 1;
-        aPiece = new shogiPiece(row-1, col, "Bishop");
+        aPiece = new shogiPiece(row-1, col, "Rook");
         aPiece.setPlayer(false);
         Pieces[row-1][col] = aPiece;
 
         col = 7;
-        aPiece = new shogiPiece(row-1, col, "Rook");
+        aPiece = new shogiPiece(row-1, col, "Bishop");
         aPiece.setPlayer(false);
         Pieces[row+1][col] = aPiece;
 
