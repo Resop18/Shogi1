@@ -134,7 +134,6 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         canvas.drawCircle(1210, 1710, 20, text);
 
         Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false);//1500 1650
-        //canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(Board, 50f, 250f, null);
 
 
