@@ -41,7 +41,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
 
         Board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
-
+        Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false); //1450 1400
 
         //Defines Pieces to be drawn
         shogiPiece aPiece;
@@ -77,6 +77,35 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
             aPiece = new shogiPiece(row+2, col, w);
             Pieces[row+2][col] = aPiece;
         }
+
+        row = 2;
+        col = 1;
+        aPiece = new shogiPiece(row-1, col, "Bishop");
+        aPiece.setPlayer(false);
+        Pieces[row-1][col] = aPiece;
+
+        col = 7;
+        aPiece = new shogiPiece(row-1, col, "Rook");
+        aPiece.setPlayer(false);
+        Pieces[row+1][col] = aPiece;
+
+        for(col = 0; col < 9; col++){
+            if(col == 0 || col == 8){
+                w = "Lance";
+            }else if(col == 1 || col == 7){
+                w = "Knight";
+            }else if(col == 2 || col == 6){
+                w = "Silver";
+            }else if(col == 3 || col == 5){
+                w = "Gold";
+            }else{
+                w = "King";
+            }
+
+            aPiece = new shogiPiece(row-2, col, w);
+            aPiece.setPlayer(false);
+            Pieces[row-2][col] = aPiece;
+        }
     }
 
     @Override
@@ -111,20 +140,17 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         //misc settings for paints
         square.setStyle(Paint.Style.STROKE);
         text.setTextSize(48f);
-        Paint text2 = text;
+        //Paint text2 = text;
         square.setStrokeWidth(5f);
 
         //background for the main display
         canvas.drawColor(Color.BLACK);
         canvas.drawBitmap(background, 0, 0, null);
 
-
-
-
         //the board and player sides
         canvas.drawRect(230.5f, 100f, 1500f,250f, captured);
         canvas.drawCircle(230.5f, 275f, 180f, opponent);
-        canvas.drawText("Opponent", 130f, 200f, text2);
+        canvas.drawText("Opponent", 130f, 200f, text);
         canvas.drawRect(50f, 1650f, 1319f,1800f, captured);
         canvas.drawCircle(1319f, 1625f, 180f,player);
         text.setUnderlineText(true);
@@ -133,9 +159,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         //canvas.drawRect(50f, 250f, 1500f, 1650f, square);
         canvas.drawCircle(1210, 1710, 20, text);
 
-        Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false);//1500 1650
         canvas.drawBitmap(Board, 50f, 250f, null);
-
 
 
         //draw vertical lines; start xy is top point, end xy is bottom point
@@ -168,16 +192,12 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         }
 
         //check if user tapped inside the board lines
-        if (event.getY() > topLeftY + 9 * spaceDim || event.getX() > topLeftX + 9 * spaceDim )
-        {
+        if(event.getY() > topLeftY + 9 * spaceDim || event.getX() > topLeftX + 9 * spaceDim){
             return false;
         }
-        if ( event.getY() < topLeftY  )
-        {
+        if(event.getY() < topLeftY){
             return false;
         }
-
-
 
         //This determine space that was tapped
         for(row = 0; row < 9; row++) {

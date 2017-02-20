@@ -11,7 +11,7 @@ import android.graphics.Path;
  */
 
 public class shogiPiece {
-    private boolean shortHand = false; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
+    private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
     private boolean player = true; //Denotes if the piece belongs to the player
 
@@ -197,6 +197,10 @@ public class shogiPiece {
 
         float xPos, yPos;
 
+        if(!player){
+            C.rotate(180f, x, y);
+        }
+
         //find piece type, draw circles in spaces where this type of piece can move
         if(s[3].equals("Silver")){
             //top left
@@ -236,6 +240,10 @@ public class shogiPiece {
             yPos = y - 2*ShogiGui.spaceDim;
             C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
         }else if(s[3].equals("Bishop")){
+            if(!player){
+                C.rotate(180f, x, y);
+            }
+
             //Diagonal top left
             xPos = x - ShogiGui.spaceDim;
             yPos = y - ShogiGui.spaceDim;
@@ -277,7 +285,15 @@ public class shogiPiece {
                 yPos += ShogiGui.spaceDim;
                 xPos += ShogiGui.spaceDim;
             }
+
+            if(!player){
+                C.rotate(180f, x, y);
+            }
         }else if(s[3].equals("Rook")){
+            if(!player){
+                C.rotate(180f, x, y);
+            }
+
             xPos = x;
             yPos = y - ShogiGui.spaceDim;
 
@@ -308,15 +324,39 @@ public class shogiPiece {
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
                 xPos += ShogiGui.spaceDim;
             }
+
+            if(!player){
+                C.rotate(180f, x, y);
+            }
         }else if(s[3].equals("Lance")){
             xPos = x;
-            yPos = y - ShogiGui.spaceDim;
 
-            //draw circles in every space above the piece
-            while(yPos > ShogiGui.topLeftY){
-                C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
-                yPos -= ShogiGui.spaceDim;
+            if(player){
+                yPos = y - ShogiGui.spaceDim;
+
+                //draw circles in every space above the piece
+                while(yPos > ShogiGui.topLeftY){
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
+                    yPos -= ShogiGui.spaceDim;
+                }
+            }else{
+                if(!player){
+                    C.rotate(180f, x, y);
+                }
+
+                yPos = y + ShogiGui.spaceDim;
+
+                //draw circles in every space above the piece
+                while(yPos < ShogiGui.topLeftY + 9*ShogiGui.spaceDim){
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
+                    yPos += ShogiGui.spaceDim;
+                }
+
+                if(!player){
+                    C.rotate(180f, x, y);
+                }
             }
+
         }else if(s[3].equals("King") || s[3].equals("Gold")){
             //top left
             xPos = x - ShogiGui.spaceDim;
@@ -359,6 +399,10 @@ public class shogiPiece {
                 yPos = y + ShogiGui.spaceDim;
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
             }
+        }
+
+        if(!player){
+            C.rotate(180f, x, y);
         }
     }
 
