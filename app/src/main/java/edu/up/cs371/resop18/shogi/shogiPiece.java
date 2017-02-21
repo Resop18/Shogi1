@@ -202,8 +202,166 @@ public class shogiPiece {
             //top left
             xPos = x - ShogiGui.spaceDim;
             yPos = y - ShogiGui.spaceDim;
-            C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
 
+            if (yPos < ShogiGui.topLeftY ) {
+                if (xPos < ShogiGui.topLeftX) {
+                    //bottom right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                } else if (xPos > ShogiGui.topLeftX + 7 * ShogiGui.spaceDim) {
+                    //bottom left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                } else {
+                    //bottom left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //bottom right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+            }
+
+
+
+
+
+
+
+
+            else if(yPos > ShogiGui.topLeftX + 8 * ShogiGui.spaceDim)
+            {
+                if(xPos < ShogiGui.topLeftX)
+                {
+                    //top right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top middle
+                    xPos = x;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+
+                else if(xPos > ShogiGui.topLeftX + 7 * ShogiGui.spaceDim)
+                {
+
+                    //top left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top middle
+                    xPos = x;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+
+
+                else
+                {
+                    //top middle
+                    xPos = x;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+
+
+            }
+
+
+
+            else if(xPos > ShogiGui.topLeftX +  7* ShogiGui.spaceDim)
+            {
+
+                    //top left
+                    xPos = x - ShogiGui.spaceDim;
+                yPos = y - ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                //top middle
+                xPos = x;
+                yPos = y - ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                //bottom left
+                xPos = x - ShogiGui.spaceDim;
+                yPos = y + ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+            }
+
+            else if(xPos < ShogiGui.topLeftX )
+            {
+
+                //top middle
+                xPos = x;
+                yPos = y - ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                //top right
+                xPos = x + ShogiGui.spaceDim;
+                yPos = y - ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+
+                //bottom right
+                xPos = x + ShogiGui.spaceDim;
+                yPos = y + ShogiGui.spaceDim;
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+            }
+
+
+            else
+                {
+                    //top middle
+                    xPos = x;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //top left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y - ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //bottom left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //bottom right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+            }
+
+
+            /*
+             else if
+            {
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+            }
             //top middle
             xPos = x;
             yPos = y - ShogiGui.spaceDim;
@@ -211,6 +369,11 @@ public class shogiPiece {
 
             //top right
             xPos = x + ShogiGui.spaceDim;
+            yPos = y - ShogiGui.spaceDim;
+            C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+            //top left
+            xPos = x - ShogiGui.spaceDim;
             yPos = y - ShogiGui.spaceDim;
             C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
 
@@ -223,10 +386,24 @@ public class shogiPiece {
             xPos = x + ShogiGui.spaceDim;
             yPos = y + ShogiGui.spaceDim;
             C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
-        }else if(s[3].equals("Pawn")){
+            */
+        else if(s[3].equals("Pawn")){
             xPos = x;
             yPos = y - ShogiGui.spaceDim;
-            C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+            //fixed pawn not out of bound
+
+            if (yPos < ShogiGui.topLeftY )
+            {
+                return;
+            }
+            else
+            {
+                C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+            }
+
+
+
+
         }else if(s[3].equals("Knight")){
             xPos = x - ShogiGui.spaceDim;
             yPos = y - 2*ShogiGui.spaceDim;
