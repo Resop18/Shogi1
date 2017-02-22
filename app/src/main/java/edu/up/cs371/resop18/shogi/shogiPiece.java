@@ -416,8 +416,8 @@ public class shogiPiece {
             //Diagonal bottom left
             xPos = x - ShogiGui.spaceDim;
             yPos = y + ShogiGui.spaceDim;
-            while(yPos < 9*ShogiGui.topLeftY && xPos > ShogiGui.topLeftX){
-                if(yPos == ShogiGui.topLeftY + 9*ShogiGui.spaceDim){
+            while(yPos < 6*ShogiGui.topLeftY && xPos > ShogiGui.topLeftX){
+                if(yPos == ShogiGui.topLeftY + 8*ShogiGui.spaceDim){
                     break;
                 }
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
@@ -428,8 +428,8 @@ public class shogiPiece {
             //Diagonal bottom right
             xPos = x + ShogiGui.spaceDim;
             yPos = y + ShogiGui.spaceDim;
-            while(yPos < 9*ShogiGui.topLeftY && xPos < 15*ShogiGui.topLeftX){ //Leave -- 15 is weird but it works
-                if(yPos + ShogiGui.spaceDim == ShogiGui.topLeftY + 7*ShogiGui.spaceDim){
+            while(yPos < 6*ShogiGui.topLeftY && xPos < 15*ShogiGui.topLeftX){ //Leave -- 15 is weird but it works
+                if(yPos == ShogiGui.topLeftY + 8*ShogiGui.spaceDim){
                     break;
                 }
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim/3, CirclePaint);
