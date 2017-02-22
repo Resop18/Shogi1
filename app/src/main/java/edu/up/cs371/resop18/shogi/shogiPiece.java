@@ -378,18 +378,14 @@ public class shogiPiece {
             yPos = y - ShogiGui.spaceDim;
             //fixed pawn not out of bound
 
-            if (yPos < ShogiGui.topLeftY )
-            {
+            if(yPos < ShogiGui.topLeftY || (yPos > ShogiGui.topLeftY + 7*ShogiGui.spaceDim && !player)){
                 return;
-            }
-            else
-            {
+            }else{
+                /*if(){
+                    return;
+                }*/
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
             }
-
-
-
-
         }else if(s[3].equals("Knight")){
             xPos = x - ShogiGui.spaceDim;
             yPos = y - 2*ShogiGui.spaceDim;
