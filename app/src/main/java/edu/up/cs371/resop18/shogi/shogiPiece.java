@@ -534,22 +534,42 @@ public class shogiPiece {
             yPos = y;
             C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
 
-            //bottom middle
-            xPos = x;
-            yPos = y + ShogiGui.spaceDim;
-            C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
-
-            if(s[3].equals("King")){
-                //bottom left
-                xPos = x - ShogiGui.spaceDim;
+            if(yPos < ShogiGui.topLeftY + 8*ShogiGui.spaceDim && player){
+                //bottom middle
+                xPos = x;
                 yPos = y + ShogiGui.spaceDim;
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
 
-                //bottom right
-                xPos = x + ShogiGui.spaceDim;
+                if(s[3].equals("King")){
+                    //bottom left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //bottom right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
+            }else if(yPos > ShogiGui.topLeftY + ShogiGui.spaceDim && !player){
+                //bottom middle
+                xPos = x;
                 yPos = y + ShogiGui.spaceDim;
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                if(s[3].equals("King")){
+                    //bottom left
+                    xPos = x - ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+
+                    //bottom right
+                    xPos = x + ShogiGui.spaceDim;
+                    yPos = y + ShogiGui.spaceDim;
+                    C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
+                }
             }
+
         }
 
         if(!player){
