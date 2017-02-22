@@ -208,7 +208,6 @@ public class shogiPiece {
             yPos = y - ShogiGui.spaceDim;
 
             if (yPos < ShogiGui.topLeftY) {
-
                 if(xPos < ShogiGui.topLeftX){
                     //bottom right
                     xPos = x + ShogiGui.spaceDim;
@@ -381,9 +380,6 @@ public class shogiPiece {
             if(yPos < ShogiGui.topLeftY || (yPos > ShogiGui.topLeftY + 7*ShogiGui.spaceDim && !player)){
                 return;
             }else{
-                /*if(){
-                    return;
-                }*/
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);
             }
         }else if(s[3].equals("Knight")){
