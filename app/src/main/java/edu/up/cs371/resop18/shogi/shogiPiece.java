@@ -45,6 +45,19 @@ public class shogiPiece {
         }
     }
 
+    public shogiPiece(float xPos, float yPos, String piece){
+        this.x = (int)xPos;
+        this.y = (int)yPos;
+
+        //Defines the Piece
+        for(String[] aww : pieces){
+            if(aww[3].equals(piece)){
+                this.s = aww; //Defines the piece
+                break; //Breaks loop after correct piece is found and defined
+            }
+        }
+    }
+
     //Promotes a piece
     public void promotePiece(boolean p){
         this.promoted = p;

@@ -6,11 +6,10 @@ package edu.up.cs371.resop18.shogi;
 
 public class ShogiGameState {
     shogiPiece Pieces[][] = new shogiPiece[9][9];
-    shogiPiece playerCaptured[][] = new shogiPiece[9][9];
-    shogiPiece opponentCaptured[][] = new shogiPiece[9][9];
+    shogiPiece playerCaptured[] = new shogiPiece[19];
+    shogiPiece opponentCaptured[] = new shogiPiece[19];
     boolean isPlayersTurn = true;
 
-    private int i, j; //for iterating and managing the Pieces array
     private int row, col; //for iterating and managing Pieces
 
     public ShogiGameState(){
@@ -83,5 +82,28 @@ public class ShogiGameState {
             aPiece.setPlayer(false);
             Pieces[row-2][col] = aPiece;
         }
+    }
+
+    public ShogiGameState(ShogiGameState orig){
+        for(row = 0; row < 9; row++){
+            for(col = 0; col < 9; col++){
+                this.Pieces[row][col] = orig.Pieces[row][col];
+            }
+        }
+
+        for(row = 0; row < 19; row++){
+            this.playerCaptured[row] = orig.playerCaptured[row];
+            this.opponentCaptured[row] = orig.opponentCaptured[row];
+        }
+
+        this.isPlayersTurn = orig.isPlayersTurn;
+    }
+
+    public void setPlayerTurn(boolean playerTurn){
+        this.isPlayersTurn = playerTurn;
+    }
+
+    public boolean getPlayerTurn(){
+        return isPlayersTurn;
     }
 }
