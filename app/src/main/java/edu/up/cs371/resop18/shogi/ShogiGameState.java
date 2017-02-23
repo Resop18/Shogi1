@@ -65,6 +65,8 @@ public class ShogiGameState {
         aPiece.setPlayer(false);
         Pieces[row-1][col] = aPiece;
 
+
+
         for(col = 0; col < 9; col++){
             if(col == 0 || col == 8){
                 w = "Lance";
