@@ -20,6 +20,7 @@ public class shogiPiece {
     private int y;
     private boolean promoted = false;
     private boolean selected = false;
+    private boolean isCaptured = false;
     private String[] s;
 
     //Defines the pieces
@@ -72,8 +73,8 @@ public class shogiPiece {
     public boolean getPlayer(){ return this.player; }
 
     //Draws piece when called
-    public void drawShogiPiece(Canvas canvas) {
-        int r = (int)(2*ShogiGui.spaceDim/3); //Size of the piece
+    public void drawShogiPiece(Canvas canvas){
+        int r = (int) (2 * ShogiGui.spaceDim / 3); //Size of the piece
         float[] xCords = {x - r / 2, x - r / 4, x, x + r / 4, x + r / 2}; //Defines the x Coordinates for outline
         float[] yCords = {y + r / 2, y - r / 4, y - r / 2, y - r / 4, y + r / 2}; //Defines the y Coordinate for outline
 
