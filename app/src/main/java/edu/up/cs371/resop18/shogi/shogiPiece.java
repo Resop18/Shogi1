@@ -193,7 +193,12 @@ public class shogiPiece {
     public void drawMoves(Canvas C){
         //canvas.drawCircle(topLeftX + spaceDim / 2, topLeftY + spaceDim / 2, spaceDim / 3, CirclePaint);
         Paint CirclePaint = new Paint();
-        CirclePaint.setColor(Color.BLUE);
+
+        if(player) {
+            CirclePaint.setColor(Color.BLUE);
+        }else{
+            CirclePaint.setColor(Color.RED);
+        }
 
         float xPos, yPos;
 

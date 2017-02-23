@@ -8,6 +8,7 @@ public class ShogiGameState {
     shogiPiece Pieces[][] = new shogiPiece[9][9];
     shogiPiece playerCaptured[][] = new shogiPiece[9][9];
     shogiPiece opponentCaptured[][] = new shogiPiece[9][9];
+    boolean isPlayersTurn = true;
 
     private int i, j; //for iterating and managing the Pieces array
     private int row, col; //for iterating and managing Pieces
