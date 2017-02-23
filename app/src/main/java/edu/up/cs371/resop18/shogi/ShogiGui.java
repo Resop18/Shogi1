@@ -19,7 +19,6 @@ import android.view.View;
  */
 
 public class ShogiGui extends SurfaceView implements View.OnTouchListener {
-    //shogiPiece Pieces[][] = new shogiPiece[9][9];
     shogiPiece Pieces[][];
 
     public static final float spaceDim = 150; //150 is height/width of rows & cols
