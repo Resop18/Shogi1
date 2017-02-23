@@ -60,7 +60,7 @@ public class shogiPiece {
 
     //Draws piece when called
     public void drawShogiPiece(Canvas canvas) {
-        int r = 100; //Size of the piece
+        int r = (int)(2*ShogiGui.spaceDim/3); //Size of the piece
         float[] xCords = {x - r / 2, x - r / 4, x, x + r / 4, x + r / 2}; //Defines the x Coordinates for outline
         float[] yCords = {y + r / 2, y - r / 4, y - r / 2, y - r / 4, y + r / 2}; //Defines the y Coordinate for outline
 
