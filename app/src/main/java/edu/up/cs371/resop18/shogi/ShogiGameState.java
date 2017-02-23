@@ -12,6 +12,11 @@ public class ShogiGameState {
 
     private int row, col; //for iterating and managing Pieces
 
+    /*
+     * Constructor
+     * Places all the pieces on the Pieces array
+     * No parameters
+     */
     public ShogiGameState(){
         //Defines Pieces to be drawn
         shogiPiece aPiece;
@@ -84,6 +89,10 @@ public class ShogiGameState {
         }
     }
 
+
+    /*
+     * Deep Copy Constructor
+     */
     public ShogiGameState(ShogiGameState orig){
         for(row = 0; row < 9; row++){
             for(col = 0; col < 9; col++){
@@ -99,10 +108,15 @@ public class ShogiGameState {
         this.isPlayersTurn = orig.isPlayersTurn;
     }
 
+
+    /*
+     * Sets Player Turn
+     */
     public void setPlayerTurn(boolean playerTurn){
         this.isPlayersTurn = playerTurn;
     }
 
+    //Gets Player Turn
     public boolean getPlayerTurn(){
         return isPlayersTurn;
     }
