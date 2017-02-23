@@ -19,7 +19,8 @@ import android.view.View;
  */
 
 public class ShogiGui extends SurfaceView implements View.OnTouchListener {
-    shogiPiece Pieces[][] = new shogiPiece[9][9]; //
+    //shogiPiece Pieces[][] = new shogiPiece[9][9];
+    shogiPiece Pieces[][];
 
     public static final float spaceDim = 150; //150 is height/width of rows & cols
     public static final float backBoardTopLeftX = 20; //20 is good
@@ -43,75 +44,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         Board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
         Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false); //1450 1400
 
-        //Defines Pieces to be drawn
-        shogiPiece aPiece;
-        String w = "";
-
-        row = 6;
-        for(col = 0; col < 9; col++){
-            aPiece = new shogiPiece(row, col, "Pawn");
-            Pieces[row][col] = aPiece;
-        }
-
-        col = 1;
-        aPiece = new shogiPiece(row+1, col, "Bishop");
-        Pieces[row+1][col] = aPiece;
-
-        col = 7;
-        aPiece = new shogiPiece(row+1, col, "Rook");
-        Pieces[row+1][col] = aPiece;
-
-        for(col = 0; col < 9; col++){
-            if(col == 0 || col == 8){
-                w = "Lance";
-            }else if(col == 1 || col == 7){
-                w = "Knight";
-            }else if(col == 2 || col == 6){
-                w = "Silver";
-            }else if(col == 3 || col == 5){
-                w = "Gold";
-            }else{
-                w = "King";
-            }
-
-            aPiece = new shogiPiece(row+2, col, w);
-            Pieces[row+2][col] = aPiece;
-        }
-
-        row = 2;
-        for(col = 0; col < 9; col++){
-            aPiece = new shogiPiece(row, col, "Pawn");
-            aPiece.setPlayer(false);
-            Pieces[row][col] = aPiece;
-        }
-
-        col = 1;
-        aPiece = new shogiPiece(row-1, col, "Rook");
-        aPiece.setPlayer(false);
-        Pieces[row-1][col] = aPiece;
-
-        col = 7;
-        aPiece = new shogiPiece(row-1, col, "Bishop");
-        aPiece.setPlayer(false);
-        Pieces[row+1][col] = aPiece;
-
-        for(col = 0; col < 9; col++){
-            if(col == 0 || col == 8){
-                w = "Lance";
-            }else if(col == 1 || col == 7){
-                w = "Knight";
-            }else if(col == 2 || col == 6){
-                w = "Silver";
-            }else if(col == 3 || col == 5){
-                w = "Gold";
-            }else{
-                w = "King";
-            }
-
-            aPiece = new shogiPiece(row-2, col, w);
-            aPiece.setPlayer(false);
-            Pieces[row-2][col] = aPiece;
-        }
+        Pieces = new ShogiGameState().Pieces;
     }
 
     @Override
