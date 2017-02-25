@@ -397,6 +397,9 @@ public class shogiPiece {
             //fixed pawn not out of bound
 
             if(yPos < ShogiGui.topLeftY || (yPos > ShogiGui.topLeftY + 7*ShogiGui.spaceDim && !player)){
+                if(!player){
+                    C.rotate(180f, x, y);
+                }
                 return;
             }else{
                 C.drawCircle(xPos, yPos, ShogiGui.spaceDim / 3, CirclePaint);

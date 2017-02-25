@@ -96,13 +96,13 @@ public class ShogiGameState {
     public ShogiGameState(ShogiGameState orig){
         for(row = 0; row < 9; row++){
             for(col = 0; col < 9; col++){
-                this.Pieces[row][col] = orig.Pieces[row][col];
+                this.Pieces[row][col] = new shogiPiece(row, col, orig.Pieces[row][col].getPiece());
             }
         }
 
         for(row = 0; row < 19; row++){
-            this.playerCaptured[row] = orig.playerCaptured[row];
-            this.opponentCaptured[row] = orig.opponentCaptured[row];
+            this.playerCaptured[row] = new shogiPiece(row, col, orig.playerCaptured[row].getPiece());
+            this.opponentCaptured[row] = new shogiPiece(row, col, orig.opponentCaptured[row].getPiece());
         }
 
         this.isPlayersTurn = orig.isPlayersTurn;
@@ -119,5 +119,20 @@ public class ShogiGameState {
     //Gets Player Turn
     public boolean getPlayerTurn(){
         return isPlayersTurn;
+    }
+
+    //Gets Captured Player Pieces
+    public shogiPiece[] getPlayerCaptured(){
+        return playerCaptured;
+    }
+
+    //Get Captured Opponent Pieces
+    public shogiPiece[] getOpponentCaptured(){
+        return opponentCaptured;
+    }
+
+    //Get Current State of Board
+    public shogiPiece[][] getCurrentBoard(){
+        return Pieces;
     }
 }
