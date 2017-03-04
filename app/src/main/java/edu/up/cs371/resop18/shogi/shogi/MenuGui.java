@@ -1,4 +1,4 @@
-package edu.up.cs371.resop18.shogi;
+package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+
+import edu.up.cs371.resop18.shogi.R;
 
 /*
  * @author Javier Resop

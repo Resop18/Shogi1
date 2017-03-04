@@ -1,10 +1,12 @@
-package edu.up.cs371.resop18.shogi;
+package edu.up.cs371.resop18.shogi.shogi;
+
+import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
 
 /**
  * @author Ryan Fredrickson
  */
 
-public class ShogiGameState {
+public class ShogiGameState extends GameState {
     shogiPiece Pieces[][] = new shogiPiece[9][9]; //Keeps track of pieces on the board
     shogiPiece playerCaptured[] = new shogiPiece[19]; //Keeps track of player's captured pieces
     shogiPiece opponentCaptured[] = new shogiPiece[19]; //Keeps track of opponent's captured pieces
@@ -70,25 +72,24 @@ public class ShogiGameState {
         aPiece.setPlayer(false);
         Pieces[row-1][col] = aPiece;
 
-        for(col = 0; col < 9; col++){
-            if(col == 0 || col == 8){
+        for(col = 0; col < 9; col++) {
+            if (col == 0 || col == 8) {
                 w = "Lance";
-            }else if(col == 1 || col == 7){
+            } else if (col == 1 || col == 7) {
                 w = "Knight";
-            }else if(col == 2 || col == 6){
+            } else if (col == 2 || col == 6) {
                 w = "Silver";
-            }else if(col == 3 || col == 5){
+            } else if (col == 3 || col == 5) {
                 w = "Gold";
-            }else{
+            } else {
                 w = "King";
             }
 
-            aPiece = new shogiPiece(row-2, col, w);
+            aPiece = new shogiPiece(row - 2, col, w);
             aPiece.setPlayer(false);
-            Pieces[row-2][col] = aPiece;
+            Pieces[row - 2][col] = aPiece;
         }
     }
-
 
     /*
      * Deep Copy Constructor

@@ -1,4 +1,4 @@
-package edu.up.cs371.resop18.shogi;
+package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+
+import edu.up.cs371.resop18.shogi.R;
 
 /*
  * @author Javier Resop

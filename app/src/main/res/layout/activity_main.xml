@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.up.cs371.resop18.shogi.MainActivity">
+    tools:context="edu.up.cs371.resop18.shogi.shogi.ShogiLocalGame">
 
-    <edu.up.cs371.resop18.shogi.ShogiGui
+    <edu.up.cs371.resop18.shogi.shogi.ShogiGui
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ShogiBoard"

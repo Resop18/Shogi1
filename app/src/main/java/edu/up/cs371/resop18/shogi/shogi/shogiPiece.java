@@ -1,4 +1,4 @@
-package edu.up.cs371.resop18.shogi;
+package edu.up.cs371.resop18.shogi.shogi;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

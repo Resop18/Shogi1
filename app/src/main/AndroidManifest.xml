@@ -3,6 +3,8 @@
     package="edu.up.cs371.resop18.shogi">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -10,18 +12,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name="edu.up.cs371.resop18.shogi.shogi.ShogiMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Options">
+        <activity android:name="edu.up.cs371.resop18.shogi.shogi.Options">
 
         </activity>
 
-        <activity android:name=".Game">
+        <activity android:name="edu.up.cs371.resop18.shogi.shogi.Game">
 
         </activity>
     </application>
