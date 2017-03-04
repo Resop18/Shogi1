@@ -18,8 +18,6 @@ import edu.up.cs371.resop18.shogi.R;
  * The actual game
  */
 public class Game extends AppCompatActivity {
-
-
     Button undo;
     Button options;
 
@@ -45,7 +43,6 @@ public class Game extends AppCompatActivity {
     public class undoButt implements View.OnClickListener {
 
     Vibrator vb = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
         @Override
         public void onClick(View v) {
 
@@ -58,12 +55,9 @@ public class Game extends AppCompatActivity {
      * opens up to a new activity
      */
     public class optionsButt implements View.OnClickListener {
-
-
         @Override
         public void onClick(View v) {
             startActivity(new Intent(Game.this, Options.class));
         }
     }
-
 }
