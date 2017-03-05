@@ -1,7 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 public class shogiAI {
-    shogiPiece[][] bestChild;
+    private shogiPiece[][] bestChild;
 
     public shogiAI(){
         shogiPiece[][] gameBoard = new ShogiGameState().Pieces;
@@ -9,10 +9,10 @@ public class shogiAI {
 
         System.out.println(bestVal);
 
-        for(int i = 0; i < bestChild.length; i++){
-            for(int j = 0; j < bestChild[i].length; j++){
-                if(bestChild[i][j] != null){
-                    System.out.println(bestChild[i][j].getPiece());
+        for (shogiPiece[] aBestChild : bestChild) {
+            for (shogiPiece anABestChild : aBestChild) {
+                if (anABestChild != null) {
+                    System.out.println(anABestChild.getPiece());
                 }
             }
         }
@@ -22,10 +22,10 @@ public class shogiAI {
         legalMoves m = new legalMoves();
         int[][][] actList = new int[20][16][];
         for(int a = 0; a < actList.length; a++){
-            for(int i = 0; i < board.length; i++){
-                for(int j = 0; j < board[i].length; j++){
-                        actList[a] = m.moves(board, board[i][j]);
-                    }
+            for (shogiPiece[] aBoard : board) {
+                for (shogiPiece anABoard : aBoard) {
+                    actList[a] = m.moves(board, anABoard);
+                }
             }
         }
         return actList;
@@ -61,9 +61,5 @@ public class shogiAI {
         }
 
         return bestVal;
-    }
-
-    public static void main(String [] args){
-        new shogiAI();
     }
 }
