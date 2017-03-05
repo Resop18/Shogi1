@@ -65,9 +65,7 @@ public class shogiPiece {
     }
 
     //Sets whether piece belongs to the player
-    public void setPlayer(boolean p){
-        this.player = p;
-    }
+    public void setPlayer(boolean p){ this.player = p; }
 
     //Returns true if the piece belongs to the player or false if the piece belongs to the opponent
     public boolean getPlayer(){ return this.player; }
@@ -599,26 +597,25 @@ public class shogiPiece {
         }
     }
 
-    //Doesn't do shit right now
+    //Doesn't do anything right now
     public void setPos(int row, int col) {
         this.x = (int)(ShogiGui.topLeftX + col * ShogiGui.spaceDim + ShogiGui.spaceDim / 2);
         this.y = (int)(ShogiGui.topLeftY + row * ShogiGui.spaceDim + ShogiGui.spaceDim / 2);
     }
 
     //Gets the piece name for being redrawn
-    public String getPiece(){
-        return s[3];
-    }
+    public String getPiece(){ return s[3]; }
 
     //Returns if the piece is selected
-    public boolean getSelected()
-    {
-        return this.selected;
-    }
+    public boolean getSelected(){ return this.selected; }
 
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value)
     {
         this.selected = value;
     }
+
+    public int getX(){ return x; }
+
+    public int getY(){ return y; }
 }
