@@ -18,6 +18,8 @@ public class shogiPiece {
     //Defines variables for user later
     private int x;
     private int y;
+    private int row;
+    private int col;
     private boolean promoted = false;
     private boolean selected = false;
     private boolean isCaptured = false;
@@ -34,6 +36,8 @@ public class shogiPiece {
             {"と", "金", "と", "Pawn"}};
 
     public shogiPiece(int initRow, int initCol, String piece){
+        this.row = initRow;
+        this.col = initCol;
         this.x = (int)(ShogiGui.topLeftX + initCol * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting row
         this.y = (int)(ShogiGui.topLeftY + initRow * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting col
 
@@ -618,4 +622,8 @@ public class shogiPiece {
     public int getX(){ return x; }
 
     public int getY(){ return y; }
+
+    public int getRow(){ return row; }
+
+    public int getCol(){ return col; }
 }

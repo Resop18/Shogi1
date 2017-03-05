@@ -8,8 +8,6 @@ public class legalMoves {
         int col = 0;
         int i = 0;
         
-        int xPos, yPos;
-        
         for(row = 0; row < board.length; row++){
             for(col = 0; col < board[row].length; col++){
                 if(board[row][col] == piece){
@@ -25,58 +23,82 @@ public class legalMoves {
         if(piece.getPiece().equals("Pawn")){
             if(row != 0){
                 if(piece.getPlayer()){
-                    moves[0] = new int[]{row-1, col};
+                    if(board[row-1][col] == null) {
+                        moves[0] = new int[]{row-1, col};
+                    }
                 }else{
-                    moves[0] = new int[]{row+1, col};
+                    if(board[row+1][col] == null) {
+                        moves[0] = new int[]{row+1, col};
+                    }
                 }
             }
         }else if(piece.getPiece().equals("Rook")){
             i = 0;
-            
-            xPos = piece.getX();
-            yPos = piece.getY() - (int)ShogiGui.spaceDim;
-            while(yPos > ShogiGui.topLeftY){
-                yPos -= (int)ShogiGui.spaceDim;
-                moves[i] = new int[]{xPos, yPos};
+
+            row = piece.getRow();
+            col = piece.getCol() - 1;
+            while(col >= 0){
+                col -= 1;
+                moves[i] = new int[]{row, col};
+                if(board[row][col] != null){
+                    break;
+                }
                 i++;
             }
-            
-            yPos = piece.getY() + (int)ShogiGui.spaceDim;
-            while(yPos < ShogiGui.topLeftY + 9*ShogiGui.spaceDim){
-                yPos += ShogiGui.spaceDim;
-                moves[i] = new int[] {xPos, yPos};
+
+            col = piece.getCol() + 1;
+            while(col < 9){
+                col += 1;
+                moves[i] = new int[]{row, col};
+                if(board[row][col] != null){
+                    break;
+                }
                 i++;
             }
-            
-            yPos = piece.getY();
-            xPos = piece.getX() - (int)ShogiGui.spaceDim;
-            while(xPos > ShogiGui.topLeftX){
-                xPos -= (int)ShogiGui.spaceDim;
-                moves[i] = new int[] {xPos, yPos};
+
+            row = piece.getRow() - 1;
+            col = piece.getCol();
+            while(row >= 0){
+                row -= 1;
+                moves[i] = new int[] {row, col};
+                if(board[row][col] != null){
+                    break;
+                }
                 i++;
             }
-            
-            xPos = piece.getX() + (int)ShogiGui.spaceDim;
-            while(xPos < ShogiGui.topLeftX + 9*ShogiGui.spaceDim){
-                xPos += (int)ShogiGui.spaceDim;
-                moves[i] = new int[] {xPos, yPos};
+
+            row = piece.getRow() + 1;
+            while(row < 9){
+                row += 1;
+                moves[i] = new int[] {row, col};
+                if(board[row][col] != null){
+                    break;
+                }
                 i++;
             }
         }else if(piece.getPiece().equals("Lance")){
-            xPos = piece.getX();
+            row = piece.getRow();
             if(piece.getPlayer()){
                 i = 0;
-                yPos = piece.getY() - (int)ShogiGui.spaceDim;
-                while(yPos > ShogiGui.topLeftY){
-                    yPos -= (int)ShogiGui.spaceDim;
-                    moves[i] = new int[] {xPos, yPos};
+                col = piece.getCol() - 1;
+                while(col >= 0){
+                    col -= 1;
+                    moves[i] = new int[] {row, col};
+                    if(board[row][col] != null){
+                        break;
+                    }
+                    i++;
                 }
             }else{
                 i = 0;
-                yPos = piece.getY() + (int)ShogiGui.spaceDim;
-                while(yPos < ShogiGui.topLeftY + 9*ShogiGui.spaceDim){
-                    yPos += (int)ShogiGui.spaceDim;
-                    moves[i] = new int[] {xPos, yPos};
+                col = piece.getCol() + 1;
+                while(col < 9){
+                    col += 1;
+                    moves[i] = new int[] {row, col};
+                    if(board[row][col] != null){
+                        break;
+                    }
+                    i++;
                 }
             }
         }else{
