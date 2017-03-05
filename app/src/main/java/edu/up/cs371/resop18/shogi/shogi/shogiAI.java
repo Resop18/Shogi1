@@ -19,7 +19,7 @@ public class shogiAI {
     }
 
     public int[][][] actList(shogiPiece[][] board){
-        legalMoves m = new legalMoves();
+        legalMoves m = new legalMoves(new ShogiGameState().isPlayersTurn);
         int[][][] actList = new int[20][16][];
         for(int a = 0; a < actList.length; a++){
             for (shogiPiece[] aBoard : board) {
@@ -51,11 +51,14 @@ public class shogiAI {
         for (shogiPiece[][] aChildList : childList) {
             val = eval(aChildList, !MAX, depth + 1, smartAI);
             System.out.println("hi");
-            if (MAX && val > bestVal) {
+            if(MAX && val > bestVal){
                 bestVal = val;
                 bestChild = aChildList;
-            } else if (!MAX && val < bestVal) {
+            }else if(!MAX && val < bestVal){
                 bestVal = val;
+                bestChild = aChildList;
+            }else{
+                bestVal = 0;
                 bestChild = aChildList;
             }
         }
