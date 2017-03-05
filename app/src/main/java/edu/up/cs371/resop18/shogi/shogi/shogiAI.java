@@ -48,15 +48,15 @@ public class shogiAI {
         }
 
         double bestVal = MAX ? -10 : +10;
-        for(int i = 0; i < childList.length; i++){
-            val = eval(childList[i], !MAX, depth+1, smartAI);
+        for (shogiPiece[][] aChildList : childList) {
+            val = eval(aChildList, !MAX, depth + 1, smartAI);
             System.out.println("hi");
-            if(MAX && val > bestVal){
+            if (MAX && val > bestVal) {
                 bestVal = val;
-                bestChild = childList[i];
-            }else if(!MAX && val < bestVal){
+                bestChild = aChildList;
+            } else if (!MAX && val < bestVal) {
                 bestVal = val;
-                bestChild = childList[i];
+                bestChild = aChildList;
             }
         }
 
