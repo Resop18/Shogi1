@@ -30,6 +30,8 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
+        ShogiMoveAction move = (ShogiMoveAction)action;
+
         return false;
     }
 }

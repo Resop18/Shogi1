@@ -18,9 +18,30 @@ public class shogiAI {
         }
     }
 
-    public int[][][] actList(shogiPiece[][] board){
+    private shogiPiece[][] newGameState(shogiPiece[][] board, int[] move){
         legalMoves m = new legalMoves(new ShogiGameState().isPlayersTurn);
-        int[][][] actList = new int[20][16][];
+        int[][] movesList = new int[100][];
+        for(int i = 0; i < movesList.length; i++) {
+            for(int j = 0; j < board.length; j++) {
+                for(int k = 0; k < board[j].length; k++){
+                    if(board[j][k] != null) {
+                        movesList = m.moves(board, board[j][k]);
+                        for(int[] b : movesList){
+                            if(board[b[0]][b[1]] == null){
+                                board[b[0]][b[1]] = new shogiPiece(b[0], b[1], board[j][k].getPiece());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return board;
+    }
+
+    private int[][][] actList(shogiPiece[][] board){
+        legalMoves m = new legalMoves(new ShogiGameState().isPlayersTurn);
+        int[][][] actList = new int[40][16][];
         for(int a = 0; a < actList.length; a++){
             for (shogiPiece[] aBoard : board) {
                 for (shogiPiece anABoard : aBoard) {
@@ -31,8 +52,16 @@ public class shogiAI {
         return actList;
     }
 
-    public shogiPiece[][][] childList(shogiPiece[][] board, int[][][] actList){
-        shogiPiece[][][] list = new shogiPiece[100][100][];
+    private shogiPiece[][][] childList(shogiPiece[][] board, int[][][] actList){
+        shogiPiece[][][] list = new shogiPiece[100][9][9];
+        for(shogiPiece[][] aList : list){
+            for (int[][] anActList : actList) {
+                for (int[] anAnActList : anActList) {
+                    aList = newGameState(board, anAnActList);
+                }
+            }
+
+        }
 
         return list;
     }
@@ -44,7 +73,7 @@ public class shogiAI {
         shogiPiece[][][] childList = childList(board, actList);
 
         if(depth > MAX_DEPTH){
-            return 1.0 + Math.random();
+            return 0.5 + Math.random();
         }
 
         double bestVal = MAX ? -10 : +10;

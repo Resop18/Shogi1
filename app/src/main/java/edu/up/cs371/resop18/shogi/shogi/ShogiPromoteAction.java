@@ -9,6 +9,8 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  */
 
 public class ShogiPromoteAction extends GameAction {
+    private shogiPiece promotedPiece = null;
+
     /**
      * constructor for GameAction
      *
@@ -17,4 +19,8 @@ public class ShogiPromoteAction extends GameAction {
     public ShogiPromoteAction(GamePlayer player) {
         super(player);
     }
+
+    public void setPromotedPiece(shogiPiece piece){ this.promotedPiece = piece; }
+
+    public void promotePiece(){ this.promotedPiece.promotePiece(true); }
 }
