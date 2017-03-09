@@ -135,6 +135,7 @@ public class ShogiGameState extends GameState {
         return Pieces;
     }
 
+    //Checks to see if the pieces are in the allowed location(s) and promotes the piece
     public void resolvePromoteAction(ShogiPromoteAction action){
         shogiPiece piece = action.getPromotedPiece();
         if(piece.getPlayer() && piece.getRow() <= 2 && piece.getRow() >= 0){
@@ -144,6 +145,7 @@ public class ShogiGameState extends GameState {
         }
     }
 
+    //Places the selected captured piece back onto the board
     public void resolvePlaceAction(ShogiPlaceAction action){
         Pieces[action.getRow()][action.getCol()] = action.getPlacedPiece();
     }
