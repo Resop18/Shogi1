@@ -591,4 +591,11 @@ public class shogiPiece {
 
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
+
+    public boolean legalMove(ShogiGameState gameState, int row, int col){
+        legalMoves m = new legalMoves(player);
+        int[][] moves = m.moves(gameState.Pieces, s[3], row, col, player);
+
+        return true;
+    }
 }

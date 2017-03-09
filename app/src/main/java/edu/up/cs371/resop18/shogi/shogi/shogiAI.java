@@ -29,7 +29,7 @@ public class shogiAI {
             for(int j = 0; j < board.length; j++) {
                 for(int k = 0; k < board[j].length; k++){
                     if(board[j][k] != null) {
-                        movesList = m.moves(board, board[j][k]);
+                        movesList = m.moves(board, board[j][k].getPiece(), board[j][k].getRow(), board[j][k].getCol(), board[j][k].getPlayer());
                         for(int[] b : movesList){
                             if(board[b[0]][b[1]] == null){
                                 board[b[0]][b[1]] = new shogiPiece(b[0], b[1], board[j][k].getPiece());
@@ -49,7 +49,7 @@ public class shogiAI {
         for(int a = 0; a < actList.length; a++){
             for (shogiPiece[] aBoard : board) {
                 for (shogiPiece anABoard : aBoard) {
-                    actList[a] = m.moves(board, anABoard);
+                    actList[a] = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol(), anABoard.getPlayer());
                 }
             }
         }
