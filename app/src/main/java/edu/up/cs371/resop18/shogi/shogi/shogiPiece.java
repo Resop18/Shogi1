@@ -63,6 +63,14 @@ public class shogiPiece {
         }
     }
 
+    public int getX(){ return x; }
+
+    public int getY(){ return y; }
+
+    public int getRow(){ return row; }
+
+    public int getCol(){ return col; }
+
     //Promotes a piece
     public void promotePiece(boolean p){
         this.promoted = p;
@@ -582,16 +590,5 @@ public class shogiPiece {
     public boolean getSelected(){ return this.selected; }
 
     //ALlows for if piece is selected to be changed
-    public void setSelected(boolean value)
-    {
-        this.selected = value;
-    }
-
-    public int getX(){ return x; }
-
-    public int getY(){ return y; }
-
-    public int getRow(){ return row; }
-
-    public int getCol(){ return col; }
+    public void setSelected(boolean value){ this.selected = value; }
 }
