@@ -16,11 +16,15 @@ public class ShogiPromoteAction extends GameAction {
      *
      * @param player the player who created the action
      */
-    public ShogiPromoteAction(GamePlayer player) {
+    public ShogiPromoteAction(GamePlayer player, shogiPiece piece) {
         super(player);
+        this.promotedPiece = piece;
+        /*if (piece.getPlayer() && piece.getRow() <= 2 && piece.getRow() >= 0) {
+            piece.promotePiece(true);
+        } else if (!piece.getPlayer() && piece.getRow() >= 6 && piece.getRow() < 9) {
+            piece.promotePiece(true);
+        }*/
     }
 
-    public void setPromotedPiece(shogiPiece piece){ this.promotedPiece = piece; }
-
-    public void promotePiece(){ this.promotedPiece.promotePiece(true); }
+    public shogiPiece getPromotedPiece(){ return this.promotedPiece; }
 }

@@ -136,4 +136,13 @@ public class ShogiGameState extends GameState {
     public shogiPiece[][] getCurrentBoard(){
         return Pieces;
     }
+
+    public void resolvePromoteAction(ShogiPromoteAction action){
+        shogiPiece piece = action.getPromotedPiece();
+        if(piece.getPlayer() && piece.getRow() <= 2 && piece.getRow() >= 0){
+            piece.promotePiece(true);
+        }else if(!piece.getPlayer() && piece.getRow() >= 6 && piece.getRow() < 9){
+            piece.promotePiece(true);
+        }
+    }
 }
