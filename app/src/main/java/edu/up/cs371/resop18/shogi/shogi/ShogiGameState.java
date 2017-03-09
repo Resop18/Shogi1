@@ -143,4 +143,8 @@ public class ShogiGameState extends GameState {
             piece.promotePiece(true);
         }
     }
+
+    public void resolvePlaceAction(ShogiPlaceAction action){
+        Pieces[action.getRow()][action.getCol()] = action.getPlacedPiece();
+    }
 }
