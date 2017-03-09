@@ -3,7 +3,7 @@ package edu.up.cs371.resop18.shogi.shogi;
 import android.util.Log;
 
 public class legalMoves {
-    boolean player = false;
+    private boolean player = false;
 
     public legalMoves(boolean player){
         this.player = player;

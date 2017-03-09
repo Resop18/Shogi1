@@ -1,5 +1,9 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+/**
+ * @author Ryan Fredrickson
+ */
+
 public class shogiAI {
     private shogiPiece[][] bestChild;
 
@@ -66,7 +70,7 @@ public class shogiAI {
         return list;
     }
 
-    public double eval(shogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
+    private double eval(shogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
         int MAX_DEPTH = smartAI ? 4 : 1;
         double val;
         int[][][] actList = actList(board);

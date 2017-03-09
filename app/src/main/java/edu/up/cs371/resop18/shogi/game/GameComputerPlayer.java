@@ -88,7 +88,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
 	 * @param a
 	 * 			the activity that is being run
 	 */
-	public final void gameSetAsGui(GameMainActivity a) {
+	public void gameSetAsGui(GameMainActivity a) {
 		myActivity = a;
 		setAsGui(a);
 	}
@@ -129,7 +129,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
 	/**
 	 * Starts the player.
 	 */
-	public final void start() {
+	public void start() {
 		// if the player's thread is not presently running, start it up, keeping
 		// track of its handler so that messages can be sent to the thread.
 		synchronized(this) {
