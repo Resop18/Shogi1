@@ -63,13 +63,13 @@ public class shogiPiece {
         }
     }
 
-    public int getX(){ return x; }
+    public int getX(){ return this.x; }
 
-    public int getY(){ return y; }
+    public int getY(){ return this.y; }
 
-    public int getRow(){ return row; }
+    public int getRow(){ return this.row; }
 
-    public int getCol(){ return col; }
+    public int getCol(){ return this.col; }
 
     //Promotes a piece
     public void promotePiece(boolean p){
