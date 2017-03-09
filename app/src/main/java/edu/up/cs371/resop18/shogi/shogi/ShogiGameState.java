@@ -110,9 +110,7 @@ public class ShogiGameState extends GameState {
     }
 
 
-    /*
-     * Sets Player Turn
-     */
+    //Sets Player Turn
     public void setPlayerTurn(boolean playerTurn){
         this.isPlayersTurn = playerTurn;
     }
