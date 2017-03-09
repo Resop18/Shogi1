@@ -9,24 +9,40 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  */
 
 public class ShogiMoveAction extends GameAction {
-    private shogiPiece movedPiece = null;
-    private shogiPiece capturedPiece = null;
 
-    int row, col;
+
+    private shogiPiece MovedPiece;
+    private shogiPiece capturedPiece;
+    private int newRow, newCol;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
+     * @param Piece the piece to be moved
+     * @param newR the new row to which shogiPiece Piece will be moved
+     * @param newC the new column to which shogiPiece Piece will be moved
      */
-    public ShogiMoveAction(GamePlayer player) {
+    public ShogiMoveAction(GamePlayer player, shogiPiece Piece, int newR, int newC) {
         super(player);
+        MovedPiece = Piece;
+        newRow = newR;
+        newCol = newC;
     }
 
-    public void setMovedPiece(shogiPiece piece){ this.movedPiece = piece; }
 
-    public void movePiece(int newRow, int newCol){
-        this.row = newRow;
-        this.col = newCol;
+
+
+
+    public shogiPiece getMovedPiece() {
+        return MovedPiece;
+    }
+
+    public int getNewRow() {
+        return newRow;
+    }
+
+    public int getNewCol() {
+        return newCol;
     }
 }

@@ -111,6 +111,42 @@ public class ShogiGameState extends GameState {
 
 
     //Sets Player Turn
+    /*
+     * carries out an action of moving a piece to a new location
+     * on the board
+     *
+     * @param moveAction
+     *      the action whose info is to be used to move a piece
+     *      and update the game state
+     *
+     */
+    public void resolveMoveAction(ShogiMoveAction moveAction) {
+
+        //variables for simplification
+        shogiPiece Piece = moveAction.getMovedPiece();
+        int row = moveAction.getNewRow();
+        int col = moveAction.getNewCol();
+
+
+        //check if the new location of the moved piece is empty
+        //if not, do not move the piece
+        if(Pieces[row][col] != null)
+            return;
+
+
+        //determine if the new location is legal for this piece
+        //if it is, move the piece
+        if(Piece.legalMove(this, row, col))
+            Pieces[row][col] = new shogiPiece(row, col, Piece.getPiece());
+            Pieces[Piece.getRow()][Piece.getCol()] = null;
+
+    }
+
+
+
+    /*
+     * Sets Player Turn
+     */
     public void setPlayerTurn(boolean playerTurn){
         this.isPlayersTurn = playerTurn;
     }
