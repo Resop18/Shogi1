@@ -69,9 +69,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     }
 
     @Override
-    public void sendInfo(GameInfo info) {
-
-    }
+    public void sendInfo(GameInfo info) { }
 
     @Override
     public boolean requiresGui() {
@@ -95,9 +93,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         int row,col;
         col = 0;
+
         //Don't do anything when dragging or lifting touch
         if(event.getActionMasked() != MotionEvent.ACTION_UP) {
             return false;
