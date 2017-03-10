@@ -2,6 +2,7 @@ package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +20,10 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
     private GameMainActivity myActivity;
     private ShogiGameState state;
-    private ShogiPiece[][] pieces;
+    private ShogiPiece[][] currPieces;
     private Button undoButt;
     private Button optionsButt;
     private Vibrator vb;
-    private ShogiGui boobs;
 
     public ShogiHumanPlayer(String name) {
         super(name);
@@ -37,10 +37,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a CounterState message
-        if(info instanceof ShogiGameState){
+        if(info instanceof ShogiGameState && info != null){
             // update our state; then update the display
             this.state = (ShogiGameState)info;
-            this.pieces = state.getCurrentBoard();
+            this.currPieces = state.getCurrentBoard();
+            if(this.currPieces==null){Log.i("sad", "why God why");}
+            myActivity.findViewById(R.id.ShogiBoard).invalidate();
         }
     }
 
@@ -53,7 +55,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
         undoButt = (Button)myActivity.findViewById(R.id.Undo);
         optionsButt = (Button)myActivity.findViewById(R.id.Options);
 
@@ -96,8 +97,14 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         int row,col;
         col = 0;
 
+
+        if(this.currPieces==null){
+            Log.i("null", "what the actual fuck");
+            return false;
+        }
         //Don't do anything when dragging or lifting touch
-        if(event.getActionMasked() != MotionEvent.ACTION_UP) {
+        if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
+            Log.i("event", "is not up");
             return false;
         }
 
@@ -115,6 +122,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             if(event.getY() < ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
                 for (col = 0; col < 9; col++) {
                     if(event.getX() < ShogiGui.topLeftX + (col + 1) * ShogiGui.spaceDim){
+                        Log.i("tap", "got the tap");
                         break;
                     }
                 }
@@ -122,60 +130,64 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             }
         }
 
+        if(currPieces==null){
+            Log.i("null", "how the fuck");
+            return false;
+        }
 
         //If you tap if a position when a piece is selected it will move the piece there
-        if(pieces[row][col] == null) {
+        if(currPieces[row][col] == null) {
             if(ShogiGui.pieceIsSelected){
                 for(int i = 0; i < 9; i++){
                     for(int j = 0; j < 9; j++){
-                        if(pieces[i][j] != null){
-                            if(pieces[i][j].getSelected()){
-                                game.sendAction(new ShogiMoveAction(this));
-                                /*pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
-                                if(!pieces[i][j].getPlayer()){
-                                    pieces[row][col].setPlayer(false);
-                                }
-                                pieces[i][j] = null;*/
+                        if(currPieces[i][j] != null){
+                            if(currPieces[i][j].getSelected()){
+                                game.sendAction(new ShogiMoveAction(this, currPieces[i][j], row, col));
+                                /*currPieces[row][col] = new ShogiPiece(row, col, currPieces[i][j].getPiece());
+                                if(!currPieces[i][j].getPlayer()){
+                                    currPieces[row][col].setPlayer(false);
+                                }*/
+                                currPieces[i][j] = null;
                             }
                         }
                     }
                 }
-                //pieces[row][col].setSelected(false);
+                //currPieces[row][col].setSelected(false);
                 ShogiGui.pieceIsSelected = false;
             }else {
                 return false;
             }
         }else{
-            //This deals with selected and deselecting pieces
-            if(pieces[row][col].getSelected()){
+            //This deals with selected and deselecting currPieces
+            if(currPieces[row][col].getSelected()){
                 //This deselects a piece if it is selected
-                pieces[row][col].setSelected(false);
+                currPieces[row][col].setSelected(false);
                 ShogiGui.pieceIsSelected = false;
             }else{
                 //This will select the piece if it is not selected
                 for(int i = 0; i < 9; i++){
                     for(int j = 0; j < 9; j++){
-                        if(pieces[i][j] != null){
-                            if(pieces[i][j].getSelected()){
-                                pieces[i][j].setSelected(false);
+                        if(currPieces[i][j] != null){
+                            if(currPieces[i][j].getSelected()){
+                                currPieces[i][j].setSelected(false);
                             }
                         }
                     }
                 }
 
-                pieces[row][col].setSelected(true);
+                currPieces[row][col].setSelected(true);
                 ShogiGui.pieceIsSelected = true;
             }
         }
 
-        //redraw board with pieces updated
-         boobs.invalidate();
+        //redraw board with currPieces updated
+        myActivity.findViewById(R.id.activity_main).invalidate();
 
         return true;
     }
 
   /*  public class ShogiGui extends SurfaceView implements View.OnTouchListener{
-        ShogiPiece pieces[][];
+        ShogiPiece currPieces[][];
 
         public static final float ShogiGui.spaceDim = 150; //150 is height/width of rows & cols
         public static final float backBoardTopLeftX = 20; //20 is good
@@ -186,8 +198,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
         private Bitmap board; // make  a board
 
-        private int i, j; //for iterating and managing the pieces array
-        private int row, col; //for iterating and managing pieces
+        private int i, j; //for iterating and managing the currPieces array
+        private int row, col; //for iterating and managing currPieces
 
         public ShogiGui(Context context, AttributeSet attrs) {
             super(context, attrs);
@@ -199,7 +211,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
             board = Bitmap.createScaledBitmap(board, 1450, 1400, false); //1450 1400
 
-            pieces = new ShogiGameState().pieces;
+            currPieces = new ShogiGameState().currPieces;
         }
 
         @Override
@@ -263,14 +275,14 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             }
 
 
-            //This draws the pieces from the array
+            //This draws the currPieces from the array
             for(i = 0; i < 9; i++) {
                 for(j = 0; j < 9; j++){
-                    if(pieces[i][j] != null){
-                        pieces[i][j].drawShogiPiece(canvas);
+                    if(currPieces[i][j] != null){
+                        currPieces[i][j].drawShogiPiece(canvas);
 
-                        if(pieces[i][j].getSelected())
-                            pieces[i][j].drawMoves(canvas);
+                        if(currPieces[i][j].getSelected())
+                            currPieces[i][j].drawMoves(canvas);
                     }
                 }
             }
@@ -307,54 +319,54 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 
             //If you tap if a position when a piece is selected it will move the piece there
-            if(pieces[row][col] == null) {
+            if(currPieces[row][col] == null) {
                 if(pieceIsSelected){
                     for(int i = 0; i < 9; i++){
                         for(int j = 0; j < 9; j++){
-                            if(pieces[i][j] != null){
-                                if(pieces[i][j].getSelected()){
-                                    pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
-                                    if(!pieces[i][j].getPlayer()){
-                                        pieces[row][col].setPlayer(false);
+                            if(currPieces[i][j] != null){
+                                if(currPieces[i][j].getSelected()){
+                                    currPieces[row][col] = new ShogiPiece(row, col, currPieces[i][j].getPiece());
+                                    if(!currPieces[i][j].getPlayer()){
+                                        currPieces[row][col].setPlayer(false);
                                     }
-                                    pieces[i][j] = null;
+                                    currPieces[i][j] = null;
                                 }
                             }
                         }
                     }
-                    pieces[row][col].setSelected(false);
+                    currPieces[row][col].setSelected(false);
                     pieceIsSelected = false;
                 }else {
                     return false;
                 }
             }else{
-                //This deals with selected and deselecting pieces
-                if(pieces[row][col].getSelected()){
+                //This deals with selected and deselecting currPieces
+                if(currPieces[row][col].getSelected()){
                     //This deselects a piece if it is selected
-                    pieces[row][col].setSelected(false);
+                    currPieces[row][col].setSelected(false);
                     pieceIsSelected = false;
                 }else{
                     //This will select the piece if it is not selected
                     for(int i = 0; i < 9; i++){
                         for(int j = 0; j < 9; j++){
-                            if(pieces[i][j] != null){
-                                if(pieces[i][j].getSelected()){
-                                    pieces[i][j].setSelected(false);
+                            if(currPieces[i][j] != null){
+                                if(currPieces[i][j].getSelected()){
+                                    currPieces[i][j].setSelected(false);
                                 }
                             }
                         }
                     }
 
-                    pieces[row][col].setSelected(true);
+                    currPieces[row][col].setSelected(true);
                     pieceIsSelected = true;
                 }
             }
 
-            //redraw board with pieces updated
+            //redraw board with currPieces updated
             //this.invalidate();
 
             GameAction action = null;
-            //action = new ShogiPromotePiece(player, pieces, pieces[row][col], state);
+            //action = new ShogiPromotePiece(player, currPieces, currPieces[row][col], state);
             game.sendAction(action);
 
             this.invalidate();

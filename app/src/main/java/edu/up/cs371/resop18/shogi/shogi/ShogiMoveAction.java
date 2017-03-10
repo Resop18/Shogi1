@@ -13,7 +13,8 @@ public class ShogiMoveAction extends GameAction {
 
     private ShogiPiece MovedPiece;
     private ShogiPiece capturedPiece;
-    private int newRow, newCol;
+    public int newRow, newCol;
+    public ShogiPiece currPiece;
 
     /**
      * constructor for GameAction
@@ -23,11 +24,11 @@ public class ShogiMoveAction extends GameAction {
      * @param newR the new row to which shogiPiece Piece will be moved
      * @param newC the new column to which shogiPiece Piece will be moved
      */
-    public ShogiMoveAction(GamePlayer player) {
+    public ShogiMoveAction(GamePlayer player, ShogiPiece piece, int newR, int newC) {
         super(player);
-        /*MovedPiece = Piece;
-        newRow = newR;
-        newCol = newC;*/
+        this.currPiece = piece;
+        this.newRow = newR;
+        this.newCol = newC;
     }
 
 

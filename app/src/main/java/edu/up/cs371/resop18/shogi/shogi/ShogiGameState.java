@@ -7,7 +7,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
  */
 
 public class ShogiGameState extends GameState {
-    ShogiPiece[][] pieces = new ShogiPiece[9][9]; //Keeps track of pieces on the board
+    ShogiPiece[][] pieces; //Keeps track of pieces on the board
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces
     int isPlayersTurn; //Boolean for player's turns
@@ -23,6 +23,8 @@ public class ShogiGameState extends GameState {
         //Defines Pieces to be drawn/
         ShogiPiece aPiece;
         String w = "";
+
+        pieces = new ShogiPiece[9][9];
 
         isPlayersTurn=0;
 
