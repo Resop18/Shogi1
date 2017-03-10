@@ -10,7 +10,7 @@ public class ShogiGameState extends GameState {
     ShogiPiece[][] pieces = new ShogiPiece[9][9]; //Keeps track of pieces on the board
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces
-    boolean isPlayersTurn = true; //Boolean for player's turns
+    int isPlayersTurn; //Boolean for player's turns
 
     private int row, col; //for iterating and managing Pieces
 
@@ -147,12 +147,12 @@ public class ShogiGameState extends GameState {
     /*
      * Sets Player Turn
      */
-    public void setPlayerTurn(boolean playerTurn){
+    public void setPlayerTurn(int playerTurn){
         this.isPlayersTurn = playerTurn;
     }
 
     //Gets Player Turn
-    public boolean getPlayerTurn(){
+    public int getPlayerTurn(){
         return isPlayersTurn;
     }
 
@@ -171,18 +171,4 @@ public class ShogiGameState extends GameState {
         return pieces;
     }
 
-    //Checks to see if the pieces are in the allowed location(s) and promotes the piece
-    public void resolvePromoteAction(ShogiPromoteAction action){
-        ShogiPiece piece = action.getPromotedPiece();
-        if(piece.getPlayer() && piece.getRow() <= 2 && piece.getRow() >= 0){
-            piece.promotePiece(true);
-        }else if(!piece.getPlayer() && piece.getRow() >= 6 && piece.getRow() < 9){
-            piece.promotePiece(true);
-        }
-    }
-
-    //Places the selected captured piece back onto the board
-    public void resolvePlaceAction(ShogiPlaceAction action){
-        pieces[action.getRow()][action.getCol()] = action.getPlacedPiece();
-    }
 }

@@ -20,15 +20,15 @@ import edu.up.cs371.resop18.shogi.R;
  * @author Jake Nguyen
  */
 
-public class ShogiGui extends SurfaceView implements View.OnTouchListener{
-    ShogiPiece pieces[][];
+public class ShogiGui extends SurfaceView{
+    public ShogiPiece pieces[][];
 
     public static final float spaceDim = 150; //150 is height/width of rows & cols
     public static final float backBoardTopLeftX = 20; //20 is good
     public static final float backBoardTopLeftY = 125; //100 is good
     public static final float topLeftX = backBoardTopLeftX + spaceDim / 2; //95 is good
     public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
-    private boolean pieceIsSelected = false;
+    public static boolean pieceIsSelected = false;
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
     private Bitmap board; // make  a board
 
@@ -58,8 +58,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener{
         int width = size.x;
         int height = size.y;*/
 
-        //Instantiate touch listener
-        this.setOnTouchListener(this);
+
 
         //creates the various paints used in the board
         Paint shogiboard = new Paint();
@@ -122,83 +121,5 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener{
         }
     }
 
-   //This checks if a piece has been selected and/or moved
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        //Don't do anything when dragging or lifting touch
-        if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
-            return false;
-        }
-
-        //check if user tapped inside the board lines
-        if(event.getY() > topLeftY + 9 * spaceDim || event.getX() > topLeftX + 9 * spaceDim){
-            return false;
-        }
-        if(event.getY() < topLeftY){
-            return false;
-        }
-
-        //This determine space that was tapped
-        for(row = 0; row < 9; row++) {
-            if(event.getY() < topLeftY + (row + 1) * spaceDim) {
-                for (col = 0; col < 9; col++) {
-                    if(event.getX() < topLeftX + (col + 1) * spaceDim){
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-
-        //If you tap if a position when a piece is selected it will move the piece there
-        if(pieces[row][col] == null) {
-            if(pieceIsSelected){
-                for(int i = 0; i < 9; i++){
-                    for(int j = 0; j < 9; j++){
-                        if(pieces[i][j] != null){
-                            if(pieces[i][j].getSelected()){
-                                pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
-                                if(!pieces[i][j].getPlayer()){
-                                    pieces[row][col].setPlayer(false);
-                                }
-                                pieces[i][j] = null;
-                            }
-                        }
-                    }
-                }
-                pieces[row][col].setSelected(false);
-                pieceIsSelected = false;
-            }else {
-                return false;
-            }
-        }else{
-            //This deals with selected and deselecting pieces
-            if(pieces[row][col].getSelected()){
-                //This deselects a piece if it is selected
-                pieces[row][col].setSelected(false);
-                pieceIsSelected = false;
-            }else{
-                //This will select the piece if it is not selected
-                for(int i = 0; i < 9; i++){
-                    for(int j = 0; j < 9; j++){
-                        if(pieces[i][j] != null){
-                            if(pieces[i][j].getSelected()){
-                                pieces[i][j].setSelected(false);
-                            }
-                        }
-                    }
-                }
-
-                pieces[row][col].setSelected(true);
-                pieceIsSelected = true;
-            }
-        }
-
-        //redraw board with pieces updated
-        this.invalidate();
-
-        return true;
-    }
+    public boolean isPieceIsSelected(){return this.pieceIsSelected;}
 }

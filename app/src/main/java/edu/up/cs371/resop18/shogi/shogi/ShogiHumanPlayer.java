@@ -21,14 +21,16 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
  * Created by RyanF on 3/4/17.
  */
 
-public class ShogiHumanPlayer extends GameHumanPlayer{
+public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
     private GameMainActivity myActivity;
     private ShogiGameState state;
     protected ShogiHumanPlayer player;
+    private ShogiPiece[][] pieces;
 
     public ShogiHumanPlayer(String name) {
         super(name);
         player = this;
+        pieces = state.getCurrentBoard();
     }
 
     @Override
@@ -84,14 +86,101 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
         return true;
     }
 
-    public class ShogiGui extends SurfaceView implements View.OnTouchListener{
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        int row,col;
+        col =0;
+
+        //Don't do anything when dragging or lifting touch
+        if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
+            return false;
+        }
+
+        //check if user tapped inside the board lines
+        if(event.getY() > ShogiGui.topLeftY + 9 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
+            return false;
+        }
+        if(event.getY() < ShogiGui.topLeftY){
+            return false;
+        }
+
+        //This determine space that was tapped
+        for(row = 0; row < 9; row++) {
+            if(event.getY() < ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
+                for (col = 0; col < 9; col++) {
+                    if(event.getX() < ShogiGui.topLeftX + (col + 1) * ShogiGui.spaceDim){
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+
+        //If you tap if a position when a piece is selected it will move the piece there
+        if(pieces[row][col] == null) {
+            if(ShogiGui.pieceIsSelected){
+                for(int i = 0; i < 9; i++){
+                    for(int j = 0; j < 9; j++){
+                        if(pieces[i][j] != null){
+                            if(pieces[i][j].getSelected()){
+                                pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
+                                if(!pieces[i][j].getPlayer()){
+                                    pieces[row][col].setPlayer(false);
+                                }
+                                pieces[i][j] = null;
+                            }
+                        }
+                    }
+                }
+                pieces[row][col].setSelected(false);
+                ShogiGui.pieceIsSelected = false;
+            }else {
+                return false;
+            }
+        }else{
+            //This deals with selected and deselecting pieces
+            if(pieces[row][col].getSelected()){
+                //This deselects a piece if it is selected
+                pieces[row][col].setSelected(false);
+                ShogiGui.pieceIsSelected = false;
+            }else{
+                //This will select the piece if it is not selected
+                for(int i = 0; i < 9; i++){
+                    for(int j = 0; j < 9; j++){
+                        if(pieces[i][j] != null){
+                            if(pieces[i][j].getSelected()){
+                                pieces[i][j].setSelected(false);
+                            }
+                        }
+                    }
+                }
+
+                pieces[row][col].setSelected(true);
+                ShogiGui.pieceIsSelected = true;
+            }
+        }
+
+        //redraw board with pieces updated
+         myActivity.findViewById(R.id.ShogiBoard).invalidate();
+
+        return false;
+    }
+
+  /*  public class ShogiGui extends SurfaceView implements View.OnTouchListener{
         ShogiPiece pieces[][];
 
-        public static final float spaceDim = 150; //150 is height/width of rows & cols
+        public static final float ShogiGui.spaceDim = 150; //150 is height/width of rows & cols
         public static final float backBoardTopLeftX = 20; //20 is good
         public static final float backBoardTopLeftY = 125; //100 is good
-        public static final float topLeftX = backBoardTopLeftX + spaceDim / 2; //95 is good
-        public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
+        public static final float ShogiGui.topLeftX = backBoardTopLeftX + ShogiGui.spaceDim / 2; //95 is good
+        public static final float ShogiGui.topLeftY = backBoardTopLeftY + ShogiGui.spaceDim; //350 is good
         private boolean pieceIsSelected = false;
         private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
         private Bitmap board; // make  a board
@@ -115,12 +204,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
         @Override
         public void onDraw(Canvas canvas) {
             //Gets screen size
-        /*WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        *//*WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        int height = size.y;*/
+        int height = size.y;*//*
 
             //Instantiate touch listener
             this.setOnTouchListener(this);
@@ -168,8 +257,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
 
             //draw vertical lines; start xy is top point, end xy is bottom point
             for(i = 0; i < 10; i++) {
-                canvas.drawLine(topLeftX + i * spaceDim, topLeftY, topLeftX + i * spaceDim, topLeftY + 9 * spaceDim, square);
-                canvas.drawLine(topLeftX, topLeftY + i * spaceDim, topLeftX + 9 * spaceDim, topLeftY+ i * spaceDim, square);
+                canvas.drawLine(topLeftX + i * ShogiGui.spaceDim, ShogiGui.topLeftY, ShogiGui.topLeftX + i * ShogiGui.spaceDim, ShogiGui.topLeftY + 9 * ShogiGui.spaceDim, square);
+                canvas.drawLine(topLeftX, ShogiGui.topLeftY + i * ShogiGui.spaceDim, ShogiGui.topLeftX + 9 * ShogiGui.spaceDim, ShogiGui.topLeftY+ i * ShogiGui.spaceDim, square);
             }
 
 
@@ -196,18 +285,18 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
             }
 
             //check if user tapped inside the board lines
-            if(event.getY() > topLeftY + 9 * spaceDim || event.getX() > topLeftX + 9 * spaceDim){
+            if(event.getY() > ShogiGui.topLeftY + 9 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
                 return false;
             }
-            if(event.getY() < topLeftY){
+            if(event.getY() < ShogiGui.topLeftY){
                 return false;
             }
 
             //This determine space that was tapped
             for(row = 0; row < 9; row++) {
-                if(event.getY() < topLeftY + (row + 1) * spaceDim) {
+                if(event.getY() < ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
                     for (col = 0; col < 9; col++) {
-                        if(event.getX() < topLeftX + (col + 1) * spaceDim){
+                        if(event.getX() < ShogiGui.topLeftX + (col + 1) * ShogiGui.spaceDim){
                             break;
                         }
                     }
@@ -270,5 +359,5 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
             this.invalidate();
             return true;
         }
-    }
+    }*/
 }

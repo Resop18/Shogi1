@@ -32,6 +32,15 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
+        if(action instanceof ShogiDropAction){
+
+
+            return true;
+        }
+        else if(action instanceof ShogiMoveAction){
+
+            return true;
+        }
         return false;
     }
 }
