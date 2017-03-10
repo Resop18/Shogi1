@@ -122,8 +122,6 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener{
         }
     }
 
-    public boolean getPieceIsSelected(){ return this.pieceIsSelected; }
-
    //This checks if a piece has been selected and/or moved
     @Override
     public boolean onTouch(View v, MotionEvent event) {
