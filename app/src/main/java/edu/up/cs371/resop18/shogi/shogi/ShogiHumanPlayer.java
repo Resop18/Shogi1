@@ -49,18 +49,16 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         // remember the activity
         myActivity = activity;
 
-
         vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        //boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
+        boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
         undoButt = (Button)myActivity.findViewById(R.id.Undo);
         optionsButt = (Button)myActivity.findViewById(R.id.Options);
 
         undoButt.setOnClickListener(this);
         optionsButt.setOnClickListener(this);
-        myActivity.findViewById(R.id.activity_main).setOnTouchListener(this);
 
 
         // remember the field that we update to display the counter's value
@@ -134,16 +132,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                     for(int j = 0; j < 9; j++){
                         if(pieces[i][j] != null){
                             if(pieces[i][j].getSelected()){
-                                pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
+                                game.sendAction(new ShogiMoveAction(this));
+                                /*pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
                                 if(!pieces[i][j].getPlayer()){
                                     pieces[row][col].setPlayer(false);
                                 }
-                                pieces[i][j] = null;
+                                pieces[i][j] = null;*/
                             }
                         }
                     }
                 }
-                pieces[row][col].setSelected(false);
+                //pieces[row][col].setSelected(false);
                 ShogiGui.pieceIsSelected = false;
             }else {
                 return false;
