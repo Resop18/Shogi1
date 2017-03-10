@@ -8,7 +8,7 @@ public class ShogiAI {
     private ShogiPiece[][] bestChild;
 
     public ShogiAI(){
-        ShogiPiece[][] gameBoard = new ShogiGameState().Pieces;
+        ShogiPiece[][] gameBoard = new ShogiGameState().pieces;
         double bestVal = eval(gameBoard, true, 0, true);
 
         System.out.println(bestVal);

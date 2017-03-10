@@ -4,7 +4,7 @@ import edu.up.cs371.resop18.shogi.game.GamePlayer;
 import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 
 /**
- * Created by Javier on 08-Mar-17.
+ * @author Javier Resop
  */
 
 public class ShogiMovePiece extends GameAction{
