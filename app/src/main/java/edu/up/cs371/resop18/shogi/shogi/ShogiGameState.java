@@ -20,7 +20,7 @@ public class ShogiGameState extends GameState {
      * No parameters
      */
     public ShogiGameState(){
-        //Defines Pieces to be drawn
+        //Defines Pieces to be drawn/
         ShogiPiece aPiece;
         String w = "";
 
