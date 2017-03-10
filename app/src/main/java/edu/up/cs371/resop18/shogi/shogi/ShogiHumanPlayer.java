@@ -1,12 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,13 +12,13 @@ import edu.up.cs371.resop18.shogi.game.GameMainActivity;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
- * Created by RyanF on 3/4/17.
+ * @author Ryan Fredrickson
+ * @author Javier Resop
  */
 
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
     private GameMainActivity myActivity;
     private ShogiGameState state;
-    //protected ShogiHumanPlayer player;
     private ShogiPiece[][] pieces;
     private Button undoButt;
     private Button optionsButt;
@@ -66,10 +60,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         undoButt.setOnClickListener(this);
         optionsButt.setOnClickListener(this);
         boobs.setOnTouchListener(this);
-
-
-        // remember the field that we update to display the counter's value
-        //this.counterValueTextView = (TextView) activity.findViewById(R.id.counterValueTextView);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
