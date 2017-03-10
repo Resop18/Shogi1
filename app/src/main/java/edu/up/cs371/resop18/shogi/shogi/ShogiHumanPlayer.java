@@ -1,6 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -109,6 +110,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         if(v.getId() == R.id.Undo){
             vb.vibrate(new long[]{0,200,100,200,275,425,100,200,100,200,275,425,100,75,25,75,125,75,25,75,125,100,100}, -1);
         }
+        if(v.getId() == R.id.Options){
+            myActivity.setContentView(R.layout.options);
+        }
     }
 
     @Override
@@ -138,7 +142,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         break;
                     }
                 }
-                //break;
+                break;
             }
         }
 
@@ -188,9 +192,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         }
 
         //redraw board with pieces updated
-         myActivity.findViewById(R.id.ShogiBoard).invalidate();
+         boobs.invalidate();
 
-        return false;
+        return true;
     }
 
   /*  public class ShogiGui extends SurfaceView implements View.OnTouchListener{
