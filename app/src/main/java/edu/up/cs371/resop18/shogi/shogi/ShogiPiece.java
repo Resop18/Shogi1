@@ -8,6 +8,7 @@ import android.graphics.Path;
 /*
  * @author Ryan Fredrickson
  * @author Chase Des Laurier
+ * @author Javier Resop
  */
 
 public class ShogiPiece {
