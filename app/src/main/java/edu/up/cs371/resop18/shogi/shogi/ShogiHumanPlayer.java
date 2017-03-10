@@ -18,7 +18,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
     private GameMainActivity myActivity;
     private ShogiGameState state;
-    protected ShogiHumanPlayer player;
+    //protected ShogiHumanPlayer player;
     private ShogiPiece[][] pieces;
     private Button undoButt;
     private Button optionsButt;
@@ -27,7 +27,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     public ShogiHumanPlayer(String name) {
         super(name);
-
     }
 
     @Override
