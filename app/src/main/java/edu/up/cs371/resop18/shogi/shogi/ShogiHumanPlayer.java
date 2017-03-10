@@ -106,6 +106,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         if(event.getY() > ShogiGui.topLeftY + 9 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
             return false;
         }
+        //butt
         if(event.getY() < ShogiGui.topLeftY){
             return false;
         }
