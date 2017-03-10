@@ -59,7 +59,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
         undoButt.setOnClickListener(this);
         optionsButt.setOnClickListener(this);
-        boobs.setOnTouchListener(this);
+        myActivity.findViewById(R.id.activity_main).setOnTouchListener(this);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
