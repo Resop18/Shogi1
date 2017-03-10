@@ -20,7 +20,7 @@ public class ShogiMoveAction extends GameAction {
      * constructor for GameAction
      *
      * @param player the player who created the action
-     * @param Piece the piece to be moved
+     * @param piece the piece to be moved
      * @param newR the new row to which shogiPiece Piece will be moved
      * @param newC the new column to which shogiPiece Piece will be moved
      */
