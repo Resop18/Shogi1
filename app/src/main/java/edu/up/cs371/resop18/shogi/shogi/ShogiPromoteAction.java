@@ -9,14 +9,14 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  */
 
 public class ShogiPromoteAction extends GameAction {
-    private shogiPiece promotedPiece = null;
+    private ShogiPiece promotedPiece = null;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public ShogiPromoteAction(GamePlayer player, shogiPiece piece) {
+    public ShogiPromoteAction(GamePlayer player, ShogiPiece piece) {
         super(player);
         this.promotedPiece = piece;
         /*if (piece.getPlayer() && piece.getRow() <= 2 && piece.getRow() >= 0) {
@@ -26,5 +26,5 @@ public class ShogiPromoteAction extends GameAction {
         }*/
     }
 
-    public shogiPiece getPromotedPiece(){ return this.promotedPiece; }
+    public ShogiPiece getPromotedPiece(){ return this.promotedPiece; }
 }

@@ -26,12 +26,12 @@ public class ShogiLocalGame extends LocalGame {
     }
 
     @Override
-    protected String checkIfGameOver() { return null; }
+    protected String checkIfGameOver() {
+        return null;
+    }
 
     @Override
     protected boolean makeMove(GameAction action) {
-        ShogiMoveAction move = (ShogiMoveAction)action;
-
         return false;
     }
 }

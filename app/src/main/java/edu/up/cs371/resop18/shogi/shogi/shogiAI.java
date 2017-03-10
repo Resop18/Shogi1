@@ -4,17 +4,17 @@ package edu.up.cs371.resop18.shogi.shogi;
  * @author Ryan Fredrickson
  */
 
-public class shogiAI {
-    private shogiPiece[][] bestChild;
+public class ShogiAI {
+    private ShogiPiece[][] bestChild;
 
-    public shogiAI(){
-        shogiPiece[][] gameBoard = new ShogiGameState().Pieces;
+    public ShogiAI(){
+        ShogiPiece[][] gameBoard = new ShogiGameState().Pieces;
         double bestVal = eval(gameBoard, true, 0, true);
 
         System.out.println(bestVal);
 
-        for (shogiPiece[] aBestChild : bestChild) {
-            for (shogiPiece anABestChild : aBestChild) {
+        for (ShogiPiece[] aBestChild : bestChild) {
+            for (ShogiPiece anABestChild : aBestChild) {
                 if (anABestChild != null) {
                     System.out.println(anABestChild.getPiece());
                 }
@@ -22,8 +22,8 @@ public class shogiAI {
         }
     }
 
-    private shogiPiece[][] newGameState(shogiPiece[][] board, int[] move){
-        legalMoves m = new legalMoves(new ShogiGameState().isPlayersTurn);
+    private ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
+        LegalMoves m = new LegalMoves(new ShogiGameState().isPlayersTurn);
         int[][] movesList = new int[100][];
         for(int i = 0; i < movesList.length; i++) {
             for(int j = 0; j < board.length; j++) {
@@ -32,7 +32,7 @@ public class shogiAI {
                         movesList = m.moves(board, board[j][k].getPiece(), board[j][k].getRow(), board[j][k].getCol(), board[j][k].getPlayer());
                         for(int[] b : movesList){
                             if(board[b[0]][b[1]] == null){
-                                board[b[0]][b[1]] = new shogiPiece(b[0], b[1], board[j][k].getPiece());
+                                board[b[0]][b[1]] = new ShogiPiece(b[0], b[1], board[j][k].getPiece());
                             }
                         }
                     }
@@ -43,12 +43,12 @@ public class shogiAI {
         return board;
     }
 
-    private int[][][] actList(shogiPiece[][] board){
-        legalMoves m = new legalMoves(new ShogiGameState().isPlayersTurn);
+    private int[][][] actList(ShogiPiece[][] board){
+        LegalMoves m = new LegalMoves(new ShogiGameState().isPlayersTurn);
         int[][][] actList = new int[40][16][];
         for(int a = 0; a < actList.length; a++){
-            for (shogiPiece[] aBoard : board) {
-                for (shogiPiece anABoard : aBoard) {
+            for (ShogiPiece[] aBoard : board) {
+                for (ShogiPiece anABoard : aBoard) {
                     actList[a] = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol(), anABoard.getPlayer());
                 }
             }
@@ -56,9 +56,9 @@ public class shogiAI {
         return actList;
     }
 
-    private shogiPiece[][][] childList(shogiPiece[][] board, int[][][] actList){
-        shogiPiece[][][] list = new shogiPiece[100][9][9];
-        for(shogiPiece[][] aList : list){
+    private ShogiPiece[][][] childList(ShogiPiece[][] board, int[][][] actList){
+        ShogiPiece[][][] list = new ShogiPiece[100][9][9];
+        for(ShogiPiece[][] aList : list){
             for (int[][] anActList : actList) {
                 for (int[] anAnActList : anActList) {
                     aList = newGameState(board, anAnActList);
@@ -70,18 +70,18 @@ public class shogiAI {
         return list;
     }
 
-    private double eval(shogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
+    private double eval(ShogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
         int MAX_DEPTH = smartAI ? 4 : 1;
         double val;
         int[][][] actList = actList(board);
-        shogiPiece[][][] childList = childList(board, actList);
+        ShogiPiece[][][] childList = childList(board, actList);
 
         if(depth > MAX_DEPTH){
             return 0.5 + Math.random();
         }
 
         double bestVal = MAX ? -10 : +10;
-        for (shogiPiece[][] aChildList : childList) {
+        for (ShogiPiece[][] aChildList : childList) {
             val = eval(aChildList, !MAX, depth + 1, smartAI);
             System.out.println("hi");
             if(MAX && val > bestVal){

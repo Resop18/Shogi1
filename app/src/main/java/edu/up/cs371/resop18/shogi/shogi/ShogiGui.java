@@ -20,8 +20,8 @@ import edu.up.cs371.resop18.shogi.R;
  * @author Jake Nguyen
  */
 
-public class ShogiGui extends SurfaceView implements View.OnTouchListener {
-    shogiPiece Pieces[][];
+public class ShogiGui extends SurfaceView implements View.OnTouchListener{
+    ShogiPiece pieces[][];
 
     public static final float spaceDim = 150; //150 is height/width of rows & cols
     public static final float backBoardTopLeftX = 20; //20 is good
@@ -30,10 +30,10 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
     public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
     private boolean pieceIsSelected = false;
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
-    private Bitmap Board; // make  a board
+    private Bitmap board; // make  a board
 
-    private int i, j; //for iterating and managing the Pieces array
-    private int row, col; //for iterating and managing Pieces
+    private int i, j; //for iterating and managing the pieces array
+    private int row, col; //for iterating and managing pieces
 
     public ShogiGui(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,10 +42,10 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         //set up bamboo background
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bam222);
 
-        Board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
-        Board = Bitmap.createScaledBitmap(Board, 1450, 1400, false); //1450 1400
+        board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
+        board = Bitmap.createScaledBitmap(board, 1450, 1400, false); //1450 1400
 
-        Pieces = new ShogiGameState().Pieces;
+        pieces = new ShogiGameState().pieces;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         //canvas.drawRect(50f, 250f, 1500f, 1650f, square);
         canvas.drawCircle(1210, 1710, 20, text);
 
-        canvas.drawBitmap(Board, 50f, 250f, null);
+        canvas.drawBitmap(board, 50f, 250f, null);
 
 
         //draw vertical lines; start xy is top point, end xy is bottom point
@@ -112,17 +112,17 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
         //This draws the pieces from the array
         for(i = 0; i < 9; i++) {
             for(j = 0; j < 9; j++){
-                if(Pieces[i][j] != null){
-                    Pieces[i][j].drawShogiPiece(canvas);
+                if(pieces[i][j] != null){
+                    pieces[i][j].drawShogiPiece(canvas);
 
-                    if(Pieces[i][j].getSelected())
-                        Pieces[i][j].drawMoves(canvas);
+                    if(pieces[i][j].getSelected())
+                        pieces[i][j].drawMoves(canvas);
                 }
             }
         }
     }
 
-    //This checks if a piece has been selected and/or moved
+   //This checks if a piece has been selected and/or moved
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -153,45 +153,45 @@ public class ShogiGui extends SurfaceView implements View.OnTouchListener {
 
 
         //If you tap if a position when a piece is selected it will move the piece there
-        if(Pieces[row][col] == null) {
+        if(pieces[row][col] == null) {
             if(pieceIsSelected){
                 for(int i = 0; i < 9; i++){
                     for(int j = 0; j < 9; j++){
-                        if(Pieces[i][j] != null){
-                            if(Pieces[i][j].getSelected()){
-                                Pieces[row][col] = new shogiPiece(row, col, Pieces[i][j].getPiece());
-                                if(!Pieces[i][j].getPlayer()){
-                                    Pieces[row][col].setPlayer(false);
+                        if(pieces[i][j] != null){
+                            if(pieces[i][j].getSelected()){
+                                pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
+                                if(!pieces[i][j].getPlayer()){
+                                    pieces[row][col].setPlayer(false);
                                 }
-                                Pieces[i][j] = null;
+                                pieces[i][j] = null;
                             }
                         }
                     }
                 }
-                Pieces[row][col].setSelected(false);
+                pieces[row][col].setSelected(false);
                 pieceIsSelected = false;
             }else {
                 return false;
             }
         }else{
             //This deals with selected and deselecting pieces
-            if(Pieces[row][col].getSelected()){
+            if(pieces[row][col].getSelected()){
                 //This deselects a piece if it is selected
-                Pieces[row][col].setSelected(false);
+                pieces[row][col].setSelected(false);
                 pieceIsSelected = false;
             }else{
                 //This will select the piece if it is not selected
                 for(int i = 0; i < 9; i++){
                     for(int j = 0; j < 9; j++){
-                        if(Pieces[i][j] != null){
-                            if(Pieces[i][j].getSelected()){
-                                Pieces[i][j].setSelected(false);
+                        if(pieces[i][j] != null){
+                            if(pieces[i][j].getSelected()){
+                                pieces[i][j].setSelected(false);
                             }
                         }
                     }
                 }
 
-                Pieces[row][col].setSelected(true);
+                pieces[row][col].setSelected(true);
                 pieceIsSelected = true;
             }
         }

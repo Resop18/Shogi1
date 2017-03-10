@@ -10,7 +10,7 @@ import android.graphics.Path;
  * @author Chase Des Laurier
  */
 
-public class shogiPiece {
+public class ShogiPiece {
     private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
     private boolean player = true; //Denotes if the piece belongs to the player
@@ -35,7 +35,7 @@ public class shogiPiece {
             {"", "", "", "Gold"}, {"成", "銀", "全", "Silver"}, {"成", "桂", "圭", "Knight"}, {"成", "香", "杏", "Lance"},
             {"と", "金", "と", "Pawn"}};
 
-    public shogiPiece(int initRow, int initCol, String piece){
+    public ShogiPiece(int initRow, int initCol, String piece){
         this.row = initRow;
         this.col = initCol;
         this.x = (int)(ShogiGui.topLeftX + initCol * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting row
@@ -50,7 +50,7 @@ public class shogiPiece {
         }
     }
 
-    public shogiPiece(float xPos, float yPos, String piece){
+    public ShogiPiece(float xPos, float yPos, String piece){
         this.x = (int)xPos;
         this.y = (int)yPos;
 
@@ -593,7 +593,7 @@ public class shogiPiece {
     public void setSelected(boolean value){ this.selected = value; }
 
     public boolean legalMove(ShogiGameState gameState, int row, int col){
-        legalMoves m = new legalMoves(player);
+        LegalMoves m = new LegalMoves(player);
         int[][] moves = m.moves(gameState.Pieces, s[3], row, col, player);
 
         return true;

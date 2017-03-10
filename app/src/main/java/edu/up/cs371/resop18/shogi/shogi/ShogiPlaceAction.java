@@ -10,21 +10,21 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 
 public class ShogiPlaceAction extends GameAction {
     private int row, col;
-    private shogiPiece movedPiece;
+    private ShogiPiece movedPiece;
 
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public ShogiPlaceAction(GamePlayer player, shogiPiece piece, int initRow, int initCol) {
+    public ShogiPlaceAction(GamePlayer player, ShogiPiece piece, int initRow, int initCol) {
         super(player);
         this.movedPiece = piece;
         this.row = initRow;
         this.col = initCol;
     }
 
-    public shogiPiece getPlacedPiece(){ return this.movedPiece; }
+    public ShogiPiece getPlacedPiece(){ return this.movedPiece; }
     public int getRow(){ return this.row; }
     public int getCol(){ return this.col; }
 }
