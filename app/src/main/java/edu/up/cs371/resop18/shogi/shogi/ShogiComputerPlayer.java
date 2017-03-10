@@ -15,6 +15,6 @@ public class ShogiComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         ShogiGameState gameState = (ShogiGameState)info;
-        game.sendAction(new ShogiMovePiece(this));
+        //game.sendAction(new ShogiMovePiece(this));
     }
 }
