@@ -2,14 +2,14 @@ package edu.up.cs371.resop18.shogi.shogi;
 
 import android.util.Log;
 
-public class legalMoves {
+public class LegalMoves {
     private boolean player = false;
 
-    public legalMoves(boolean player){
+    public LegalMoves(boolean player){
         this.player = player;
     }
 
-    public int[][] moves(shogiPiece[][] board, String pieceName, int currRow, int currCol, boolean pl){
+    public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol, boolean pl){
         int[][] moves = new int[16][];
         
         int row = 0;
