@@ -23,11 +23,11 @@ public class ShogiMoveAction extends GameAction {
      * @param newR the new row to which shogiPiece Piece will be moved
      * @param newC the new column to which shogiPiece Piece will be moved
      */
-    public ShogiMoveAction(GamePlayer player, ShogiPiece Piece, int newR, int newC) {
+    public ShogiMoveAction(GamePlayer player) {
         super(player);
-        MovedPiece = Piece;
+        /*MovedPiece = Piece;
         newRow = newR;
-        newCol = newC;
+        newCol = newC;*/
     }
 
 

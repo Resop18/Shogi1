@@ -8,16 +8,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Vibrator;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
 import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameHumanPlayer;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
-import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
@@ -27,7 +24,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
     private GameMainActivity myActivity;
     private ShogiGameState state;
-    protected ShogiHumanPlayer player;
+    //protected ShogiHumanPlayer player;
     private ShogiPiece[][] pieces;
     private Button undoButt;
     private Button optionsButt;
@@ -36,8 +33,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     public ShogiHumanPlayer(String name) {
         super(name);
-        player = this;
-
     }
 
     @Override
@@ -45,20 +40,14 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         return myActivity.findViewById(R.id.activity_main);
     }
 
-    /*protected void updateDisplay() {
-         set the text in the appropriate widget
-        counterValueTextView.setText("" + state.getCounter());
-    }*/
-
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a CounterState message
-        if (!(info instanceof ShogiGameState)) return;
-
-        // update our state; then update the display
-        this.state = (ShogiGameState)info;
-        this.pieces=state.getCurrentBoard();
-
+        if(info instanceof ShogiGameState){
+            // update our state; then update the display
+            this.state = (ShogiGameState)info;
+            this.pieces = state.getCurrentBoard();
+        }
     }
 
     @Override
@@ -66,8 +55,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         // remember the activity
         myActivity = activity;
 
-
-        vb=(Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
+        vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
@@ -154,16 +142,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                     for(int j = 0; j < 9; j++){
                         if(pieces[i][j] != null){
                             if(pieces[i][j].getSelected()){
-                                pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
+                                game.sendAction(new ShogiMoveAction(this));
+                                /*pieces[row][col] = new ShogiPiece(row, col, pieces[i][j].getPiece());
                                 if(!pieces[i][j].getPlayer()){
                                     pieces[row][col].setPlayer(false);
                                 }
-                                pieces[i][j] = null;
+                                pieces[i][j] = null;*/
                             }
                         }
                     }
                 }
-                pieces[row][col].setSelected(false);
+                //pieces[row][col].setSelected(false);
                 ShogiGui.pieceIsSelected = false;
             }else {
                 return false;
