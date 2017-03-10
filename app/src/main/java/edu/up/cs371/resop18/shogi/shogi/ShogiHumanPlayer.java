@@ -264,7 +264,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer{
             //this.invalidate();
 
             GameAction action = null;
-            action = new ShogiPromotePiece(player, pieces, pieces[row][col], state);
+            //action = new ShogiPromotePiece(player, pieces, pieces[row][col], state);
             game.sendAction(action);
 
             this.invalidate();
