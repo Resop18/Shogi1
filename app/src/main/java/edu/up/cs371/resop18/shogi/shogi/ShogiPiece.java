@@ -72,9 +72,7 @@ public class ShogiPiece {
     public int getCol(){ return this.col; }
 
     //Promotes a piece
-    public void promotePiece(boolean p){
-        this.promoted = p;
-    }
+    public void promotePiece(boolean p){ this.promoted = p; }
 
     //Sets whether piece belongs to the player
     public void setPlayer(boolean p){ this.player = p; }
