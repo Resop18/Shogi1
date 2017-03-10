@@ -1,22 +1,14 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Vibrator;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 
 import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameHumanPlayer;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
-import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
@@ -35,7 +27,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     public ShogiHumanPlayer(String name) {
         super(name);
-        player = this;
 
     }
 
@@ -56,8 +47,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
         // update our state; then update the display
         this.state = (ShogiGameState)info;
-        this.pieces=state.getCurrentBoard();
-
+        this.pieces = state.getCurrentBoard();
     }
 
     @Override
@@ -66,17 +56,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         myActivity = activity;
 
 
-        vb=(Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
+        vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
+        //boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
         undoButt = (Button)myActivity.findViewById(R.id.Undo);
         optionsButt = (Button)myActivity.findViewById(R.id.Options);
 
         undoButt.setOnClickListener(this);
         optionsButt.setOnClickListener(this);
-        boobs.setOnTouchListener(this);
+        myActivity.findViewById(R.id.activity_main).setOnTouchListener(this);
 
 
         // remember the field that we update to display the counter's value
@@ -138,7 +128,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         break;
                     }
                 }
-                //break;
+                break;
             }
         }
 
