@@ -591,6 +591,7 @@ public class ShogiPiece {
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
 
+
     public boolean legalMove(ShogiGameState gameState, int row, int col){
         int a;
         if(player){
