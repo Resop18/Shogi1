@@ -6,10 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 
 import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameHumanPlayer;
@@ -26,10 +28,15 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     private ShogiGameState state;
     protected ShogiHumanPlayer player;
     private ShogiPiece[][] pieces;
+    private Button undoButt;
+    private Button optionsButt;
+    private Vibrator vb;
+    private ShogiGui boobs;
 
     public ShogiHumanPlayer(String name) {
         super(name);
         player = this;
+
     }
 
     @Override
@@ -38,7 +45,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     }
 
     /*protected void updateDisplay() {
-        // set the text in the appropriate widget
+         set the text in the appropriate widget
         counterValueTextView.setText("" + state.getCounter());
     }*/
 
@@ -58,8 +65,19 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         // remember the activity
         myActivity = activity;
 
+
+        vb=(Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
+
+        boobs = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
+        undoButt = (Button)myActivity.findViewById(R.id.Undo);
+        optionsButt = (Button)myActivity.findViewById(R.id.Options);
+
+        undoButt.setOnClickListener(this);
+        optionsButt.setOnClickListener(this);
+        boobs.setOnTouchListener(this);
+
 
         // remember the field that we update to display the counter's value
         //this.counterValueTextView = (TextView) activity.findViewById(R.id.counterValueTextView);
@@ -88,17 +106,18 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        if(v.getId() == R.id.Undo){
+            vb.vibrate(new long[]{0,200,100,200,275,425,100,200,100,200,275,425,100,75,25,75,125,75,25,75,125,100,100}, -1);
+        }
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
         int row,col;
-        col =0;
-
+        col = 0;
         //Don't do anything when dragging or lifting touch
-        if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
+        if(event.getActionMasked() != MotionEvent.ACTION_UP) {
             return false;
         }
 
@@ -119,7 +138,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                         break;
                     }
                 }
-                break;
+                //break;
             }
         }
 
