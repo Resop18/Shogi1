@@ -17,11 +17,5 @@ public class ShogiMovePiece extends GameAction{
      */
     public ShogiMovePiece(GamePlayer player) {
         super(player);
-
-
     }
-
-
-
-
 }

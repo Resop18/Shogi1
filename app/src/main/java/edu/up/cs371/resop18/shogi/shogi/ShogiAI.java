@@ -33,6 +33,7 @@ public class ShogiAI {
                         for(int[] b : movesList){
                             if(board[b[0]][b[1]] == null){
                                 board[b[0]][b[1]] = new ShogiPiece(b[0], b[1], board[j][k].getPiece());
+                                board[i][j] = null;
                             }
                         }
                     }
