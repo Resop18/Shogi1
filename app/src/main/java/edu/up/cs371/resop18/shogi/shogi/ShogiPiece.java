@@ -594,7 +594,7 @@ public class ShogiPiece {
 
     public boolean legalMove(ShogiGameState gameState, int row, int col){
         LegalMoves m = new LegalMoves(player);
-        int[][] moves = m.moves(gameState.Pieces, s[3], row, col, player);
+        int[][] moves = m.moves(gameState.pieces, s[3], row, col, player);
 
         return true;
     }
