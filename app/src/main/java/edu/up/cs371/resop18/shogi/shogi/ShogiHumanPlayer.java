@@ -30,7 +30,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     public ShogiHumanPlayer(String name) {
         super(name);
         player = this;
-        pieces = state.getCurrentBoard();
     }
 
     @Override
@@ -50,6 +49,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
         // update our state; then update the display
         this.state = (ShogiGameState)info;
+        this.pieces=state.getCurrentBoard();
 
     }
 
