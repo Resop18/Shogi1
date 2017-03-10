@@ -35,19 +35,14 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         return myActivity.findViewById(R.id.activity_main);
     }
 
-    /*protected void updateDisplay() {
-         set the text in the appropriate widget
-        counterValueTextView.setText("" + state.getCounter());
-    }*/
-
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a CounterState message
-        if (!(info instanceof ShogiGameState)) return;
-
-        // update our state; then update the display
-        this.state = (ShogiGameState)info;
-        this.pieces = state.getCurrentBoard();
+        if(info instanceof ShogiGameState){
+            // update our state; then update the display
+            this.state = (ShogiGameState)info;
+            this.pieces = state.getCurrentBoard();
+        }
     }
 
     @Override
