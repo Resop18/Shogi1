@@ -3,15 +3,19 @@ package edu.up.cs371.resop18.shogi.shogi;
 import android.util.Log;
 
 public class LegalMoves {
-    private boolean player = false;
+    private boolean player;
 
-    public LegalMoves(boolean player){
-        this.player = player;
+    public LegalMoves(int p){
+        if(p == 0) {
+            this.player = true;
+        }else if(p == 1){
+            this.player = false;
+        }
     }
 
     public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol, boolean pl){
         int[][] moves = new int[16][];
-        
+
         int row = 0;
         int col = 0;
         int i = 0;
