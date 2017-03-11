@@ -37,7 +37,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a CounterState message
-        if(info instanceof ShogiGameState && info != null){
+        if(info instanceof ShogiGameState){
             // update our state; then update the display
             this.state = (ShogiGameState)info;
             this.currPieces = state.getCurrentBoard();
@@ -96,7 +96,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     public boolean onTouch(View v, MotionEvent event) {
         int row,col;
         col = 0;
-
+        if(state==null){this.state = new ShogiGameState();}
+        this.currPieces=state.getCurrentBoard();
 
         if(this.currPieces==null){
             Log.i("null", "what the actual fuck");
@@ -142,11 +143,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
                     for(int j = 0; j < 9; j++){
                         if(currPieces[i][j] != null){
                             if(currPieces[i][j].getSelected()){
-                                game.sendAction(new ShogiMoveAction(this, currPieces[i][j], row, col));
-                                /*currPieces[row][col] = new ShogiPiece(row, col, currPieces[i][j].getPiece());
-                                if(!currPieces[i][j].getPlayer()){
-                                    currPieces[row][col].setPlayer(false);
-                                }*/
+                                game.sendAction(new ShogiMoveAction(this, currPieces[i][j], row, col, i, j));
+
                                 currPieces[i][j] = null;
                             }
                         }

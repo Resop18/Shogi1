@@ -142,4 +142,8 @@ public class ShogiGameState extends GameState {
         return pieces;
     }
 
+    public void setCurrentBoard(ShogiPiece board[][]){
+        this.pieces = board;
+    }
+
 }

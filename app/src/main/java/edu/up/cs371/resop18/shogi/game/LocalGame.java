@@ -113,6 +113,7 @@ public abstract class LocalGame implements Game, Tickable {
 		
 		// start each player, telling them each who their game and playerID are
 		for (int i = 0; i < players.length; i++) {
+			Log.i("players", "" + players[i]);
 			players[i].start();
 			players[i].sendInfo(new BindGameInfo(this, i));
 		}

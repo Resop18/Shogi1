@@ -40,16 +40,33 @@ public class ShogiLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         if(action instanceof ShogiDropAction){
 
-
             return true;
         }
         else if(action instanceof ShogiMoveAction){
+            ShogiPiece[][] newBoard = gameState.getCurrentBoard();
+            ShogiPiece[] captured = gameState.getPlayerCaptured();
+
             ShogiPiece currPiece = ((ShogiMoveAction) action).currPiece;
             int row = ((ShogiMoveAction) action).newRow;
             int col = ((ShogiMoveAction) action).newCol;
-            //currPieces[row][col] = new ShogiPiece(row, col, currPieces[i][j].getPiece());
+            if(newBoard[row][col] != null){
+                for(int i = 0; i < captured.length; i++){
+                    if(captured[i] == null){
+                        captured[i] = new ShogiPiece(10, 10, newBoard[row][col].getPiece());
+                    }
+                }
+            }
+
+            newBoard[row][col] = new ShogiPiece(row, col, newBoard[((ShogiMoveAction) action).oldRow]
+                    [((ShogiMoveAction) action).oldCol].getPiece());
+
+            gameState.setCurrentBoard(newBoard);
             currPiece.setPlayer(currPiece.getPlayer());
+            if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
+                newBoard[row][col].promotePiece(true);
+            }
             currPiece.setSelected(false);
+            gameState.setPlayerTurn(1);
             return true;
         }
         return false;
