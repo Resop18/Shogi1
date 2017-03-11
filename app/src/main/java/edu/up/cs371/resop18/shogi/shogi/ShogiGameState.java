@@ -24,7 +24,7 @@ public class ShogiGameState extends GameState {
         ShogiPiece aPiece;
         String w = "";
 
-        pieces = new ShogiPiece[9][9];
+        pieces = new ShogiPiece[10][9];
 
         isPlayersTurn=0;
 

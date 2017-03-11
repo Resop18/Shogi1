@@ -100,7 +100,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         this.currPieces=state.getCurrentBoard();
 
         if(this.currPieces==null){
-            Log.i("null", "what the actual fuck");
+            Log.i("null", "currPieces array null somehow");
             return false;
         }
         //Don't do anything when dragging or lifting touch
@@ -110,7 +110,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         }
 
         //check if user tapped inside the board lines
-        if(event.getY() > ShogiGui.topLeftY + 9 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
+        if(event.getY() > ShogiGui.topLeftY + 10 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
             return false;
         }
         //butt
@@ -119,8 +119,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         }
 
         //This determine space that was tapped
-        for(row = 0; row < 9; row++) {
-            if(event.getY() < ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
+        for(row = 0; row <= 9; row++) {
+            if(event.getY() <= ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
                 for (col = 0; col < 9; col++) {
                     if(event.getX() < ShogiGui.topLeftX + (col + 1) * ShogiGui.spaceDim){
                         Log.i("tap", "got the tap");
@@ -131,20 +131,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             }
         }
 
-        if(currPieces==null){
-            Log.i("null", "how the fuck");
-            return false;
-        }
-
         //If you tap if a position when a piece is selected it will move the piece there
         if(currPieces[row][col] == null) {
             if(ShogiGui.pieceIsSelected){
-                for(int i = 0; i < 9; i++){
+                for(int i = 0; i <= 9; i++){
                     for(int j = 0; j < 9; j++){
                         if(currPieces[i][j] != null){
                             if(currPieces[i][j].getSelected()){
-                                game.sendAction(new ShogiMoveAction(this, currPieces[i][j], row, col, i, j));
-
+                                if(i == 9){
+                                    game.sendAction(new ShogiDropAction(this, currPieces[i][j], row, col, i, j));
+                                }
+                                //game.sendAction(new ShogiMoveAction(this, currPieces[i][j], row, col, i, j));
                                 currPieces[i][j] = null;
                             }
                         }

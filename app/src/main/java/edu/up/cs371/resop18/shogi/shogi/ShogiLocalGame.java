@@ -38,10 +38,22 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean makeMove(GameAction action) {
+        //Shogi Drop Action
         if(action instanceof ShogiDropAction){
+            ShogiPiece[][] newBoard = gameState.getCurrentBoard();
 
+            ShogiDropAction act = (ShogiDropAction)action;
+            int row = act.newRow;
+            int col = act.newCol;
+            if(newBoard[row][col] == null){ //Checks to see if move is legal
+                newBoard[row][col] = new ShogiPiece(row, col, newBoard[act.oldRow][act.oldCol].getPiece());
+            }else{
+                return false;
+            }
+            gameState.setPlayerTurn(1);
             return true;
         }
+        //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
@@ -49,6 +61,8 @@ public class ShogiLocalGame extends LocalGame {
             ShogiPiece currPiece = ((ShogiMoveAction) action).currPiece;
             int row = ((ShogiMoveAction) action).newRow;
             int col = ((ShogiMoveAction) action).newCol;
+
+            //If possible captures piece
             if(newBoard[row][col] != null){
                 for(int i = 0; i < captured.length; i++){
                     if(captured[i] == null){
@@ -57,14 +71,19 @@ public class ShogiLocalGame extends LocalGame {
                 }
             }
 
+            //Create piece in desired place
             newBoard[row][col] = new ShogiPiece(row, col, newBoard[((ShogiMoveAction) action).oldRow]
                     [((ShogiMoveAction) action).oldCol].getPiece());
 
             gameState.setCurrentBoard(newBoard);
             currPiece.setPlayer(currPiece.getPlayer());
+
+            //Force Promotes Piece if in Applicable Area
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
+
+
             currPiece.setSelected(false);
             gameState.setPlayerTurn(1);
             return true;
