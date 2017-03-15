@@ -106,6 +106,41 @@ public class LegalMoves {
                     i++;
                 }
             }
+        }else if(pieceName.equals("Bishop")){
+        }else if(pieceName.equals("Knight")){
+            if(pl){
+                if(board[currRow-2][currCol-1] != null){
+                    if(player != board[currRow-2][currCol-1].getPlayer()){
+                        moves[0] = new int[] {currRow-2, currCol-1};
+                    }
+                }else{
+                    moves[0] = new int[] {currRow-2, currCol-1};
+                }
+
+                if(board[currRow-2][currCol+1] != null){
+                    if(player != board[currRow-2][currCol+1].getPlayer()){
+                        moves[1] = new int[] {currRow-2, currCol+1};
+                    }
+                }else{
+                    moves[1] = new int[] {currRow-2, currCol+1};
+                }
+            }else{
+                if(board[currRow+2][currCol-1] != null){
+                    if(player != board[currRow+2][currCol-1].getPlayer()){
+                        moves[0] = new int[] {currRow+2, currCol-1};
+                    }
+                }else{
+                    moves[0] = new int[] {currRow+2, currCol-1};
+                }
+
+                if(board[currRow+2][currCol+1] != null){
+                    if(player != board[currRow+2][currCol+1].getPlayer()){
+                        moves[1] = new int[] {currRow+2, currCol+1};
+                    }
+                }else{
+                    moves[1] = new int[] {currRow+2, currCol+1};
+                }
+            }
         }else{
             moves[0] = new int[]{currRow, currCol};
         }
