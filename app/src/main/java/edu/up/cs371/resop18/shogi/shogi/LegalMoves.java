@@ -53,7 +53,7 @@ public class LegalMoves {
             row = currRow;
             col = currCol + 1;
             while(col < 9){
-                if(col == 9 || board[row][col] != null){
+                if(board[row][col] != null){
                     break;
                 }
                 moves[i] = new int[]{row, col};
