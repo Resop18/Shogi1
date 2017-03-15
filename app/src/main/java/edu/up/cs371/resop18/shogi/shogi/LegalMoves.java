@@ -107,6 +107,67 @@ public class LegalMoves {
                 }
             }
         }else if(pieceName.equals("Bishop")){
+            i = 0;
+
+            row = currRow - 1;
+            col = currCol - 1;
+            while(row >= 0 && col >= 0){
+                if(board[row][col] != null){
+                    if(player != board[row][col].getPlayer()){
+                        moves[i] = new int[] {row, col};
+                    }
+                    break;
+                }
+                moves[i] = new int[] {row, col};
+                row -= 1;
+                col -= 1;
+                i++;
+            }
+
+            row = currRow + 1;
+            col = currCol - 1;
+            while(row < 9 && col >= 0){
+                if(board[row][col] != null){
+                    if(player != board[row][col].getPlayer()){
+                        moves[i] = new int[] {row, col};
+                    }
+                    break;
+                }
+                moves[i] = new int[] {row, col};
+                row += 1;
+                col -= 1;
+                i++;
+            }
+
+            row = currRow - 1;
+            col = currCol + 1;
+            while(row >= 0 && col < 9){
+                if(board[row][col] != null){
+                    if(player != board[row][col].getPlayer()){
+                        moves[i] = new int[] {row, col};
+                    }
+                    break;
+                }
+                moves[i] = new int[] {row, col};
+                row -= 1;
+                col += 1;
+                i++;
+            }
+
+            row = currRow + 1;
+            col = currCol + 1;
+            while(row < 9 && col < 9){
+                if(board[row][col] != null){
+                    if(player != board[row][col].getPlayer()){
+                        moves[i] = new int[] {row, col};
+                    }
+                    break;
+                }
+                moves[i] = new int[] {row, col};
+                row += 1;
+                col += 1;
+                i++;
+            }
         }else if(pieceName.equals("Knight")){
             if(pl){
                 if(board[currRow-2][currCol-1] != null){
