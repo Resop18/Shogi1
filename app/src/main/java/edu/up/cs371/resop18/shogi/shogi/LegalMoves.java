@@ -1,7 +1,5 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.util.Log;
-
 public class LegalMoves {
     private boolean player;
 
@@ -21,21 +19,19 @@ public class LegalMoves {
         int i = 0;
 
         if(pieceName.equals("Pawn")){
-            if(currRow != 0){
-                Log.i("Pawn Row", ""+row);
-                Log.i("Pawn Col", ""+col);
+            if(currRow != 0 || currRow != 8){
                 if(pl){
-                    if(board[row-1][col] == null){
+                    if(board[currRow-1][currCol] == null){
                         moves[0] = new int[]{currRow-1, currCol};
                     }else if(board[currRow-1][currCol] != null && board[currRow-1][currCol].getPlayer() != player){
                         moves[0] = new int[]{currRow-1, currCol};
                     }
                 }else{
-                    if(board[row+1][col] == null && (row+1 != 8 || row+1 != 9)) {
-                        moves[0] = new int[]{row+1, col};
-                    }else if(board[row+1][col] != null && board[row+1][col].getPlayer() != player){
+                    if(board[currRow+1][currCol] == null) {
+                        moves[0] = new int[]{currRow+1, currCol};
+                    }else if(board[currRow+1][currCol] != null && board[currRow+1][currCol].getPlayer() != player){
                         if(row+1 != 8 || row+1 != 9){
-                            moves[0] = new int[]{row+1, col};
+                            moves[0] = new int[]{currRow+1, currCol};
                         }
                     }
                 }
@@ -46,52 +42,53 @@ public class LegalMoves {
             row = currRow;
             col = currCol - 1;
             while(col >= 0){
-                col -= 1;
-                moves[i] = new int[]{row, col};
                 if(board[row][col] != null){
                     break;
                 }
+                moves[i] = new int[]{row, col};
+                col -= 1;
                 i++;
             }
 
+            row = currRow;
             col = currCol + 1;
             while(col < 9){
-                col += 1;
-                moves[i] = new int[]{row, col};
-                if(board[row][col] != null){
+                if(col == 9 || board[row][col] != null){
                     break;
                 }
+                moves[i] = new int[]{row, col};
+                col += 1;
                 i++;
             }
 
             row = currRow - 1;
             col = currCol;
             while(row >= 0){
-                row -= 1;
-                moves[i] = new int[] {row, col};
                 if(board[row][col] != null){
                     break;
                 }
+                moves[i] = new int[] {row, col};
+                row -= 1;
                 i++;
             }
 
             row = currRow + 1;
             while(row < 9){
-                row += 1;
-                moves[i] = new int[] {row, col};
                 if(board[row][col] != null){
                     break;
                 }
+                moves[i] = new int[] {row, col};
+                row += 1;
                 i++;
             }
         }else if(pieceName.equals("Lance")){
-            row = currRow;
+            col = currCol;
             if(pl){
                 i = 0;
-                col = currCol - 1;
-                while(col >= 0){
-                    col -= 1;
+                row = currRow - 1;
+                while(row >= 0){
                     moves[i] = new int[] {row, col};
+                    row -= 1;
                     if(board[row][col] != null){
                         break;
                     }
@@ -101,8 +98,8 @@ public class LegalMoves {
                 i = 0;
                 col = currCol + 1;
                 while(col < 9){
-                    col += 1;
                     moves[i] = new int[] {row, col};
+                    col += 1;
                     if(board[row][col] != null){
                         break;
                     }
@@ -113,6 +110,6 @@ public class LegalMoves {
             moves[0] = new int[]{currRow, currCol};
         }
 
-        return moves; 
+        return moves;
     }
 }
