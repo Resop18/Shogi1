@@ -1,14 +1,14 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 public class LegalMoves {
-    //private boolean player;
+    private boolean player;
 
-    public LegalMoves(int p){
-        /*if(p == 0) {
-        this.player = true;
-        }else if(p == 1){
-        this.player = false;
-        }*/
+    public LegalMoves(int n){
+        if(n == 0){
+            this.player = true;
+        }else if(n == 1){
+            this.player = false;
+        }
     }
 
     public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol, boolean player){
@@ -205,36 +205,48 @@ public class LegalMoves {
             }
         }else if(pieceName.equals("Knight")){
             if(player){
-                if(board[currRow-2][currCol-1] != null){
-                    if(player != board[currRow-2][currCol-1].getPlayer()){
-                        moves[0] = new int[] {currRow-2, currCol-1};
+                if(currRow - 2 > 0){
+                    if(currCol - 1 >= 0){
+                        if(board[currRow-2][currCol-1] != null){
+                            if(player != board[currRow-2][currCol-1].getPlayer()){
+                                moves[0] = new int[] {currRow-2, currCol-1};
+                            }
+                        }else{
+                            moves[0] = new int[] {currRow-2, currCol-1};
+                        }
                     }
-                }else{
-                    moves[0] = new int[] {currRow-2, currCol-1};
-                }
 
-                if(board[currRow-2][currCol+1] != null){
-                    if(player != board[currRow-2][currCol+1].getPlayer()){
-                        moves[1] = new int[] {currRow-2, currCol+1};
+                    if(currCol + 1 < 9){
+                        if(board[currRow-2][currCol+1] != null){
+                            if(player != board[currRow-2][currCol+1].getPlayer()){
+                                moves[1] = new int[] {currRow-2, currCol+1};
+                            }
+                        }else{
+                            moves[1] = new int[] {currRow-2, currCol+1};
+                        }
                     }
-                }else{
-                    moves[1] = new int[] {currRow-2, currCol+1};
                 }
             }else{
-                if(board[currRow+2][currCol-1] != null){
-                    if(player != board[currRow+2][currCol-1].getPlayer()){
-                        moves[0] = new int[] {currRow+2, currCol-1};
+                if(currRow + 2 < 9){
+                    if(currCol - 1 >= 0){
+                        if(board[currRow+2][currCol-1] != null){
+                            if(player != board[currRow+2][currCol-1].getPlayer()){
+                                moves[0] = new int[] {currRow+2, currCol-1};
+                            }
+                        }else{
+                            moves[0] = new int[] {currRow+2, currCol-1};
+                        }
                     }
-                }else{
-                    moves[0] = new int[] {currRow+2, currCol-1};
-                }
 
-                if(board[currRow+2][currCol+1] != null){
-                    if(player != board[currRow+2][currCol+1].getPlayer()){
-                        moves[1] = new int[] {currRow+2, currCol+1};
+                    if(currCol + 1 < 9){
+                        if(board[currRow+2][currCol+1] != null){
+                            if(player != board[currRow+2][currCol+1].getPlayer()){
+                                moves[1] = new int[] {currRow+2, currCol+1};
+                            }
+                        }else{
+                            moves[1] = new int[] {currRow+2, currCol+1};
+                        }
                     }
-                }else{
-                    moves[1] = new int[] {currRow+2, currCol+1};
                 }
             }
         }else{
