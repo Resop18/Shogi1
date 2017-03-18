@@ -250,7 +250,9 @@ public class LegalMoves {
                 }
             }
         }else{
-            moves[0] = new int[]{currRow, currCol};
+            for(i = 0; i < 16; i++){
+                moves[i] = new int[]{currRow, currCol};
+            }
         }
 
         return moves;
