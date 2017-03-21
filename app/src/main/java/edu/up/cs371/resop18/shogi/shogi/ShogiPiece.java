@@ -591,7 +591,7 @@ public class ShogiPiece {
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
 
-    public boolean legalMove(ShogiGameState gameState, int row, int col){
+    public boolean legalMove(ShogiPiece[][] board, int currRow, int currCol){
         int a;
         if(player){
             a = 0;
@@ -599,8 +599,15 @@ public class ShogiPiece {
             a = 1;
         }
         LegalMoves m = new LegalMoves(a);
-        int[][] moves = m.moves(gameState.pieces, s[3], row, col, player);
+        int[][] moves = m.moves(board, s[3], row, col, player);
 
-        return true;
+        for(int i = 0; i < 16; i++) {
+            if(moves[i] == null){ break; }
+            if(moves[i] == new int[]{currRow, currCol}){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
