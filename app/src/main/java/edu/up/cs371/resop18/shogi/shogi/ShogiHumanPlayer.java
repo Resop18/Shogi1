@@ -28,6 +28,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
     public ShogiHumanPlayer(String name) {
         super(name);
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
             // update our state; then update the display
             this.state = (ShogiGameState)info;
             this.currPieces = state.getCurrentBoard();
-            if(this.currPieces==null){Log.i("sad", "why God why");}
+            if(this.currPieces == null){ Log.i("sad", "why God why"); }
             myActivity.findViewById(R.id.ShogiBoard).invalidate();
         }
     }
@@ -51,8 +52,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     public void setAsGui(GameMainActivity activity) {
         // remember the activity
         myActivity = activity;
-
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 
         vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
