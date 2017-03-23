@@ -1,6 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
+import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -51,6 +52,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
         // remember the activity
         myActivity = activity;
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+
         vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
@@ -96,10 +99,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     public boolean onTouch(View v, MotionEvent event) {
         int row,col;
         col = 0;
-        if(state==null){this.state = new ShogiGameState();}
+        if(state == null){ this.state = new ShogiGameState(); }
         this.currPieces=state.getCurrentBoard();
 
-        if(this.currPieces==null){
+        if(this.currPieces == null){
             Log.i("null", "currPieces array null somehow");
             return false;
         }
