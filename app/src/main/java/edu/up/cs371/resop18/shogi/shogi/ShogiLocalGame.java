@@ -15,7 +15,6 @@ public class ShogiLocalGame extends LocalGame {
 
     public ShogiLocalGame(){
         this.gameState = new ShogiGameState();
-
     }
 
     @Override
@@ -26,9 +25,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        //if(playerIdx==0)
-            return true;
-       // return false;
+        return playerIdx == gameState.getPlayerTurn();
     }
 
     @Override

@@ -75,6 +75,8 @@ public class ShogiPiece {
     //Promotes a piece
     public void promotePiece(boolean p){ this.promoted = p; }
 
+    public boolean getPromoted(){ return this.promoted; }
+
     //Sets whether piece belongs to the player
     public void setPlayer(boolean p){ this.player = p; }
 

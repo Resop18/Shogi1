@@ -99,20 +99,25 @@ public class ShogiGameState extends GameState {
      * Deep Copy Constructor
      */
     public ShogiGameState(ShogiGameState orig){
-        for(row = 0; row < 9; row++){
+        for(row = 0; row < 10; row++){
             for(col = 0; col < 9; col++){
-                this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
+                if(this.pieces != null){
+                    this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
+                }
             }
         }
 
         for(row = 0; row < 19; row++){
-            this.playerCaptured[row] = new ShogiPiece(row, col, orig.playerCaptured[row].getPiece());
-            this.opponentCaptured[row] = new ShogiPiece(row, col, orig.opponentCaptured[row].getPiece());
+            if(this.playerCaptured[row] != null){
+                this.playerCaptured[row] = new ShogiPiece(row, col, orig.playerCaptured[row].getPiece());
+            }
+            if(this.opponentCaptured[row] != null){
+                this.opponentCaptured[row] = new ShogiPiece(row, col, orig.opponentCaptured[row].getPiece());
+            }
         }
 
         this.isPlayersTurn = orig.isPlayersTurn;
     }
-
 
 
     /*
