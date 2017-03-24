@@ -116,6 +116,8 @@ public class ShogiGameState extends GameState {
                 if(orig.pieces[row][col] != null){
                     Log.i("orig.piece s3", orig.pieces[row][col].getPiece());
                     this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
+                    this.pieces[row][col].setPlayer(orig.pieces[row][col].getPlayer());
+                    this.pieces[row][col].promotePiece(orig.pieces[row][col].getPromoted());
                     Log.i("this.piece s3", this.pieces[row][col].getPiece());
                 }
 //                  Log.i("piece s3", orig.pieces[row][col].getPiece());
