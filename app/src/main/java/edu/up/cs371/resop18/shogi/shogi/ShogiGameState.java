@@ -1,5 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.util.Log;
+
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
 
 /**
@@ -93,29 +95,43 @@ public class ShogiGameState extends GameState {
             aPiece.setPlayer(false);
             pieces[row - 2][col] = aPiece;
         }
+       /* for(row = 0; row <10; row++){
+            for(col = 0; col < 9; col++){
+                if(pieces[row][col] != null){
+
+                }else{
+                    pieces[row][col] = null;
+                }
+            }
+        }*/
     }
 
     /*
      * Deep Copy Constructor
      */
     public ShogiGameState(ShogiGameState orig){
+        pieces = new ShogiPiece[10][9];
         for(row = 0; row < 10; row++){
             for(col = 0; col < 9; col++){
-                if(this.pieces != null){
+                if(orig.pieces[row][col] != null){
+                    Log.i("orig.piece s3", orig.pieces[row][col].getPiece());
                     this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
+                    Log.i("this.piece s3", this.pieces[row][col].getPiece());
                 }
+//                  Log.i("piece s3", orig.pieces[row][col].getPiece());
+               //     this.pieces[row][col] = null;
+               // }
             }
         }
 
         for(row = 0; row < 19; row++){
-            if(this.playerCaptured[row] != null){
+            if(this.playerCaptured[row] != null) {
                 this.playerCaptured[row] = new ShogiPiece(row, col, orig.playerCaptured[row].getPiece());
             }
-            if(this.opponentCaptured[row] != null){
+            if(this.opponentCaptured[row] != null) {
                 this.opponentCaptured[row] = new ShogiPiece(row, col, orig.opponentCaptured[row].getPiece());
             }
         }
-
         this.isPlayersTurn = orig.isPlayersTurn;
     }
 

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public class playButt implements View.OnClickListener{
 
         public void onClick(View v){
-            startActivity(new Intent(MainActivity.this, Game.class));
+            startActivity(new Intent(MainActivity.this, mnGame.class));
         }
 
     }
