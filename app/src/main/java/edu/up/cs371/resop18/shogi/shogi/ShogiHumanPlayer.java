@@ -1,7 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
-import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,10 +25,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
     private Button optionsButt;
     private Vibrator vb;
 
-    public ShogiHumanPlayer(String name) {
-        super(name);
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-    }
+    public ShogiHumanPlayer(String name) { super(name); }
 
     @Override
     public View getTopView() {

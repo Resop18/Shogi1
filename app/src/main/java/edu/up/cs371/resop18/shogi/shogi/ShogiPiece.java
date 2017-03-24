@@ -598,12 +598,13 @@ public class ShogiPiece {
         }else{
             a = 1;
         }
+
         LegalMoves m = new LegalMoves(a);
         int[][] moves = m.moves(board, s[3], row, col, player);
 
         for(int i = 0; i < 16; i++) {
             if(moves[i] == null){ break; }
-            if(moves[i] == new int[]{currRow, currCol}){
+            if(moves[i][0] == currRow && moves[i][1] == currCol){
                 return true;
             }
         }
