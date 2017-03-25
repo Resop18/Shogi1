@@ -12,7 +12,7 @@ public class LegalMoves {
     }
 
     public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol, boolean player){
-        int[][] moves = new int[16][];
+        int[][] moves = new int[20][];
 
         int row = 0;
         int col = 0;
