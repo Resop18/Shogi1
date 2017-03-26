@@ -10,16 +10,6 @@ public class ShogiAI {
         gameState = gState;
         ShogiPiece[][] gameBoard = gameState.pieces;
         double bestVal = eval(gameBoard, true, 0, false);
-
-        //System.out.println(bestVal);
-
-        for (ShogiPiece[] aBestChild : bestChild) {
-            for (ShogiPiece anABestChild : aBestChild) {
-                if (anABestChild != null) {
-                    Log.i("Best Piece", anABestChild.getPiece());
-                }
-            }
-        }
     }
 
     private ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
@@ -37,7 +27,7 @@ public class ShogiAI {
                                     board[b[0]][b[1]].setPlayer(board[j][k].getPlayer());
                                     board[b[0]][b[1]].promotePiece(board[j][k].getPromoted());
                                     board[j][k] = null;
-                                }catch(Exception e){ }
+                                }catch(Exception ex){ }
                             }
                         }
                     }
@@ -117,11 +107,4 @@ public class ShogiAI {
     }
 
     public ShogiPiece[][] getBestChild(){ return bestChild; }
-
-    /*public static void main(String[] args){
-        ShogiAI ai = new ShogiAI(new ShogiGameState());
-        ai.gameState.setCurrentBoard(ai.getBestChild());
-
-        System.out.println("Done");
-    }*/
 }
