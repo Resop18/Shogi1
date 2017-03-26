@@ -1,37 +1,30 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.util.Log;
-
 public class ShogiAI {
     ShogiGameState gameState;
     private ShogiPiece[][] bestChild;
 
-    public ShogiAI(ShogiGameState gState){
+    public ShogiAI(ShogiGameState gState, boolean smartAI){
         gameState = gState;
         ShogiPiece[][] gameBoard = gameState.pieces;
-        double bestVal = eval(gameBoard, true, 0, false);
+        double bestVal = eval(gameBoard, true, 0, smartAI);
     }
 
     private ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
-        LegalMoves m = new LegalMoves(100);
-        int[][] movesList;
-        for(int j = 0; j < 9; j++) {
-            for(int k = 0; k < 9; k++){
-                if(board[j][k] != null) {
-                    movesList = m.moves(board, board[j][k].getPiece(), board[j][k].getRow(), board[j][k].getCol(), board[j][k].getPlayer());
-                    for(int[] b : movesList){
-                        if(b != null){
-                            if(board[b[0]][b[1]] == null || board[b[0]][b[1]].getPlayer() != board[j][k].getPlayer()){
-                                try{
-                                    board[b[0]][b[1]] = new ShogiPiece(b[0], b[1], board[j][k].getPiece());
-                                    board[b[0]][b[1]].setPlayer(board[j][k].getPlayer());
-                                    board[b[0]][b[1]].promotePiece(board[j][k].getPromoted());
-                                    board[j][k] = null;
-                                }catch(Exception ex){ }
-                            }
-                        }
-                    }
-                }
+        int row = move[0];
+        int col = move[1];
+
+        int oldRow = move[2];
+        int oldCol = move[3];
+
+        if(board[oldRow][oldCol] != null){
+            if(board[row][col] == null || board[row][col].getPlayer() != board[oldRow][oldCol].getPlayer()){
+                try{
+                    board[row][col] = new ShogiPiece(row, col, board[oldRow][oldCol].getPiece());
+                    board[row][col].setPlayer(board[oldRow][oldCol].getPlayer());
+                    board[row][col].promotePiece(board[oldRow][oldCol].getPromoted());
+                    board[oldRow][oldCol] = null;
+                }catch(Exception e){ }
             }
         }
         return board;
@@ -39,19 +32,22 @@ public class ShogiAI {
 
     private int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(0);
-        int[][][] list = new int[40][20][];
+        int[][][] list = new int[40][20][4];
         int[][] possibleMoves;
-        for(int a = 0; a < list.length; a++){
+        for(int a = 0; a < 40; a++){
             for (ShogiPiece[] aBoard : board) {
                 for (ShogiPiece anABoard : aBoard){
                     if(anABoard != null){
-                        possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol(), anABoard.getPlayer());
-                        if(possibleMoves != null){
+                        if(!anABoard.getPlayer()){
+                            possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol(), anABoard.getPlayer());
                             for(int i = 0; i < 20; i++){
-                                try{
+                                if(possibleMoves[i] != null){
                                     list[a][i][0] = possibleMoves[i][0];
                                     list[a][i][1] = possibleMoves[i][1];
-                                }catch (Exception e){ }
+
+                                    list[a][i][2] = anABoard.getRow();
+                                    list[a][i][3] = anABoard.getCol();
+                                }
                             }
                         }
                     }
@@ -62,15 +58,11 @@ public class ShogiAI {
     }
 
     private ShogiPiece[][][] childList(ShogiPiece[][] board, int[][][] actList){
-        ShogiPiece[][][] list = new ShogiPiece[100][9][9];
-        int i;
+        ShogiPiece[][][] list = new ShogiPiece[100][10][9];
         for(ShogiPiece[][] aList : list){
-            for (int[][] anActList : actList) {
-                i = 0;
-                for (int[] anAnActList : anActList) {
-                    aList = newGameState(board, anAnActList);
-                    i++;
-                    Log.i("i", ""+i);
+            for(int i = 0; i < actList.length; i++) {
+                for(int j = 0; j < actList[i].length; j++) {
+                    aList = newGameState(board, actList[i][j]);
                 }
             }
         }
@@ -78,7 +70,7 @@ public class ShogiAI {
     }
 
     private double eval(ShogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
-        int MAX_DEPTH = smartAI ? 4 : 0;
+        int MAX_DEPTH = smartAI ? 2 : 0;
         double val;
         int[][][] actList = actList(board);
         ShogiPiece[][][] childList = childList(board, actList);
@@ -90,12 +82,11 @@ public class ShogiAI {
         double bestVal = MAX ? -10 : +10;
         for (ShogiPiece[][] aChildList : childList) {
             val = eval(aChildList, !MAX, depth + 1, smartAI);
-            System.out.println("hi");
             if(MAX && val > bestVal){
                 bestVal = val;
                 bestChild = aChildList;
-            }else if(!MAX && val < bestVal){
-                bestVal = val;
+            }else if(!MAX && -val < bestVal){
+                bestVal = -val;
                 bestChild = aChildList;
             }else{
                 bestVal = 0;
