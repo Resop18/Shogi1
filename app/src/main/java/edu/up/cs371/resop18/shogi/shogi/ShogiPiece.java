@@ -26,6 +26,8 @@ public class ShogiPiece {
     private boolean isCaptured = false;
     private String[] s;
 
+    LegalMoves m;
+
     //Defines the pieces
     private String[][] pieces = {{"王", "將", "王", "King"}, {"飛", "車", "飛", "Rook"}, {"角", "行", "角", "Bishop"},
             {"金", "將", "金", "Gold"}, {"銀", "將", "銀", "Silver"}, {"桂", "馬", "桂", "Knight"},
@@ -42,6 +44,12 @@ public class ShogiPiece {
         this.x = (int)(ShogiGui.topLeftX + initCol * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting row
         this.y = (int)(ShogiGui.topLeftY + initRow * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting col
 
+        if(getPlayer()) {
+            m = new LegalMoves(0);
+        }else{
+            m = new LegalMoves(1);
+        }
+
         //Defines the Piece
         for(String[] aww : pieces){
             if(aww[3].equals(piece)){
@@ -54,6 +62,12 @@ public class ShogiPiece {
     public ShogiPiece(float xPos, float yPos, String piece){
         this.x = (int)xPos;
         this.y = (int)yPos;
+
+        if(getPlayer()) {
+            m = new LegalMoves(0);
+        }else{
+            m = new LegalMoves(1);
+        }
 
         //Defines the Piece
         for(String[] aww : pieces){
@@ -215,7 +229,7 @@ public class ShogiPiece {
     }
 
     //draws circles in the spaces where a selected piece can move
-    public void drawMoves(Canvas C){
+    public void drawMoves(Canvas C, ShogiPiece[][] board){
         //canvas.drawCircle(topLeftX + spaceDim / 2, topLeftY + spaceDim / 2, spaceDim / 3, CirclePaint);
         Paint CirclePaint = new Paint();
 
@@ -225,7 +239,19 @@ public class ShogiPiece {
             CirclePaint.setColor(Color.RED);
         }
 
-        float xPos, yPos;
+        int[][] moves = m.moves(board, getPiece(), getRow(), getCol(), getPlayer());
+
+        for(int i = 0; i < moves.length; i++){
+            if(moves[i] != null){
+                int xPos = (int)(ShogiGui.topLeftX + moves[i][1]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+                int yPos = (int)(ShogiGui.topLeftY + moves[i][0]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+                int radius = (int)(ShogiGui.spaceDim/3);
+
+                C.drawCircle(xPos, yPos, radius, CirclePaint);
+            }
+        }
+
+        /*float xPos, yPos;
 
         if(!player){
             C.rotate(180f, x, y);
@@ -575,7 +601,7 @@ public class ShogiPiece {
 
         if(!player){
             C.rotate(180f, x, y);
-        }
+        }*/
     }
 
     //Doesn't do anything right now

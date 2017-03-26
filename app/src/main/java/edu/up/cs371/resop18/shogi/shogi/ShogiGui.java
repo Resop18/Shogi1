@@ -7,9 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
 
 import edu.up.cs371.resop18.shogi.R;
 
@@ -115,7 +113,7 @@ public class ShogiGui extends SurfaceView{
                     pieces[i][j].drawShogiPiece(canvas);
 
                     if(pieces[i][j].getSelected())
-                        pieces[i][j].drawMoves(canvas);
+                        pieces[i][j].drawMoves(canvas, pieces);
                 }
             }
         }
