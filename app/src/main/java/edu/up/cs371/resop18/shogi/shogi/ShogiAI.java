@@ -4,10 +4,10 @@ public class ShogiAI {
     ShogiGameState gameState;
     private ShogiPiece[][] bestChild;
 
-    public ShogiAI(ShogiGameState gState, boolean smartAI){
+    public ShogiAI(ShogiGameState gState, int MAX_DEPTH){
         gameState = gState;
         ShogiPiece[][] gameBoard = gameState.pieces;
-        double bestVal = eval(gameBoard, true, 0, smartAI);
+        double bestVal = eval(gameBoard, true, 0, MAX_DEPTH);
     }
 
     private ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
@@ -32,9 +32,9 @@ public class ShogiAI {
 
     private int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(0);
-        int[][][] list = new int[40][20][4];
+        int[][][] list = new int[35][20][4];
         int[][] possibleMoves;
-        for(int a = 0; a < 40; a++){
+        for(int a = 0; a < list.length; a++){
             for (ShogiPiece[] aBoard : board) {
                 for (ShogiPiece anABoard : aBoard){
                     if(anABoard != null){
@@ -58,7 +58,7 @@ public class ShogiAI {
     }
 
     private ShogiPiece[][][] childList(ShogiPiece[][] board, int[][][] actList){
-        ShogiPiece[][][] list = new ShogiPiece[100][10][9];
+        ShogiPiece[][][] list = new ShogiPiece[actList.length][10][9];
         for(ShogiPiece[][] aList : list){
             for(int i = 0; i < actList.length; i++) {
                 for(int j = 0; j < actList[i].length; j++) {
@@ -69,8 +69,7 @@ public class ShogiAI {
         return list;
     }
 
-    private double eval(ShogiPiece[][] board, boolean MAX, int depth, boolean smartAI){
-        int MAX_DEPTH = smartAI ? 2 : 0;
+    private double eval(ShogiPiece[][] board, boolean MAX, int depth, int MAX_DEPTH){
         double val;
         int[][][] actList = actList(board);
         ShogiPiece[][][] childList = childList(board, actList);
@@ -81,7 +80,7 @@ public class ShogiAI {
 
         double bestVal = MAX ? -10 : +10;
         for (ShogiPiece[][] aChildList : childList) {
-            val = eval(aChildList, !MAX, depth + 1, smartAI);
+            val = eval(aChildList, !MAX, depth + 1, MAX_DEPTH);
             if(MAX && val > bestVal){
                 bestVal = val;
                 bestChild = aChildList;
