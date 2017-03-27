@@ -13,6 +13,7 @@ public class ShogiMoveAction extends GameAction {
     private ShogiPiece capturedPiece;
     public int newRow, newCol, oldRow, oldCol;
     public ShogiPiece currPiece;
+    public ShogiPiece[][] board = new ShogiPiece[10][9];
 
     /**
      * constructor for GameAction
@@ -31,4 +32,8 @@ public class ShogiMoveAction extends GameAction {
         this.oldCol = oldC;
     }
 
+    public ShogiMoveAction(GamePlayer player, ShogiPiece[][] board){
+        super(player);
+        this.board = board;
+    }
 }

@@ -8,13 +8,18 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
  */
 
 public class ShogiComputerPlayer extends GameComputerPlayer {
+    private ShogiGameState state;
+
     public ShogiComputerPlayer(String name) {
         super(name);
     }
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        ShogiGameState gameState = (ShogiGameState)info;
-        //game.sendAction(new ShogiMovePiece(this));
+        if(info instanceof ShogiGameState){
+            this.state = (ShogiGameState)info;
+            ShogiAI ai = new ShogiAI(state, 1);
+            //game.sendAction(new ShogiMoveAction(this, ai.getBestChild()));
+        }
     }
 }

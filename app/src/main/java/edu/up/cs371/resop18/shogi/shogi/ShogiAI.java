@@ -1,8 +1,11 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 public class ShogiAI {
-    ShogiGameState gameState;
+    private ShogiGameState gameState;
     private ShogiPiece[][] bestChild;
+
+    private int oldRow, oldCol;
+    private int newRow, newCol;
 
     public ShogiAI(ShogiGameState gState, int MAX_DEPTH){
         gameState = gState;
@@ -32,7 +35,7 @@ public class ShogiAI {
 
     private int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(0);
-        int[][][] list = new int[35][20][4];
+        int[][][] list = new int[30][20][4];
         int[][] possibleMoves;
         for(int a = 0; a < list.length; a++){
             for (ShogiPiece[] aBoard : board) {
