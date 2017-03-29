@@ -1,7 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
 public class ShogiAI {
-    private ShogiGameState gameState;
+    public ShogiGameState gameState;
     private ShogiPiece[][] bestChild = new ShogiPiece[10][9];
 
     protected int oldRow, oldCol;
@@ -10,10 +10,13 @@ public class ShogiAI {
     public ShogiAI(ShogiGameState gState, int MAX_DEPTH){
         gameState = gState;
         ShogiPiece[][] gameBoard = gameState.pieces;
-        double bestVal = eval(gameBoard, true, 0, MAX_DEPTH);
+        double bestVal = eval(gameBoard, -1000.0, 1000.0, true, 0, MAX_DEPTH);
     }
 
-    private ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
+    public double max(double a, double b){ return (a > b) ? a : b; }
+    public double min(double a, double b){ return (a < b) ? a : b; }
+
+    public ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
         ShogiPiece[][] newBoard = new ShogiPiece[10][9];
 
         for(int i = 0; i < newBoard.length; i++){
@@ -45,7 +48,7 @@ public class ShogiAI {
 
     private int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(0);
-        int[][][] list = new int[15][20][4];
+        int[][][] list = new int[25][20][4];
         int[][] possibleMoves;
         for(int a = 0; a < list.length; a++){
             for (ShogiPiece[] aBoard : board) {
@@ -74,8 +77,11 @@ public class ShogiAI {
         ShogiPiece[][] localBoard = new ShogiPiece[10][9];
         ShogiPiece[][][] list = new ShogiPiece[actList.length][10][9];
 
+        //This section is what takes the longest
         for(int i = 0; i < actList.length; i++) {
+            if(actList[i] == null){ break; }
             for(int j = 0; j < actList[i].length; j++) {
+                if(actList[i][j] == null){ break; }
                 for(ShogiPiece[][] aList : list){
                     localBoard = newGameState(board, actList[i][j]);
                     for(int k = 0; k < localBoard.length; k++){
@@ -93,13 +99,13 @@ public class ShogiAI {
         return list;
     }
 
-    private double eval(ShogiPiece[][] board, boolean MAX, int depth, int MAX_DEPTH){
+    public double eval(ShogiPiece[][] board, double alpha, double beta, boolean MAX, int depth, int MAX_DEPTH){
         double val;
         int[][][] actList = actList(board);
         ShogiPiece[][][] tempChildList = childList(board, actList);
         ShogiPiece[][][] childList = new ShogiPiece[actList.length][10][9];
 
-        for(int i = 0; i < actList.length; i++){
+        for(int i = 0; i < tempChildList.length; i++){
             for(int j = 0; j < tempChildList[i].length; j++){
                 for(int k = 0; k < tempChildList[i][j].length; k++){
                     if(tempChildList[i][j][k] != null){
@@ -117,9 +123,10 @@ public class ShogiAI {
 
         double bestVal = MAX ? -10 : +10;
         for (ShogiPiece[][] aChildList : childList) {
-            val = eval(aChildList, !MAX, depth + 1, MAX_DEPTH);
+            val = eval(aChildList, alpha, beta, !MAX, depth + 1, MAX_DEPTH);
             if(MAX && val > bestVal){
-                bestVal = val;
+                bestVal = max(val, bestVal);
+                alpha = max(alpha, bestVal);
                 for(int i = 0; i < aChildList.length; i++){
                     for(int j = 0; j < aChildList[i].length; j++){
                         if(aChildList[i][j] != null){
@@ -129,8 +136,10 @@ public class ShogiAI {
                         }
                     }
                 }
+                if(beta <= alpha){ break; }
             }else if(!MAX && -val < bestVal){
-                bestVal = -val;
+                bestVal = min(-val, bestVal);
+                beta = min(beta, bestVal);
                 for(int i = 0; i < aChildList.length; i++){
                     for(int j = 0; j < aChildList[i].length; j++){
                         if(aChildList[i][j] != null){
@@ -140,9 +149,9 @@ public class ShogiAI {
                         }
                     }
                 }
+                if(beta <= alpha){ break; }
             }
         }
-
         return bestVal;
     }
 
