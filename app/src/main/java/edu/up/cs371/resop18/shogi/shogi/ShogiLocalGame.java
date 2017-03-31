@@ -52,12 +52,14 @@ public class ShogiLocalGame extends LocalGame {
         }
         //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
+            ShogiMoveAction moveAction = (ShogiMoveAction)action;
+
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
 
-            ShogiPiece currPiece = ((ShogiMoveAction) action).currPiece;
-            int row = ((ShogiMoveAction) action).newRow;
-            int col = ((ShogiMoveAction) action).newCol;
+            ShogiPiece currPiece = moveAction.currPiece;
+            int row = moveAction.newRow;
+            int col = moveAction.newCol;
 
             //If possible captures piece
             if(newBoard[row][col] != null){
@@ -69,8 +71,7 @@ public class ShogiLocalGame extends LocalGame {
             }
 
             //Create piece in desired place
-            newBoard[row][col] = new ShogiPiece(row, col, newBoard[((ShogiMoveAction) action).oldRow]
-                    [((ShogiMoveAction) action).oldCol].getPiece());
+            newBoard[row][col] = new ShogiPiece(row, col, newBoard[moveAction.oldRow][moveAction.oldCol].getPiece());
 
             gameState.setCurrentBoard(newBoard);
             currPiece.setPlayer(currPiece.getPlayer());

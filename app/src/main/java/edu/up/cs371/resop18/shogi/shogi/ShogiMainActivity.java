@@ -24,7 +24,7 @@ public class ShogiMainActivity extends GameMainActivity {
         // a human player player type (player type 0)
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
-                return new ShogiHumanPlayer(name);
+                return new ShogiHumanPlayerTest(name);
             }});
 
         // a computer player type (player type 1)
