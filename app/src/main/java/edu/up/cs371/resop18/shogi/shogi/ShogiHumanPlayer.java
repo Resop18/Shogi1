@@ -97,7 +97,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		int row,col;
+		int row, col;
 		col = 0;
 		//if(state == null){ this.state = new ShogiGameState(); }
 		//this.currPieces=state.getCurrentBoard();
@@ -106,93 +106,79 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			Log.i("null", "currPieces array null somehow");
 			return false;
 		}
+
 		//Don't do anything when dragging or lifting touch
 		if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
 			Log.i("event", "is not dwon");
 			return false;
 		}
 
+		row = (int)((event.getY() - ShogiGui.topLeftY)/(ShogiGui.spaceDim));
+		col = (int)((event.getX() - ShogiGui.topLeftX)/(ShogiGui.spaceDim));
+
 		//check if user tapped inside the board lines
-		if(event.getY() > ShogiGui.topLeftY + 10 * ShogiGui.spaceDim || event.getX() > ShogiGui.topLeftX + 9 * ShogiGui.spaceDim){
+		if(row > 10 || col > 9){
 			return false;
 		}
 		//butt
-		if(event.getY() < ShogiGui.topLeftY){
+		if(row < 0 || col < 0){
 			return false;
 		}
 
-		//This determine space that was tapped
-		for(row = 0; row <= 9; row++) {
-			if(event.getY() <= ShogiGui.topLeftY + (row + 1) * ShogiGui.spaceDim) {
-				for (col = 0; col < 9; col++) {
-					if(event.getX() < ShogiGui.topLeftX + (col + 1) * ShogiGui.spaceDim){
-						if(havePieceSelected){
-							//If you tap if a position when a piece is selected it will move the piece there
-							if(currPieces[row][col] == null) {
-								//if(ShogiGui.pieceIsSelected){
-								for(int i = 0; i <= 9; i++){
-									for(int j = 0; j < 9; j++){
-										if(currPieces[row][col] == null || (currPieces[row][col]!=null && currPieces[row][col].getPlayer() == false)){
-											if(currPieces[rowSel][colSel].getSelected()){
-												if(i == 9){
-													game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
-												}
-
-												game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel],  row, col, rowSel, colSel));
-
-												break;
-											}
-										}
-									}
-									break;
-								}
-								//currPieces[row][col].setSelected(false);
-								ShogiGui.pieceIsSelected = false;
-								havePieceSelected = false;
-								//redraw board with currPieces updated
-
-								return true;
-							}else {
-								if (currPieces[row][col].getPlayer()) {
-									//This deals with selected and deselecting currPieces
-									if (currPieces[row][col].getSelected()) {
-										//This deselects a piece if it is selected
-										currPieces[row][col].setSelected(false);
-										ShogiGui.pieceIsSelected = false;
-									} else {
-										//This will select the piece if it is not selected
-										for (int i = 0; i < 9; i++) {
-											for (int j = 0; j < 9; j++) {
-												if (currPieces[i][j] != null) {
-													if (currPieces[i][j].getSelected()) {
-														currPieces[i][j].setSelected(false);
-													}
-												}
-											}
-										}
-
-										currPieces[row][col].setSelected(true);
-										ShogiGui.pieceIsSelected = true;
-									}
-								}
-							}
-						}else {
-							Log.i("tap", "got the tap");
-							if (this.currPieces[row][col] != null && currPieces[row][col].getPlayer()) {
-								this.currPieces[row][col].setSelected(true);
-								havePieceSelected = true;
-								rowSel = row;
-								colSel = col;
-							}
-							break;
+		if(havePieceSelected){
+			if(currPieces[row][col] == null) {
+				if(currPieces[rowSel][colSel] != null){
+					if(currPieces[rowSel][colSel].getSelected()){
+						if(rowSel == 9){
+							game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 						}
+						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+						//currPieces[rowSel][colSel] = null;
+
+						Log.i("Move", "Sent Action");
 					}
 				}
-				break;
+
+				//currPieces[row][col].setSelected(false);
+				ShogiGui.pieceIsSelected = false;
+				havePieceSelected = false;
+				//redraw board with currPieces updated
+
+				rowSel = row;
+				colSel = col;
+
+				return true;
+			}else{
+				//This deals with selected and deselecting currPieces
+				if(currPieces[row][col].getSelected()){
+					//This deselects a piece if it is selected
+					currPieces[row][col].setSelected(false);
+					ShogiGui.pieceIsSelected = false;
+				}else{
+					//This will select the piece if it is not selected
+					for(int i = 0; i < 9; i++){
+						for(int j = 0; j < 9; j++){
+							if(currPieces[i][j] != null){
+								if(currPieces[i][j].getSelected()){
+									currPieces[i][j].setSelected(false);
+								}
+							}
+						}
+					}
+
+					currPieces[row][col].setSelected(true);
+					ShogiGui.pieceIsSelected = true;
+				}
+			}
+		}else {
+			Log.i("tap", "got the tap");
+			if(this.currPieces[row][col] != null) {
+				this.currPieces[row][col].setSelected(true);
+				havePieceSelected = true;
+				rowSel = row;
+				colSel = col;
 			}
 		}
-
-
 
 		//redraw board with currPieces updated
 		gui.invalidate();

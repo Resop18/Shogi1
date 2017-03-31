@@ -68,8 +68,8 @@ public class ShogiLocalGame extends LocalGame {
             if(newBoard[row][col] != null){
                 for(int i = 0; i < captured.length; i++){
                     if(captured[i] == null){
-                        captured[i] = new ShogiPiece(10, 10, newBoard[row][col].getPiece());
 						newBoard[row][col]=null;
+                        captured[i] = new ShogiPiece(10, 10, newBoard[row][col].getPiece());
                         break;
                     }
                 }
