@@ -611,7 +611,7 @@ public class ShogiPiece {
     }
 
     //Gets the piece name for being redrawn
-    public String getPiece(){ return s[3]; }
+    public String getPiece(){ return this.s[3]; }
 
     //Returns if the piece is selected
     public boolean getSelected(){ return this.selected; }

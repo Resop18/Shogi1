@@ -25,7 +25,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return playerIdx == gameState.getPlayerTurn();
+        return true; //playerIdx == gameState.getPlayerTurn();
     }
 
     @Override
@@ -52,26 +52,32 @@ public class ShogiLocalGame extends LocalGame {
         }
         //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
-            ShogiMoveAction moveAction = (ShogiMoveAction)action;
+			ShogiMoveAction sma = ((ShogiMoveAction) action);
 
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
 
-            ShogiPiece currPiece = moveAction.currPiece;
-            int row = moveAction.newRow;
-            int col = moveAction.newCol;
+            ShogiPiece currPiece = new ShogiPiece(sma.newRow, sma.newCol, sma.currPiece.getPiece());
+            int row = sma.newRow;
+            int col = sma.newCol;
+
+
+			Log.i("currentPiece", currPiece.getPiece());
 
             //If possible captures piece
             if(newBoard[row][col] != null){
                 for(int i = 0; i < captured.length; i++){
                     if(captured[i] == null){
                         captured[i] = new ShogiPiece(10, 10, newBoard[row][col].getPiece());
+						newBoard[row][col]=null;
+                        break;
                     }
                 }
             }
 
             //Create piece in desired place
-            newBoard[row][col] = new ShogiPiece(row, col, newBoard[moveAction.oldRow][moveAction.oldCol].getPiece());
+            newBoard[row][col] = currPiece;
+			newBoard[sma.oldRow][sma.oldCol] = null;
 
             gameState.setCurrentBoard(newBoard);
             currPiece.setPlayer(currPiece.getPlayer());
@@ -86,6 +92,6 @@ public class ShogiLocalGame extends LocalGame {
             gameState.setPlayerTurn(1);
             return true;
         }
-        return false;
+        return true;
     }
 }

@@ -25,7 +25,7 @@ public class ShogiMoveAction extends GameAction {
      */
     public ShogiMoveAction(GamePlayer player, ShogiPiece piece, int newR, int newC, int oldR, int oldC) {
         super(player);
-        this.currPiece = piece;
+        this.currPiece = new ShogiPiece(piece.getRow(),piece.getCol(),piece.getPiece());
         this.newRow = newR;
         this.newCol = newC;
         this.oldRow = oldR;
