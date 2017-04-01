@@ -25,7 +25,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private Button optionsButt;
 	private Vibrator vb;
 	private boolean havePieceSelected = false;
-	private int rowSel, colSel;
+	private Integer rowSel, colSel;
+	private Integer reset = null;
 	private ShogiGui gui;
 
 	public ShogiHumanPlayer(String name) { super(name); }
@@ -70,19 +71,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		if (state != null) {
 			receiveInfo(state);
 		}
-	}
-
-	//@Override
-	//public void sendInfo(GameInfo info) { }
-
-	@Override
-	public boolean requiresGui() {
-		return false;
-	}
-
-	@Override
-	public boolean supportsGui() {
-		return true;
 	}
 
 	@Override
@@ -140,7 +128,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				}
 
 				//currPieces[row][col].setSelected(false);
-				ShogiGui.pieceIsSelected = false;
+				gui.pieceIsSelected = false;
 				havePieceSelected = false;
 				//redraw board with currPieces updated
 
@@ -153,7 +141,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				if(currPieces[row][col].getSelected()){
 					//This deselects a piece if it is selected
 					currPieces[row][col].setSelected(false);
-					ShogiGui.pieceIsSelected = false;
+					gui.pieceIsSelected = false;
 				}else{
 					//This will select the piece if it is not selected
 					for(int i = 0; i < 9; i++){
@@ -167,7 +155,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 					}
 
 					currPieces[row][col].setSelected(true);
-					ShogiGui.pieceIsSelected = true;
+					gui.pieceIsSelected = true;
+					rowSel = row;
+					colSel = col;
 				}
 			}
 		}else {

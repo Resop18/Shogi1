@@ -26,7 +26,7 @@ public class ShogiGui extends SurfaceView{
     public static final float backBoardTopLeftY = 125; //100 is good
     public static final float topLeftX = backBoardTopLeftX + spaceDim / 2; //95 is good
     public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
-    public static boolean pieceIsSelected = false;
+    public boolean pieceIsSelected = false;
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
     private Bitmap board; // make  a board
 
@@ -42,7 +42,6 @@ public class ShogiGui extends SurfaceView{
 
         board = BitmapFactory.decodeResource(getResources(), R.drawable.shougi_board);
         board = Bitmap.createScaledBitmap(board, 1450, 1400, false); //1450 1400
-
         pieces = new ShogiGameState().pieces;
     }
 
