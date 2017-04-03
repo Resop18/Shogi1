@@ -274,7 +274,7 @@ public class LegalMoves {
                 }
                 i++;
             }else{
-                if(currRow != 8 && currCol != 8){
+                if(currRow != 8 && currCol != 0){
                     if(board[currRow+1][currCol-1] != null){
                         if(player != board[currRow+1][currCol-1].getPlayer()){
                             moves[i] = new int[] {currRow+1, currCol-1};
@@ -285,7 +285,7 @@ public class LegalMoves {
                 }
                 i++;
 
-                if(currRow != 8 && currCol != 0){
+                if(currRow != 8 && currCol != 8){
                     if(board[currRow+1][currCol+1] != null){
                         if(player != board[currRow+1][currCol+1].getPlayer()){
                             moves[i] = new int[] {currRow+1, currCol+1};
@@ -296,17 +296,6 @@ public class LegalMoves {
                 }
                 i++;
             }
-
-            if(currRow != 8){
-                if(board[currRow+1][currCol] != null){
-                    if(player != board[currRow+1][currCol].getPlayer()){
-                        moves[i] = new int[] {currRow+1, currCol};
-                    }
-                }else{
-                    moves[i] = new int[] {currRow+1, currCol};
-                }
-            }
-            i++;
 
             if(currRow != 0){
                 if(board[currRow-1][currCol] != null){
@@ -319,31 +308,44 @@ public class LegalMoves {
             }
             i++;
 
-            if(currCol != 8){
-                if(board[currRow][currCol+1] != null){
-                    if(player != board[currRow][currCol+1].getPlayer()){
+            if(!pieceName.equals("Silver")){
+                if(currRow != 8){
+                    if(board[currRow+1][currCol] != null){
+                        if(player != board[currRow+1][currCol].getPlayer()){
+                            moves[i] = new int[] {currRow+1, currCol};
+                        }
+                    }else{
+                        moves[i] = new int[] {currRow+1, currCol};
+                    }
+                }
+                i++;
+
+                if(currCol != 8){
+                    if(board[currRow][currCol+1] != null){
+                        if(player != board[currRow][currCol+1].getPlayer()){
+                            moves[i] = new int[] {currRow, currCol+1};
+                        }
+                    }else{
                         moves[i] = new int[] {currRow, currCol+1};
                     }
-                }else{
-                    moves[i] = new int[] {currRow, currCol+1};
                 }
-            }
-            i++;
+                i++;
 
-            if(currCol != 0){
-                if(board[currRow][currCol-1] != null){
-                    if(player != board[currRow][currCol-1].getPlayer()){
+                if(currCol != 0){
+                    if(board[currRow][currCol-1] != null){
+                        if(player != board[currRow][currCol-1].getPlayer()){
+                            moves[i] = new int[] {currRow, currCol-1};
+                        }
+                    }else{
                         moves[i] = new int[] {currRow, currCol-1};
                     }
-                }else{
-                    moves[i] = new int[] {currRow, currCol-1};
                 }
+                i++;
             }
-            i++;
 
             if(pieceName.equals("King")){
                 if(player){
-                    if(currRow != 8){
+                    if(currRow != 0 && currCol != 0 && currRow != 8 && currCol != 8){
                         if(board[currRow+1][currCol-1] != null){
                             if(player != board[currRow+1][currCol-1].getPlayer()){
                                 moves[i] = new int[] {currRow+1, currCol-1};
@@ -363,7 +365,7 @@ public class LegalMoves {
                         i++;
                     }
                 }else{
-                    if(currRow != 0){
+                    if(currRow != 0 && currCol != 0 && currRow != 8 && currCol != 8){
                         if(board[currRow-1][currCol-1] != null){
                             if(player != board[currRow-1][currCol-1].getPlayer()){
                                 moves[i] = new int[] {currRow-1, currCol-1};
@@ -382,6 +384,85 @@ public class LegalMoves {
                         }
                         i++;
                     }
+                }
+            }
+        }else if(pieceName.equals("Silver")){
+            if(currRow-1 <= 0 ){
+                if(player){
+                    if(currCol - 1 <= 0){
+                        if(board[currRow+1][currCol+1] == null){
+                            moves[0] = new int[]{currRow+1, currCol+1};
+                        }
+                    }else if(currCol +1 >= 9){
+                        if(board[currRow-1][currCol-1] == null){
+                            moves[0] = new int[]{currRow-1, currCol-1};
+                        }
+                    }else{
+                        if(board[currRow+1][currCol-1] == null){
+                            moves[0] = new int[]{currRow+1, currCol-1};
+                        }
+                        if(board[currRow+1][currCol+1] == null){
+                            moves[1] = new int[]{currRow+1, currCol+1};
+                        }
+                    }
+                }
+            }else if(currRow+1 >= 8){
+                if(player){
+                    if(currCol - 1 <= 0){
+                        if(board[currRow-1][currCol] == null)
+                            moves[0] = new int[]{currRow-1, currCol};
+                        if(board[currRow-1][currCol+1] == null)
+                            moves[1] = new int[]{currRow-1, currCol+1};
+                    }else if(currCol+1 >= 9){
+                        if(board[currRow-1][currCol] == null)
+                            moves[0] = new int[]{currRow-1, currCol};
+                        if(board[currRow-1][currCol-1] == null)
+                            moves[1] = new int[]{currRow-1, currCol-1};
+                    }else{
+                        if(board[currRow-1][currCol] == null)
+                            moves[0] = new int[]{currRow-1, currCol};
+                        if(board[currRow-1][currCol-1] == null)
+                            moves[1] = new int[]{currRow-1, currCol-1};
+                        if(board[currRow-1][currCol+1] == null)
+                            moves[2] = new int[]{currRow-1, currCol+1};
+                    }
+                }
+            }else if(currCol+1 >= 8){
+                if(player){
+                    if(board[currRow-1][currCol] == null)
+                        moves[0] = new int[]{currRow-1, currCol};
+                    if(board[currRow-1][currCol-1] == null)
+                        moves[1] = new int[]{currRow-1, currCol-1};
+                    if(board[currRow+1][currCol+1] == null)
+                        moves[2] = new int[]{currRow+1, currCol-1};
+                }
+            }else if(currRow-1 <= 0 ){
+                if(player){
+                    if(board[currRow-1][currCol] == null){
+                        moves[0] = new int[]{currRow-1, currCol};
+                    }
+                    if(board[currRow-1][currCol+1] == null){
+                        moves[1] = new int[]{currRow-1, currCol+1};
+                    }
+                    if(board[currRow+1][currCol+1] == null){
+                        moves[2] = new int[]{currRow+1, currCol+1};
+                    }
+                }
+            }else{
+                if(board[currRow-1][currCol] == null){
+                    moves[0] = new int[]{currRow-1, currCol};
+
+                    if(board[currRow-1][currCol-1] == null)
+                        moves[1] = new int[]{currRow-1, currCol-1};
+
+                    if(board[currRow-1][currCol+1] == null)
+                        moves[2] = new int[]{currRow-1, currCol+1};
+
+                    if(board[currRow+1][currCol-1] == null)
+                        moves[3] = new int[]{currRow+1, currCol-1};
+
+                    if(board[currRow+1][currCol+1] == null)
+                        moves[4] = new int[]{currRow+1, currCol+1};
                 }
             }
         }else{
