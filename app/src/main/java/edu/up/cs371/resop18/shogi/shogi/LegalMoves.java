@@ -345,7 +345,7 @@ public class LegalMoves {
 
             if(pieceName.equals("King")){
                 if(player){
-                    if(currRow != 0 && currCol != 0 && currRow != 8 && currCol != 8){
+                    if(currRow+1 < 9 && currCol-1 > 0){
                         if(board[currRow+1][currCol-1] != null){
                             if(player != board[currRow+1][currCol-1].getPlayer()){
                                 moves[i] = new int[] {currRow+1, currCol-1};
@@ -354,7 +354,8 @@ public class LegalMoves {
                             moves[i] = new int[] {currRow+1, currCol-1};
                         }
                         i++;
-
+                    }
+                    if(currRow+1 < 9 && currCol+1 < 9){
                         if(board[currRow+1][currCol+1] != null){
                             if(player != board[currRow+1][currCol+1].getPlayer()){
                                 moves[i] = new int[] {currRow+1, currCol+1};
@@ -433,7 +434,7 @@ public class LegalMoves {
                         moves[0] = new int[]{currRow-1, currCol};
                     if(board[currRow-1][currCol-1] == null)
                         moves[1] = new int[]{currRow-1, currCol-1};
-                    if(board[currRow+1][currCol+1] == null)
+                    if(board[currRow+1][currCol-1] == null)
                         moves[2] = new int[]{currRow+1, currCol-1};
                 }
             }else if(currRow-1 <= 0 ){
@@ -450,19 +451,30 @@ public class LegalMoves {
                 }
             }else{
                 if(board[currRow-1][currCol] == null){
-                    moves[0] = new int[]{currRow-1, currCol};
+                    i = 0;
+                    moves[i] = new int[]{currRow-1, currCol};
+                    i++;
+                    if(currCol-1 >= 0){
+                        if(board[currRow-1][currCol-1] == null){
+                            moves[i] = new int[]{currRow-1, currCol-1};
+                            i++;
+                        }
 
-                    if(board[currRow-1][currCol-1] == null)
-                        moves[1] = new int[]{currRow-1, currCol-1};
+                        if(board[currRow+1][currCol-1] == null){
+                            moves[i] = new int[]{currRow+1, currCol-1};
+                            i++;
+                        }
+                    }
 
-                    if(board[currRow-1][currCol+1] == null)
-                        moves[2] = new int[]{currRow-1, currCol+1};
+                    if(board[currRow-1][currCol+1] == null){
+                        moves[i] = new int[]{currRow-1, currCol+1};
+                        i++;
+                    }
 
-                    if(board[currRow+1][currCol-1] == null)
-                        moves[3] = new int[]{currRow+1, currCol-1};
-
-                    if(board[currRow+1][currCol+1] == null)
-                        moves[4] = new int[]{currRow+1, currCol+1};
+                    if(board[currRow+1][currCol+1] == null){
+                        moves[i] = new int[]{currRow+1, currCol+1};
+                        i++;
+                    }
                 }
             }
         }else{
