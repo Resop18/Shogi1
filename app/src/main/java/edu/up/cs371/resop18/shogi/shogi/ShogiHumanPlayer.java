@@ -44,7 +44,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			this.state = (ShogiGameState)info;
 			this.currPieces = state.getCurrentBoard();
 			if(this.currPieces == null){ Log.i("sad", "why God why"); }
-			gui =(ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
+			gui = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
 			gui.pieces = this.currPieces;
 			gui.invalidate();
 		}
