@@ -13,6 +13,7 @@ public class ShogiMoveAction extends GameAction {
     private ShogiPiece capturedPiece;
     public int newRow, newCol, oldRow, oldCol;
     public ShogiPiece currPiece;
+    private ShogiPiece badPiece;
     public ShogiPiece[][] board = new ShogiPiece[10][9];
 
     /**
@@ -32,8 +33,13 @@ public class ShogiMoveAction extends GameAction {
         this.oldCol = oldC;
     }
 
-    public ShogiMoveAction(GamePlayer player, ShogiPiece[][] board){
+    public ShogiMoveAction(GamePlayer player, ShogiPiece myPiece, ShogiPiece yourPiece, int newR, int newC, int oldR, int oldC) {
         super(player);
-        this.board = board;
+        this.currPiece = new ShogiPiece(myPiece.getRow(),myPiece.getCol(),myPiece.getPiece());
+        this.badPiece = new ShogiPiece(yourPiece.getRow(),yourPiece.getCol(),yourPiece.getPiece());
+        this.newRow = newR;
+        this.newCol = newC;
+        this.oldRow = oldR;
+        this.oldCol = oldC;
     }
 }

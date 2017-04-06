@@ -57,24 +57,26 @@ public class ShogiLocalGame extends LocalGame {
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
 
-            ShogiPiece currPiece = new ShogiPiece(sma.newRow, sma.newCol, sma.currPiece.getPiece());
+
             int row = sma.newRow;
             int col = sma.newCol;
 
 
-			Log.i("currentPiece", currPiece.getPiece());
+			//Log.i("currentPiece", currPiece.getPiece());
 
             //If possible captures piece
             if(newBoard[row][col] != null){
                 for(int i = 0; i < captured.length; i++){
                     if(captured[i] == null){
-						newBoard[row][col]=null;
-                        captured[i] = new ShogiPiece(10, 10, newBoard[row][col].getPiece());
+
+                        captured[i] = new ShogiPiece(i, newBoard[row][col].getPiece());
+                        //newBoard[10][i] = newBoard[row][col]; this crashes the app
+                        newBoard[row][col]=null;
                         break;
                     }
                 }
             }
-
+            ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
             //Create piece in desired place
             newBoard[row][col] = currPiece;
 			newBoard[sma.oldRow][sma.oldCol] = null;

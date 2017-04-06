@@ -169,4 +169,8 @@ public class ShogiGameState extends GameState {
         this.pieces = board;
     }
 
+    public void setCaptured(ShogiPiece[] captured)
+    {
+        this.playerCaptured = captured;
+    }
 }

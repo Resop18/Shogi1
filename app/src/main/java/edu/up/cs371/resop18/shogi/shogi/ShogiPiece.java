@@ -59,6 +59,21 @@ public class ShogiPiece {
         }
     }
 
+    public ShogiPiece(int initCol, String piece){
+        this.col = initCol;
+
+        this.x = (int)(ShogiGui.topLeftX + initCol * ShogiGui.spaceDim + ShogiGui.spaceDim / 2);
+        this.y = (int)(ShogiGui.topLeftY + 10 * ShogiGui.spaceDim + ShogiGui.spaceDim / 2);
+
+        //Defines the Piece
+        for(String[] aww : pieces){
+            if(aww[3].equals(piece)){
+                this.s = aww; //Defines the piece
+                break; //Breaks loop after correct piece is found and defined
+            }
+        }
+    }
+
     public ShogiPiece(float xPos, float yPos, String piece){
         this.x = (int)xPos;
         this.y = (int)yPos;

@@ -113,6 +113,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			return false;
 		}
 
+
+
 		if(havePieceSelected){
 			if(currPieces[row][col] == null) {
 				if(currPieces[rowSel][colSel] != null){
@@ -120,6 +122,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 						if(rowSel == 9){
 							game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 						}
+
 						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 						//currPieces[rowSel][colSel] = null;
 
@@ -136,7 +139,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				colSel = col;
 
 				return true;
-			}else{
+			}else if(currPieces[row][col].getPlayer() == false){game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));}
+			else{
 				//This deals with selected and deselecting currPieces
 				if(currPieces[row][col].getSelected()){
 					//This deselects a piece if it is selected
@@ -160,9 +164,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 					colSel = col;
 				}
 			}
-		}else {
+		}else{
 			Log.i("tap", "got the tap");
-			if(this.currPieces[row][col] != null) {
+			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
 				this.currPieces[row][col].setSelected(true);
 				havePieceSelected = true;
 				rowSel = row;
