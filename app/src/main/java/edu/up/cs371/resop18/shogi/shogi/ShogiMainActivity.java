@@ -44,7 +44,7 @@ public class ShogiMainActivity extends GameMainActivity {
         // - from 1 to 2 players
         // - name of game is "Counter Game"
         // - port number as defined above
-        GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Counter Game", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 1, 2, "Shogi", PORT_NUMBER);
 
         // Add the default players to the configuration
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
