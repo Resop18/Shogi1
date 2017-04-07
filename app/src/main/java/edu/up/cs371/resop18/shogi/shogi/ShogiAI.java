@@ -13,22 +13,22 @@ public class ShogiAI {
         gameState = gState;
         ShogiPiece[][] gameBoard = gameState.pieces;
 
-        double start = (double)System.currentTimeMillis();
-        double bestVal = eval(gameBoard, -1000.0, 1000.0, true, 0, MAX_DEPTH);
-        double end = (double)System.currentTimeMillis();
-        timeMinutes(start, end);
+        int depth = 0;
 
-        //System.out.println(""+bestVal);
+        double start = (double)System.currentTimeMillis();
+        double bestVal = eval(gameBoard, -1000.0, 1000.0, true, depth, MAX_DEPTH);
+        double end = (double)System.currentTimeMillis();
+        timeMinutes(start, end, depth);
     }
 
-    private void timeMinutes(double start, double end){
+    private void timeMinutes(double start, double end, int depth){
         double seconds = (end-start)/1000;
         int minutes = 0;
         while(seconds >= 60){
             seconds -= 60;
             minutes++;
         }
-        System.out.println("It took "+minutes+" minutes "+seconds+" seconds");
+        System.out.println("It took "+minutes+" minutes "+seconds+" seconds for depth "+depth+".");
     }
 
     public void printTime(double start, double end){ System.out.println("It took " + (end-start)/1000 + " seconds."); }
@@ -88,7 +88,6 @@ public class ShogiAI {
     private int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(1);
         int[][][] list = new int[numMoves][20][4];
-        //int[][] possibleMoves;
         for(int a = 0; a < list.length; a++){
             for (ShogiPiece[] aBoard : board) {
                 for (ShogiPiece anABoard : aBoard){
@@ -109,7 +108,7 @@ public class ShogiAI {
             }
         }
 
-        System.out.println("Length of actList:" + list.length);
+        //System.out.println("Length of actList:" + list.length);
         return list;
     }
 
@@ -139,8 +138,8 @@ public class ShogiAI {
             }
         }
         double end = (double)System.currentTimeMillis();
-        System.out.println("Length of childList: " + list.length);
         //printTime(start, end);
+        //System.out.println("Length of childList: " + list.length);
 
         return list;
     }
@@ -149,24 +148,10 @@ public class ShogiAI {
         double val;
         int[][][] actList = actList(board);
         ShogiPiece[][][] childList = childList(board, actList); //was tempChildList
-        //ShogiPiece[][][] childList = new ShogiPiece[actList.length][10][9];
-
 
         if(depth > MAX_DEPTH){
             return 0.5 + Math.random()*Math.random();
         }
-
-        /*for(int i = 0; i < tempChildList.length; i++){
-            for(int j = 0; j < tempChildList[i].length; j++){
-                for(int k = 0; k < tempChildList[i][j].length; k++){
-                   if(tempChildList[i][j][k] != null){
-                        childList[i][j][k] = new ShogiPiece(tempChildList[i][j][k].getRow(), tempChildList[i][j][k].getCol(), tempChildList[i][j][k].getPiece());
-                        childList[i][j][k].setPlayer(tempChildList[i][j][k].getPlayer());
-                        childList[i][j][k].promotePiece(tempChildList[i][j][k].getPromoted());
-                    }
-                }
-            }
-        }*/
 
         double bestVal = MAX ? -10 : +10;
         for (ShogiPiece[][] aChildList : childList) {
@@ -174,31 +159,11 @@ public class ShogiAI {
             if(MAX && -val > bestVal){
                 bestVal = max(-val, bestVal);
                 alpha = max(alpha, bestVal);
-                /*for(int i = 0; i < aChildList.length; i++){
-                    for(int j = 0; j < aChildList[i].length; j++){
-                        bestChild[i][j] = null;
-                        if(aChildList[i][j] != null){
-                            bestChild[i][j] = new ShogiPiece(aChildList[i][j].getRow(), aChildList[i][j].getCol(), aChildList[i][j].getPiece());
-                            bestChild[i][j].setPlayer(aChildList[i][j].getPlayer());
-                            bestChild[i][j].promotePiece(aChildList[i][j].getPromoted());
-                        }
-                    }
-                }*/
                 bestChild = aChildList;
                 if(beta <= alpha){ break; }
             }else if(!MAX && val < bestVal){
                 bestVal = min(val, bestVal);
                 beta = min(beta, bestVal);
-                /*for(int i = 0; i < aChildList.length; i++){
-                    for(int j = 0; j < aChildList[i].length; j++){
-                        bestChild[i][j] = null;
-                        if(aChildList[i][j] != null){
-                            bestChild[i][j] = new ShogiPiece(aChildList[i][j].getRow(), aChildList[i][j].getCol(), aChildList[i][j].getPiece());
-                            bestChild[i][j].setPlayer(aChildList[i][j].getPlayer());
-                            bestChild[i][j].promotePiece(aChildList[i][j].getPromoted());
-                        }
-                    }
-                }*/
                 bestChild = aChildList;
                 if(beta <= alpha){ break; }
             }
@@ -214,7 +179,6 @@ public class ShogiAI {
             }
         }else if(depth == 0) {
             System.out.println("Best Child:");
-
             printBoard(bestChild);
         }
         return bestVal;

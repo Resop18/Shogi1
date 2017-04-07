@@ -44,7 +44,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			// update our state; then update the display
 			this.state = (ShogiGameState)info;
 			this.currPieces = state.getCurrentBoard();
-			if(this.currPieces == null){ Log.i("sad", "why God why"); }
 			gui = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
 			gui.pieces = this.currPieces;
 			gui.invalidate();
@@ -92,13 +91,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//this.currPieces=state.getCurrentBoard();
 
 		if(this.currPieces == null){
-			Log.i("null", "currPieces array null somehow");
 			return false;
 		}
 
 		//Don't do anything when dragging or lifting touch
 		if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
-			Log.i("event", "is not dwon");
 			return false;
 		}
 
@@ -165,7 +162,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				}
 			}
 		}else{
-			Log.i("tap", "got the tap");
 			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
 				this.currPieces[row][col].setSelected(true);
 				havePieceSelected = true;
