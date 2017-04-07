@@ -28,6 +28,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private Integer rowSel, colSel;
 	private Integer reset = null;
 	private ShogiGui gui;
+	private boolean hasKing = true;
 
 	public ShogiHumanPlayer(String name) { super(name); }
 
@@ -114,7 +115,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 
 
-
 		if(havePieceSelected){
 			if(currPieces[row][col] == null) {
 				if(currPieces[rowSel][colSel] != null){
@@ -178,5 +178,15 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		gui.invalidate();
 
 		return true;
+	}
+
+	public boolean getHasKing()
+	{
+		return hasKing;
+	}
+
+	public void setHasKing(boolean hasKing)
+	{
+		this.hasKing = hasKing;
 	}
 }

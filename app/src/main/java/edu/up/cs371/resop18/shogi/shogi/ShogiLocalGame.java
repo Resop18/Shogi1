@@ -30,6 +30,12 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected String checkIfGameOver() {
+        if(!gameState.getPlayer1HasKing(0)){
+            return playerNames[1] +" has won!";
+        }
+        if(!gameState.getPlayer1HasKing(1)){
+            return playerNames[0] +" has won!";
+        }
         return null;
     }
 
@@ -70,7 +76,7 @@ public class ShogiLocalGame extends LocalGame {
                     if(captured[i] == null){
 
                         captured[i] = new ShogiPiece(i, newBoard[row][col].getPiece());
-                        //newBoard[10][i] = newBoard[row][col]; this crashes the app
+                        if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(1);}
                         newBoard[row][col]=null;
                         break;
                     }

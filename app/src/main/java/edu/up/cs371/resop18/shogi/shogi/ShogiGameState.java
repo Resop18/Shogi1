@@ -12,8 +12,9 @@ public class ShogiGameState extends GameState {
     ShogiPiece[][] pieces; //Keeps track of pieces on the board
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces
-    int isPlayersTurn; //Boolean for player's turns
-
+    private int isPlayersTurn; //Boolean for player's turns
+    private boolean[] playerHasKing = {true, true};
+    
     private int row, col; //for iterating and managing Pieces
 
     /*
@@ -172,5 +173,15 @@ public class ShogiGameState extends GameState {
     public void setCaptured(ShogiPiece[] captured)
     {
         this.playerCaptured = captured;
+    }
+
+    public boolean getPlayer1HasKing(int player)
+    {
+        return playerHasKing[player];
+    }
+
+    public void setPlayerHasKing(int player)
+    {
+        this.playerHasKing[player] = false;
     }
 }
