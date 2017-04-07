@@ -67,4 +67,3 @@ public class ShogiMainActivity extends GameMainActivity {
         return new ShogiLocalGame();
     }
 }
-

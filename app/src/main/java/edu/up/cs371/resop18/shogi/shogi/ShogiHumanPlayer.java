@@ -180,13 +180,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		return true;
 	}
 
-	public boolean getHasKing()
-	{
+	public boolean getHasKing(){
 		return hasKing;
 	}
 
-	public void setHasKing(boolean hasKing)
-	{
+	public void setHasKing(boolean hasKing){
 		this.hasKing = hasKing;
 	}
 }
