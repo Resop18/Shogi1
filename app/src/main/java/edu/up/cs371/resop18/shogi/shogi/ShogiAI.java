@@ -86,7 +86,7 @@ public class ShogiAI {
     }
 
     private int[][][] actList(ShogiPiece[][] board){
-        LegalMoves m = new LegalMoves(0);
+        LegalMoves m = new LegalMoves(1);
         int[][][] list = new int[numMoves][20][4];
         //int[][] possibleMoves;
         for(int a = 0; a < list.length; a++){
@@ -94,7 +94,7 @@ public class ShogiAI {
                 for (ShogiPiece anABoard : aBoard){
                     if(anABoard != null){
                         if(!anABoard.getPlayer()){
-                            int[][] possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol(), anABoard.getPlayer());
+                            int[][] possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol());
                             for(int i = 0; i < 20; i++){
                                 if(possibleMoves[i] == null){ break; }
                                 list[a][i][0] = possibleMoves[i][0];

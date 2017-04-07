@@ -254,7 +254,7 @@ public class ShogiPiece {
             CirclePaint.setColor(Color.RED);
         }
 
-        int[][] moves = m.moves(board, getPiece(), getRow(), getCol(), getPlayer());
+        int[][] moves = m.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){
             if(moves[i] != null){
@@ -643,7 +643,7 @@ public class ShogiPiece {
         }
 
         LegalMoves m = new LegalMoves(a);
-        int[][] moves = m.moves(board, s[3], row, col, player);
+        int[][] moves = m.moves(board, s[3], row, col);
 
         for(int i = 0; i < 16; i++) {
             if(moves[i] == null){ break; }
