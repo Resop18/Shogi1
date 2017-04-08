@@ -25,7 +25,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return true; //playerIdx == gameState.getPlayerTurn();
+        return gameState.getPlayerTurn();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ShogiLocalGame extends LocalGame {
             }else{
                 return false;
             }
-            gameState.setPlayerTurn(1);
+            gameState.setPlayerTurn(!gameState.getPlayerTurn());
             return true;
         }
         //Shogi Move Action
@@ -97,7 +97,7 @@ public class ShogiLocalGame extends LocalGame {
 
 
             currPiece.setSelected(false);
-            gameState.setPlayerTurn(1);
+            gameState.setPlayerTurn(!gameState.getPlayerTurn());
             return true;
         }
         return true;
