@@ -306,9 +306,10 @@ public class LegalMoves {
                     moves[i] = new int[] {currRow-1, currCol};
                 }
             }
+
             i++;
 
-            /**if(!pieceName.equals("Silver")){
+            if(!pieceName.equals("Silver")){
              if(currRow != 8){
              if(board[currRow+1][currCol] != null){
              if(player != board[currRow+1][currCol].getPlayer()){
@@ -342,7 +343,7 @@ public class LegalMoves {
              }
              i++;
              }
-             **/
+
 
             if(pieceName.equals("King")){
                 if(player){
