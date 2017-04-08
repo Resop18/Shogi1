@@ -110,9 +110,15 @@ public class ShogiGui extends SurfaceView{
             for(j = 0; j < 9; j++){
                 if(pieces[i][j] != null){
                     pieces[i][j].drawShogiPiece(canvas);
+                }
+            }
+        }
 
-                    if(pieces[i][j].getSelected())
-                        pieces[i][j].drawMoves(canvas, pieces);
+
+        for(i = 0; i < 9; i++) {
+            for(j = 0; j < 9; j++){
+                if(pieces[i][j] != null && pieces[i][j].getSelected()){
+                    pieces[i][j].drawMoves(canvas, pieces);
                 }
             }
         }
