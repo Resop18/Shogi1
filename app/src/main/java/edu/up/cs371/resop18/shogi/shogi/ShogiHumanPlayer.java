@@ -90,6 +90,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//if(state == null){ this.state = new ShogiGameState(); }
 		//this.currPieces=state.getCurrentBoard();
 
+		if(!state.getPlayerTurn()){ return false; }
 		if(this.currPieces == null){
 			return false;
 		}
