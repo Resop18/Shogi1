@@ -1,7 +1,5 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.util.Log;
-
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
 
 /**
@@ -113,15 +111,10 @@ public class ShogiGameState extends GameState {
         for(row = 0; row < 10; row++){
             for(col = 0; col < 9; col++){
                 if(orig.pieces[row][col] != null){
-                    Log.i("orig.piece s3", orig.pieces[row][col].getPiece());
                     this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
                     this.pieces[row][col].setPlayer(orig.pieces[row][col].getPlayer());
                     this.pieces[row][col].promotePiece(orig.pieces[row][col].getPromoted());
-                    Log.i("this.piece s3", this.pieces[row][col].getPiece());
                 }
-//                  Log.i("piece s3", orig.pieces[row][col].getPiece());
-               //     this.pieces[row][col] = null;
-               // }
             }
         }
 

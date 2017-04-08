@@ -77,7 +77,7 @@ public class ShogiLocalGame extends LocalGame {
 
                         captured[i] = new ShogiPiece(i, newBoard[row][col].getPiece());
                         if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(1);}
-                        newBoard[row][col]=null;
+                        newBoard[row][col] = null;
                         break;
                     }
                 }
@@ -85,7 +85,9 @@ public class ShogiLocalGame extends LocalGame {
             ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
             //Create piece in desired place
             newBoard[row][col] = currPiece;
-			newBoard[sma.oldRow][sma.oldCol] = null;
+            newBoard[row][col].promotePiece(sma.currPiece.getPromoted());
+            newBoard[row][col].setPlayer(sma.currPiece.getPlayer());
+            newBoard[sma.oldRow][sma.oldCol] = null;
 
             gameState.setCurrentBoard(newBoard);
             currPiece.setPlayer(currPiece.getPlayer());

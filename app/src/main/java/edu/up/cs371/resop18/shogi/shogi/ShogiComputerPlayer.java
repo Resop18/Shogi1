@@ -17,8 +17,8 @@ public class ShogiComputerPlayer extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if(info instanceof ShogiGameState){
-            this.state = (ShogiGameState)info;
-            ShogiAI ai = new ShogiAI(state, 0);
+            //this.state = (ShogiGameState)info;
+            //ShogiAI ai = new ShogiAI(state, 0);
             //game.sendAction(new ShogiMoveAction(this, ai.getBestChild()));
         }
     }

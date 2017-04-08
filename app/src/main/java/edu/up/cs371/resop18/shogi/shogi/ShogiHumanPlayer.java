@@ -44,7 +44,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			// update our state; then update the display
 			this.state = (ShogiGameState)info;
 			this.currPieces = state.getCurrentBoard();
-			if(this.currPieces == null){ Log.i("sad", "why God why"); }
 			gui = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
 			gui.pieces = this.currPieces;
 			gui.invalidate();
@@ -87,20 +86,24 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		int row, col;
+		col = 0;
+		//if(state == null){ this.state = new ShogiGameState(); }
+		//this.currPieces=state.getCurrentBoard();
+
+		if(this.currPieces == null){
+			return false;
+		}
 
 		//Don't do anything when dragging or lifting touch
 		if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
 			return false;
 		}
 
-
-
-
 		row = (int)((event.getY() - ShogiGui.topLeftY)/(ShogiGui.spaceDim));
 		col = (int)((event.getX() - ShogiGui.topLeftX)/(ShogiGui.spaceDim));
 
 		//check if user tapped inside the board lines
-		if(row >= 10 || col >= 9){
+		if(row > 10 || col > 9){
 			return false;
 		}
 		//butt
@@ -118,6 +121,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 						}
 
 						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+						//currPieces[rowSel][colSel] = null;
+
+						Log.i("Move", "Sent Action");
 					}
 				}
 
@@ -156,7 +162,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				}
 			}
 		}else{
-			Log.i("tap", "got the tap");
 			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
 				this.currPieces[row][col].setSelected(true);
 				havePieceSelected = true;
