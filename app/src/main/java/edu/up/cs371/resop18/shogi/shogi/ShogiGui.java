@@ -6,8 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import edu.up.cs371.resop18.shogi.R;
 
@@ -30,6 +33,8 @@ public class ShogiGui extends SurfaceView{
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
     private Bitmap board; // make  a board
 
+    public static int width, height;
+
     private int i, j; //for iterating and managing the pieces array
     private int row, col; //for iterating and managing pieces
 
@@ -48,14 +53,12 @@ public class ShogiGui extends SurfaceView{
     @Override
     public void onDraw(Canvas canvas) {
         //Gets screen size
-        /*WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;*/
-
-
+        width = size.x;
+        height = size.y;
 
         //creates the various paints used in the board
         Paint shogiboard = new Paint();
@@ -88,7 +91,7 @@ public class ShogiGui extends SurfaceView{
         canvas.drawCircle(230.5f, 275f, 180f, opponent);
         canvas.drawText("Opponent", 130f, 200f, text);
         canvas.drawRect(50f, 1650f, 1319f,1800f, captured);
-        canvas.drawCircle(1319f, 1625f, 180f,player);
+        canvas.drawCircle(1319f, 1625f, 180f, player);
         text.setUnderlineText(true);
         canvas.drawText("Player",1250f,1725f,text);
         //canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
@@ -97,11 +100,13 @@ public class ShogiGui extends SurfaceView{
 
         canvas.drawBitmap(board, 50f, 250f, null);
 
+        float h = height/7;
+        float w = width/(16.125f);
 
         //draw vertical lines; start xy is top point, end xy is bottom point
         for(i = 0; i < 10; i++) {
-            canvas.drawLine(topLeftX + i * spaceDim, topLeftY, topLeftX + i * spaceDim, topLeftY + 9 * spaceDim, square);
-            canvas.drawLine(topLeftX, topLeftY + i * spaceDim, topLeftX + 9 * spaceDim, topLeftY+ i * spaceDim, square);
+            canvas.drawLine(w + i * spaceDim, h, w + i * spaceDim, h + 9 * spaceDim, square);
+            canvas.drawLine(w, h + i * spaceDim, w + 9 * spaceDim, h + i * spaceDim, square);
         }
 
 
