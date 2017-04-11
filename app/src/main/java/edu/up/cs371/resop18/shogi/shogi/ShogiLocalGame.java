@@ -10,6 +10,7 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  * @author Ryan Fredrickson
  * @author Javier Resop
  */
+
 public class ShogiLocalGame extends LocalGame {
     private ShogiGameState gameState;
 
@@ -58,11 +59,22 @@ public class ShogiLocalGame extends LocalGame {
         }
         //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
-			ShogiMoveAction sma = ((ShogiMoveAction) action);
+			ShogiMoveAction sma = ((ShogiMoveAction)action);
+
+            if(sma.currPiece == null && !gameState.getPlayerTurn()){
+                Log.i("Updated Board", "Updating Board");
+                gameState.setCurrentBoard(sma.board);
+                Log.i("Setting New Board", "New Board Set");
+                gameState.setPlayerTurn(!gameState.getPlayerTurn());
+                Log.i("Change Player Turn", "Changed");
+                return true;
+            }else if(sma.currPiece == null){
+                gameState.setPlayerTurn(gameState.getPlayerTurn());
+                return false;
+            }
 
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
-
 
             int row = sma.newRow;
             int col = sma.newCol;
