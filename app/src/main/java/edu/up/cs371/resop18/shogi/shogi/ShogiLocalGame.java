@@ -61,15 +61,18 @@ public class ShogiLocalGame extends LocalGame {
         else if(action instanceof ShogiMoveAction){
 			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
+            if(!gameState.getPlayerTurn()){
+                Log.i("Turn", "CPU");
+            }
+
             if(sma.currPiece == null && !gameState.getPlayerTurn()){
                 Log.i("Updated Board", "Updating Board");
                 gameState.setCurrentBoard(sma.board);
                 Log.i("Setting New Board", "New Board Set");
-                gameState.setPlayerTurn(!gameState.getPlayerTurn());
+                gameState.setPlayerTurn(true);
                 Log.i("Change Player Turn", "Changed");
                 return true;
             }else if(sma.currPiece == null){
-                gameState.setPlayerTurn(gameState.getPlayerTurn());
                 return false;
             }
 
@@ -108,7 +111,6 @@ public class ShogiLocalGame extends LocalGame {
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
-
 
             currPiece.setSelected(false);
             gameState.setPlayerTurn(!gameState.getPlayerTurn());
