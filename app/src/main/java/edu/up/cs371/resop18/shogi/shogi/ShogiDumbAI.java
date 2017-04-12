@@ -16,7 +16,7 @@ public class ShogiDumbAI {
         this.board = gState.pieces;
     }
 
-    public int randInt(int min, int max){ return new Random().nextInt((max - min) + 1) + min; }
+    private int randInt(int min, int max){ return new Random().nextInt((max - min) + 1) + min; }
 
     public ShogiPiece[][] dumbAI(){
         ShogiPiece[][] newBoard = new ShogiPiece[10][9];
