@@ -10,6 +10,7 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  * @author Ryan Fredrickson
  * @author Javier Resop
  */
+
 public class ShogiLocalGame extends LocalGame {
     private ShogiGameState gameState;
 
@@ -25,7 +26,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return true; //playerIdx == gameState.getPlayerTurn();
+        return playerIdx==gameState.getPlayerTurn();
     }
 
     @Override
@@ -53,16 +54,31 @@ public class ShogiLocalGame extends LocalGame {
             }else{
                 return false;
             }
-            gameState.setPlayerTurn(1);
+            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
+            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
             return true;
         }
         //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
-			ShogiMoveAction sma = ((ShogiMoveAction) action);
+			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
+           /* if(!gameState.getPlayerTurn()){
+                Log.i("Turn", "CPU");
+            }
+
+            if(sma.currPiece == null && !gameState.getPlayerTurn()){
+                Log.i("Updated Board", "Updating Board");
+                gameState.setCurrentBoard(sma.board);
+                Log.i("Setting New Board", "New Board Set");
+                gameState.setPlayerTurn(true);
+                Log.i("Change Player Turn", "Changed");
+                return true;
+            }else if(sma.currPiece == null){
+                return false;
+            }
+*/
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
-
 
             int row = sma.newRow;
             int col = sma.newCol;
@@ -97,9 +113,9 @@ public class ShogiLocalGame extends LocalGame {
                 newBoard[row][col].promotePiece(true);
             }
 
-
             currPiece.setSelected(false);
-            gameState.setPlayerTurn(1);
+            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
+            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
             return true;
         }
         return true;

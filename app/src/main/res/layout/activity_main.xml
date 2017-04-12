@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ShogiBoard"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:clickable="false" />
 
     <Button
@@ -24,12 +22,4 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="550dp" />
 
-    <Button
-        android:layout_height="50dp"
-        android:text="Undo"
-        android:id="@+id/Undo"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="150dp"
-        android:layout_marginLeft="350dp" />
 </FrameLayout>
