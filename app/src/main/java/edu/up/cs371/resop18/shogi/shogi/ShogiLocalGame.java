@@ -26,7 +26,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return gameState.getPlayerTurn();
+        return playerIdx==gameState.getPlayerTurn();
     }
 
     @Override
@@ -54,14 +54,15 @@ public class ShogiLocalGame extends LocalGame {
             }else{
                 return false;
             }
-            gameState.setPlayerTurn(!gameState.getPlayerTurn());
+            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
+            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
             return true;
         }
         //Shogi Move Action
         else if(action instanceof ShogiMoveAction){
 			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
-            if(!gameState.getPlayerTurn()){
+           /* if(!gameState.getPlayerTurn()){
                 Log.i("Turn", "CPU");
             }
 
@@ -75,7 +76,7 @@ public class ShogiLocalGame extends LocalGame {
             }else if(sma.currPiece == null){
                 return false;
             }
-
+*/
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
 
@@ -113,7 +114,8 @@ public class ShogiLocalGame extends LocalGame {
             }
 
             currPiece.setSelected(false);
-            gameState.setPlayerTurn(!gameState.getPlayerTurn());
+            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
+            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
             return true;
         }
         return true;
