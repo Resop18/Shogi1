@@ -21,7 +21,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private GameMainActivity myActivity;
 	private ShogiGameState state;
 	private ShogiPiece[][] currPieces;
-	private Button undoButt;
 	private Button optionsButt;
 	private Vibrator vb;
 	private boolean havePieceSelected = false;
@@ -59,10 +58,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		// Load the layout resource for our GUI
 		activity.setContentView(R.layout.activity_main);
 
-		undoButt = (Button)myActivity.findViewById(R.id.Undo);
 		optionsButt = (Button)myActivity.findViewById(R.id.Options);
 
-		undoButt.setOnClickListener(this);
 		optionsButt.setOnClickListener(this);
 		myActivity.findViewById(R.id.ShogiBoard).setOnTouchListener(this);
 
@@ -75,9 +72,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.Undo){
-			vb.vibrate(new long[]{0,200,100,200,275,425,100,200,100,200,275,425,100,75,25,75,125,75,25,75,125,100,100}, -1);
-		}
 		if(v.getId() == R.id.Options){
 			myActivity.setContentView(R.layout.options);
 		}
@@ -90,7 +84,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//if(state == null){ this.state = new ShogiGameState(); }
 		//this.currPieces=state.getCurrentBoard();
 
-		if(!state.getPlayerTurn()){ return false; }
+		if(state.getPlayerTurn() != 0){ return false; }
 		if(this.currPieces == null){
 			return false;
 		}

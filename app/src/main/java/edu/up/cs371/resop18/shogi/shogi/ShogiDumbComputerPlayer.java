@@ -26,10 +26,13 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         try {
             if (info instanceof ShogiGameState) {
-                this.state = (ShogiGameState) info;
-                if (!state.getPlayerTurn()) {
-                    dumbAI();
-                }
+				this.state = (ShogiGameState) info;
+
+				if(state.getPlayerTurn()==1){
+					Thread.sleep(300);
+					dumbAI();
+				}
+
                 //game.sendAction(new ShogiMoveAction(this, ai.piece, ai.newRow, ai.newCol, ai.row, ai.col));
                 Log.i("Computer Turn", "Made Move");
             }
