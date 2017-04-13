@@ -29,7 +29,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
 				this.state = (ShogiGameState) info;
 
 				if(state.getPlayerTurn()==1){
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					dumbAI();
 				}
 

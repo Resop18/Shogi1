@@ -282,6 +282,15 @@ public class ShogiPiece {
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
 
+
+    /**
+     *
+     * @param board the current setup of pieces on the board
+     * @param currRow the row of the space that may be legal for this piece to move to
+     * @param currCol the column of the space that may be legal for this piece to move to
+     *
+     * @return true if this is a legal move, false otherwise
+     */
     public boolean legalMove(ShogiPiece[][] board, int currRow, int currCol){
         int a = player ? 0 : 1;
 

@@ -18,28 +18,46 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
  */
 
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
-	private GameMainActivity myActivity;
-	private ShogiGameState state;
-	private ShogiPiece[][] currPieces;
-	private Button optionsButt;
-	private Vibrator vb;
-	private boolean havePieceSelected = false;
-	private Integer rowSel, colSel;
-	private Integer reset = null;
-	private ShogiGui gui;
-	private boolean hasKing = true;
+	private GameMainActivity myActivity; //the main activity
+	private ShogiGameState state; //the gamestate, to be updated frequently to remain current
+	private ShogiPiece[][] currPieces; //stores the current placement of pieces
+	private Button optionsButt; //the options button
+	private Vibrator vb; //for vibrating the device
+	private boolean havePieceSelected = false; //keeps track of whether a piece is selected
+	private int rowSel, colSel; //the row and column of the selected piece, if one is selected
+	private ShogiGui gui; //the gui
+	private boolean hasKing = true; //for determining if the king was captured
 
+
+	/**
+	 * constructor, obviously
+	 *
+	 * @param name the name of the human player?
+     */
 	public ShogiHumanPlayer(String name) { super(name); }
 
+
+	/**
+	 * Unknown what this method does
+	 * @return some view
+     */
 	@Override
 	public View getTopView() {
 		return myActivity.findViewById(R.id.activity_main);
 	}
 
+
+	/**
+	 * used to update the human player's gamestate
+	 *
+	 * @param info the updated gamestate
+     */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		// ignore the message if it's not a CounterState message
+
+		//only update the state if info is a gamestate
 		if(info instanceof ShogiGameState){
+
 			// update our state; then update the display
 			this.state = (ShogiGameState)info;
 			this.currPieces = state.getCurrentBoard();
@@ -47,8 +65,16 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			gui.pieces = this.currPieces;
 			gui.invalidate();
 		}
+
+		return;
 	}
 
+
+	/**
+	 * unknown what this method does
+	 *
+	 * @param activity the main activity
+     */
 	@Override
 	public void setAsGui(GameMainActivity activity) {
 		// remember the activity
@@ -70,6 +96,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 	}
 
+
+	/**
+	 * detects when a button was clicked
+	 *
+	 * @param v the view (button) that was clicked
+     */
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.Options){
@@ -77,84 +109,75 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 	}
 
+
+	/**
+	 * this handles a touch on the board so that a move can be made
+	 *
+	 * @param v the view that was touched, i.e. the human player
+	 * @param event
+	 *
+     * @return true if the listener has "consumed" the event, false otherwise
+	 *
+     */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		int row, col;
-		col = 0;
-		//if(state == null){ this.state = new ShogiGameState(); }
-		//this.currPieces=state.getCurrentBoard();
 
+		int row, col; //used for storing the location of the space that the user tapped
+
+
+		//dont do anything when it's not the player's turn
 		if(state.getPlayerTurn() != 0){ return false; }
+
+
+		//dont do anything if we dont have the current piece placements
 		if(this.currPieces == null){
 			return false;
 		}
 
+
 		//Don't do anything when dragging or lifting touch
-		if(event.getActionMasked() != MotionEvent.ACTION_DOWN) {
-			return false;
+		if(event.getAction() != MotionEvent.ACTION_UP) {
+			return true;
 		}
 
+
+		//get the row and column of the tapped space
 		row = (int)((event.getY() - ShogiGui.topLeftY)/(ShogiGui.spaceDim));
 		col = (int)((event.getX() - ShogiGui.topLeftX)/(ShogiGui.spaceDim));
 
-		//check if user tapped inside the board lines
+
+		//dont do anything if the user tapped outside the board
 		if(row > 10 || col > 9){
 			return false;
 		}
-		//butt
-		if(row < 0 || col < 0){
+		else if(row < 0 || col < 0){
 			return false;
 		}
 
 
+		//when a piece on the board is currently selected
 		if(havePieceSelected){
-			if(currPieces[row][col] == null) {
-				if(currPieces[rowSel][colSel] != null){
-					if(currPieces[rowSel][colSel].getSelected()){
-						if(rowSel == 9){
-							game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
-						}
-						else {
-							if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
-								game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
-							}
-							else {
-								return false;
-							}
-						}
-					}
-						//currPieces[rowSel][colSel] = null;
 
-						Log.i("Move", "Sent Action");
+			//when a piece is currently selected and
+			//the tapped space contains one of the player's own pieces
+				//old comment: when the user tapped a space that has one of his/her own pieces
+			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
 
-				}
-
-
-				//currPieces[row][col].setSelected(false);
-				gui.pieceIsSelected = false;
-				havePieceSelected = false;
-				//redraw board with currPieces updated
-
-				rowSel = row;
-				colSel = col;
-
-				return true;
-			}else if(currPieces[row][col].getPlayer() == false){
-				if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
-					game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
-				}
-				else {
-					return false;
-				}
-			}
-			else{
-				//This deals with selected and deselecting currPieces
+				//when the player taps the piece that is already selected, deselect it
+					//old comment: This deals with selected and deselecting currPieces
 				if(currPieces[row][col].getSelected()){
-					//This deselects a piece if it is selected
 					currPieces[row][col].setSelected(false);
 					gui.pieceIsSelected = false;
-				}else{
-					//This will select the piece if it is not selected
+					havePieceSelected = false;
+				}
+
+
+				//when the player taps a piece of his/hers that is not
+				//the selected piece, deselect the currently selected
+				//piece and select the other tapped piece
+				else {
+
+					//find and deselect the currently selected piece
 					for(int i = 0; i < 9; i++){
 						for(int j = 0; j < 9; j++){
 							if(currPieces[i][j] != null){
@@ -165,13 +188,38 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 						}
 					}
 
+
+					//select the newly tapped piece
 					currPieces[row][col].setSelected(true);
 					gui.pieceIsSelected = true;
 					rowSel = row;
 					colSel = col;
 				}
 			}
-		}else{
+
+
+			//if a piece is selected and the tapped space does not contain one of
+			//the human player's pieces, then check if the tapped space is a legal
+			//move for the currently selected piece. If it is, move the piece
+			else if(currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+
+				game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+			}
+
+
+			//if a piece is selected and the tapped space is not a legal move,
+			//then leave everything as it is
+			else
+				return true;
+
+		} //havePieceSelected
+
+
+		//when no piece is currently selected
+		else {
+
+			//when the tapped space is not empty and contains a piece
+			//that belongs to the human player
 			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
 				this.currPieces[row][col].setSelected(true);
 				havePieceSelected = true;
@@ -183,6 +231,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//redraw board with currPieces updated
 		gui.invalidate();
 
+
+		//done
 		return true;
 	}
 
