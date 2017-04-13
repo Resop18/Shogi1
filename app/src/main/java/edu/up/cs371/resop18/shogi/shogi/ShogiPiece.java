@@ -283,12 +283,7 @@ public class ShogiPiece {
     public void setSelected(boolean value){ this.selected = value; }
 
     public boolean legalMove(ShogiPiece[][] board, int currRow, int currCol){
-        int a;
-        if(player){
-            a = 0;
-        }else{
-            a = 1;
-        }
+        int a = player ? 0 : 1;
 
         LegalMoves m = new LegalMoves(a);
         int[][] moves = m.moves(board, s[3], row, col);
