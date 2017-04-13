@@ -487,6 +487,18 @@ public class LegalMoves {
         if(board[currRow][currCol].getPromoted()){
             if(pieceName.equals("Pawn") || pieceName.equals("Silver") || pieceName.equals("Knight") || pieceName.equals("Lance")){
                 moves = moves(board, "Gold", currRow, currCol);
+            }else if(pieceName.equals("Bishop")){
+                int[][] newMoves = new int[][]{{currRow+1, currCol}, {currRow-1, currCol}, {currRow, currCol+1}, {currRow, currCol-1}};
+                int[][] array1and2 = new int[moves.length + newMoves.length][];
+                System.arraycopy(moves, 0, array1and2, 0, moves.length);
+                System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
+                moves = array1and2;
+            }else if(pieceName.equals("Rook")){
+                int[][] newMoves = new int[][]{{currRow+1, currCol+1}, {currRow-1, currCol-1}, {currRow-1, currCol+1}, {currRow+1, currCol-1}};
+                int[][] array1and2 = new int[moves.length + newMoves.length][];
+                System.arraycopy(moves, 0, array1and2, 0, moves.length);
+                System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
+                moves = array1and2;
             }
         }
 
