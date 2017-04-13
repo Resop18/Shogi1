@@ -24,7 +24,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private Button optionsButt; //the options button
 	private Vibrator vb; //for vibrating the device
 	private boolean havePieceSelected = false; //keeps track of whether a piece is selected
-	private int rowSel, colSel; //the row and column of the selected piece, if one is selected
+	private int rowSel = -1, colSel = -1; //the row and column of the selected piece, if one is selected
 	private ShogiGui gui; //the gui
 	private boolean hasKing = true; //for determining if the king was captured
 
@@ -204,6 +204,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			else if(currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
 
 				game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+
+				//reset
+				havePieceSelected = false;
+				rowSel = -1;
+				colSel = -1;
 			}
 
 
