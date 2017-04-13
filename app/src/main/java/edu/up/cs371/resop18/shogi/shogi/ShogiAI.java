@@ -16,7 +16,7 @@ public class ShogiAI {
         int depth = 0;
 
         double start = (double)System.currentTimeMillis();
-        double bestVal = eval(gameBoard, -1000.0, 1000.0, true, depth, MAX_DEPTH);
+        //double bestVal = eval(gameBoard, -1000.0, 1000.0, true, depth, MAX_DEPTH);
         double end = (double)System.currentTimeMillis();
         timeMinutes(start, end, depth);
     }
@@ -85,7 +85,7 @@ public class ShogiAI {
         return newBoard;
     }
 
-    private int[][][] actList(ShogiPiece[][] board){
+    public int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(1);
         int[][][] list = new int[numMoves][20][4];
         for(int a = 0; a < list.length; a++){

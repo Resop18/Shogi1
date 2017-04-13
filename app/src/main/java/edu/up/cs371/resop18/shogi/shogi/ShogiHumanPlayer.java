@@ -114,13 +114,21 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 						if(rowSel == 9){
 							game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 						}
-
-						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+						else {
+							if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+								game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+							}
+							else {
+								return false;
+							}
+						}
+					}
 						//currPieces[rowSel][colSel] = null;
 
 						Log.i("Move", "Sent Action");
-					}
+
 				}
+
 
 				//currPieces[row][col].setSelected(false);
 				gui.pieceIsSelected = false;
@@ -131,7 +139,14 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				colSel = col;
 
 				return true;
-			}else if(currPieces[row][col].getPlayer() == false){game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));}
+			}else if(currPieces[row][col].getPlayer() == false){
+				if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+					game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+				}
+				else {
+					return false;
+				}
+			}
 			else{
 				//This deals with selected and deselecting currPieces
 				if(currPieces[row][col].getSelected()){
