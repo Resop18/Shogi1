@@ -19,6 +19,12 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     int row, col, newRow, newCol; //Old Row, Old Col, New Row, New Col
     ShogiPiece piece; //Piece selected to be moved
 
+    /**
+     * Constructor for ShogiDumbComputerPlayer
+     * Passes through the Computer Player's name
+     *
+     * @param name
+     */
     public ShogiDumbComputerPlayer(String name) {
         super(name);
     }
