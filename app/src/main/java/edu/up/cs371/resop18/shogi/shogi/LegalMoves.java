@@ -479,10 +479,17 @@ public class LegalMoves {
                 }
             }
         }else{
-            for(i = 0; i < 16; i++){
+            for(i = 0; i < 20; i++){
                 moves[i] = new int[]{currRow, currCol};
             }
         }
+
+        if(board[currRow][currCol].getPromoted()){
+            if(pieceName.equals("Pawn") || pieceName.equals("Silver") || pieceName.equals("Knight") || pieceName.equals("Lance")){
+                moves = moves(board, "Gold", currRow, currCol);
+            }
+        }
+
 
         return moves;
     }
