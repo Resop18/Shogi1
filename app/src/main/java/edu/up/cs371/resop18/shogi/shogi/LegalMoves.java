@@ -502,7 +502,6 @@ public class LegalMoves {
             }
         }
 
-
         return moves;
     }
 }
