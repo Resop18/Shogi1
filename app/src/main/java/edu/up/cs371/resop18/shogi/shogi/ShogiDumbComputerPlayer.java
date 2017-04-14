@@ -9,6 +9,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
  * @author Ryan Fredrickson
+ * @author Javier Resop
  */
 
 public class ShogiDumbComputerPlayer extends GameComputerPlayer {

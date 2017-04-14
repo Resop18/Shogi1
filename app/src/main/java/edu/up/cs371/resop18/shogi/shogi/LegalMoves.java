@@ -1,5 +1,10 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+/**
+ * @author Ryan Fredrickson
+ * @author Jake Nguyen
+ */
+
 public class LegalMoves {
     private boolean player;
 
