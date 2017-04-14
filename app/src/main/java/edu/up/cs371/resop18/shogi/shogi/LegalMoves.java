@@ -486,19 +486,45 @@ public class LegalMoves {
 
         if(board[currRow][currCol].getPromoted()){
             if(pieceName.equals("Pawn") || pieceName.equals("Silver") || pieceName.equals("Knight") || pieceName.equals("Lance")){
-                moves = moves(board, "Gold", currRow, currCol);
+                return moves(board, "Gold", currRow, currCol);
             }else if(pieceName.equals("Bishop")){
-                int[][] newMoves = new int[][]{{currRow+1, currCol}, {currRow-1, currCol}, {currRow, currCol+1}, {currRow, currCol-1}};
+                int[][] newMoves = new int[4][];
+                if(player){
+                    if(row == 0){
+                        if(col == 8){
+                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol - 1}};
+                        }else if(col == 0){
+                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol + 1}};
+                        }else{
+                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
+                        }
+                    }else{
+                        newMoves = new int[][]{{currRow+1, currCol}, {currRow-1, currCol}, {currRow, currCol+1}, {currRow, currCol-1}};
+                    }
+                }else{
+                    if(row == 8){
+                        if(col == 8){
+                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol - 1}};
+                        }else if(col == 0){
+                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol + 1}};
+                        }else{
+                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
+                        }
+                    }else{
+                        newMoves = new int[][]{{currRow+1, currCol}, {currRow-1, currCol}, {currRow, currCol+1}, {currRow, currCol-1}};
+                    }
+                }
+
                 int[][] array1and2 = new int[moves.length + newMoves.length][];
                 System.arraycopy(moves, 0, array1and2, 0, moves.length);
                 System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
-                moves = array1and2;
+                return array1and2;
             }else if(pieceName.equals("Rook")){
                 int[][] newMoves = new int[][]{{currRow+1, currCol+1}, {currRow-1, currCol-1}, {currRow-1, currCol+1}, {currRow+1, currCol-1}};
                 int[][] array1and2 = new int[moves.length + newMoves.length][];
                 System.arraycopy(moves, 0, array1and2, 0, moves.length);
                 System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
-                moves = array1and2;
+                return array1and2;
             }
         }
 

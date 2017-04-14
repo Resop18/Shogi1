@@ -76,7 +76,7 @@ public class ShogiAI {
     /**
      * Returns best child board
      *
-     * @return
+     * @return returns the best child
      */
     public ShogiPiece[][] getBestChild(){ return bestChild; }
 
@@ -85,7 +85,7 @@ public class ShogiAI {
      *
      * @param a
      * @param b
-     * @return
+     * @return returns the max value between a and b
      */
     public double max(double a, double b){ return (a > b) ? a : b; }
 
@@ -95,7 +95,7 @@ public class ShogiAI {
      *
      * @param a
      * @param b
-     * @return
+     * @return returns the min value between a and b
      */
     public double min(double a, double b){ return (a < b) ? a : b; }
 
@@ -105,7 +105,7 @@ public class ShogiAI {
      *
      * @param board
      * @param move
-     * @return
+     * @return returns new board based on move
      */
     public ShogiPiece[][] newGameState(ShogiPiece[][] board, int[] move){
         ShogiPiece[][] newBoard = new ShogiPiece[10][9];
@@ -145,7 +145,7 @@ public class ShogiAI {
      * Uses the board to create all possible legal moves for the current state
      *
      * @param board
-     * @return
+     * @return returns all the legal moves for the current board
      */
     public int[][][] actList(ShogiPiece[][] board){
         LegalMoves m = new LegalMoves(1); //Sets the LegalMoves to look for the AI's moves
@@ -183,7 +183,7 @@ public class ShogiAI {
      *
      * @param board
      * @param actList
-     * @return
+     * @return returns all next possible states of the board based on actList
      */
     private ShogiPiece[][][] childList(ShogiPiece[][] board, int[][][] actList){
         ShogiPiece[][][] list = new ShogiPiece[actList.length][10][9];
