@@ -34,10 +34,10 @@ public class ShogiMainActivity extends GameMainActivity {
             }});
 
         // a computer player type (player type 2)
-        playerTypes.add(new GamePlayerType("Smart Computer Player") {
+        /*playerTypes.add(new GamePlayerType("Smart Computer Player") {
             public GamePlayer createPlayer(String name) {
                 return new ShogiHardComputerPlayer(name);
-            }});
+            }});*/
 
         // Create a game configuration class for Counter:
         // - player types as given above
