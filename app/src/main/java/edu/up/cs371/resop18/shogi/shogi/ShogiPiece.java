@@ -299,7 +299,7 @@ public class ShogiPiece {
         int[][] moves = m.moves(board, s[3], row, col);
         Log.i("Moves Length", ""+moves.length);
 
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < moves.length; i++) {
             if(moves[i] == null){ break; }
             if(moves[i][0] == currRow && moves[i][1] == currCol){
                 return true;
