@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.Log;
 
 /*
  * @author Ryan Fredrickson
@@ -296,8 +297,9 @@ public class ShogiPiece {
 
         LegalMoves m = new LegalMoves(a);
         int[][] moves = m.moves(board, s[3], row, col);
+        Log.i("Moves Length", ""+moves.length);
 
-        for(int i = 0; i < 16; i++) {
+        for(int i = 0; i < 20; i++) {
             if(moves[i] == null){ break; }
             if(moves[i][0] == currRow && moves[i][1] == currCol){
                 return true;
