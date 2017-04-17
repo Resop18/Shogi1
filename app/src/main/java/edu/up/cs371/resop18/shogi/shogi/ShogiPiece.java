@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 
-/*
+/**
  * @author Ryan Fredrickson
  * @author Chase Des Laurier
  * @author Javier Resop
@@ -39,6 +39,12 @@ public class ShogiPiece {
             {"", "", "", "Gold"}, {"成", "銀", "全", "Silver"}, {"成", "桂", "圭", "Knight"}, {"成", "香", "杏", "Lance"},
             {"と", "金", "と", "Pawn"}};
 
+    /**
+     *
+     * @param initRow the row of the piece
+     * @param initCol the col of the piece
+     * @param piece the type of piece
+     */
     public ShogiPiece(int initRow, int initCol, String piece){
         this.row = initRow;
         this.col = initCol;

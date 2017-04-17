@@ -12,7 +12,7 @@ public class ShogiAI {
     /**
      * ShogiAI Constructor which takes in the Game State and Max Depth desired in the minimax evaluation
      *
-     * @param gState
+     * @param gState the current Game State
      * @param MAX_DEPTH
      */
     public ShogiAI(ShogiGameState gState, int MAX_DEPTH){
