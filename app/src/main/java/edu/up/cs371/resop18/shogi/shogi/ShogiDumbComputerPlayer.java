@@ -19,9 +19,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     int row, col, newRow, newCol; //Declares the old row, old col, new row, and new col
     ShogiPiece piece; //Declares the piece moved
 
-    public ShogiDumbComputerPlayer(String name) {
-        super(name);
-    }
+    public ShogiDumbComputerPlayer(String name) { super(name); }
 
     @Override
     protected void receiveInfo(GameInfo info) {
@@ -40,6 +38,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
         catch (Exception ie) {
         }
     }
+
     public void dumbAI(){
         ShogiPiece[][] newBoard = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
@@ -62,8 +61,11 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
                 //Gets the possible moves for the piece selected
                 possibleMoves = m.moves(state.getCurrentBoard(), piece.getPiece(), piece.getRow(), piece.getCol());
 
-                //Selects the pawn at a smaller frequency than other pieces
+                //Selects pawns at a smaller frequency than other pieces
                 if(piece.getPiece().equals("Pawn") && new Random().nextDouble() < 0.15){ break; }
+
+                //Selects the king at a smaller frequency than other pieces
+                if(piece.getPiece().equals("King") && new Random().nextDouble() < 0.15){ break; }
 
                 //Breaks if there are legal moves for the piece
                 if(possibleMoves[0] != null){ break; }
