@@ -15,7 +15,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     private ShogiGameState state; //Declaration of ShogiGameState
     private ShogiPiece[][] board; //Declaration of the board
-    private LegalMoves m = new LegalMoves(1); //Sets LegalMoves for dumb AI
+    private LegalMoves getLegalMoves = new LegalMoves(1); //Sets LegalMoves for dumb AI
     int row, col, newRow, newCol; //Declares the old row, old col, new row, and new col
     ShogiPiece piece; //Declares the piece moved
 
@@ -23,19 +23,18 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        try {
-            if (info instanceof ShogiGameState) {
-				this.state = (ShogiGameState) info;
+        if(info instanceof ShogiGameState) {
+            this.state = (ShogiGameState) info;
 
-				if(state.getPlayerTurn() == 1){
-					Thread.sleep(1000); //Sleeps for 1 second before making move
-					dumbAI(); //Makes random move
-				}
-
-                Log.i("Computer Turn", "Made Move");
+            if(state.getPlayerTurn() == 1){
+                sleep(500); //Sleeps for 1000 millisecond before making move
+                dumbAI(); //Makes random move
+                sleep(1000);
+                piece.setSelected(false);
+                game.sendAction(new ShogiMoveAction(this, piece, newRow, newCol, newRow, newCol));
             }
-        }
-        catch (Exception ie) {
+
+            Log.i("Computer Turn", "Made Move");
         }
     }
 
@@ -43,7 +42,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
         ShogiPiece[][] newBoard = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
 
-        /**
+        /*
          * This will continue to check random locations on the board
          * until a legal move can be make with a piece that belongs to the AI
          */
@@ -51,7 +50,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
             row = randInt(0, 8); //Randomly gets a row on the board
             col = randInt(0, 8); //Randomly gets a col on the board
 
-            /**
+            /*
              * Checks if there is a piece in the randomly chosen location
              * and if the piece belong to the AI, it makes the move
              */
@@ -59,7 +58,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
                 piece = newBoard[row][col];
 
                 //Gets the possible moves for the piece selected
-                possibleMoves = m.moves(state.getCurrentBoard(), piece.getPiece(), piece.getRow(), piece.getCol());
+                possibleMoves = getLegalMoves.moves(state.getCurrentBoard(), piece.getPiece(), piece.getRow(), piece.getCol());
 
                 //Selects pawns at a smaller frequency than other pieces
                 if(piece.getPiece().equals("Pawn") && new Random().nextDouble() < 0.15){ break; }
@@ -80,6 +79,9 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
         int randMove = (a == 0) ? 0 : randInt(0, a-1);
         newRow = possibleMoves[randMove][0];
         newCol = possibleMoves[randMove][1];
+
+        piece.setSelected(true);
+        newBoard[row][col].setSelected(true);
 
         game.sendAction(new ShogiMoveAction(this, newBoard[row][col], newRow, newCol, row, col));
     }

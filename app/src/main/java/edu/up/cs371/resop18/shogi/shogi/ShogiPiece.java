@@ -27,7 +27,7 @@ public class ShogiPiece {
     private boolean isCaptured = false;
     private String[] s;
 
-    LegalMoves m;
+    private LegalMoves getLegalMoves;
 
     //Defines the pieces
     private String[][] pieces = {{"王", "將", "王", "King"}, {"飛", "車", "飛", "Rook"}, {"角", "行", "角", "Bishop"},
@@ -52,9 +52,9 @@ public class ShogiPiece {
         this.y = (int)(ShogiGui.topLeftY + initRow * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting col
 
         if(getPlayer()) {
-            m = new LegalMoves(0);
+            getLegalMoves = new LegalMoves(0);
         }else{
-            m = new LegalMoves(1);
+            getLegalMoves = new LegalMoves(1);
         }
 
         //Defines the Piece
@@ -86,9 +86,9 @@ public class ShogiPiece {
         this.y = (int)yPos;
 
         if(getPlayer()) {
-            m = new LegalMoves(0);
+            getLegalMoves = new LegalMoves(0);
         }else{
-            m = new LegalMoves(1);
+            getLegalMoves = new LegalMoves(1);
         }
 
         //Defines the Piece
@@ -131,9 +131,9 @@ public class ShogiPiece {
         int font = (r/4); //Sets font
         int start = 5; //A sort of padding
 
-        int xText = x - font / 2;
-        int yText1 = y - r / 4 + font;
-        int yText2 = y - r / 4 + 2 * font;
+        int xText = x - font/2;
+        int yText1 = y - r/4 + font;
+        int yText2 = y - r/4 + 2*font;
 
         //Deals with weather the piece is promoted and changes the characters accordingly
         for (String[] aww : promotedPieces) {
@@ -149,7 +149,11 @@ public class ShogiPiece {
 
         //Changes background color of piece if it is selected
         if(selected){
-            shogiPaint.setColor(Color.WHITE);
+            if(player) {
+                shogiPaint.setColor(Color.WHITE);
+            }else{
+                shogiPaint.setColor(Color.GREEN);
+            }
         }else{
             shogiPaint.setColor(0xFFD2B48C);
         }
@@ -226,13 +230,9 @@ public class ShogiPiece {
                     n = 3;
                 }else if(s[3].equals("Knight")){
                     n = 2.8;
-                }else if(s[3].equals("Bishop")){
-                    n = 2.5;
                 }else if(s[3].equals("Rook")){
                     n = 2;
-                }else if(s[3].equals("Lance")){
-                    n = 2.5;
-                }else if(s[3].equals("King") || s[3].equals("Gold")){
+                }else if(s[3].equals("Bishop") ||s[3].equals("Lance") || s[3].equals("King") || s[3].equals("Gold")){
                     n = 2.5;
                 }else{
                     n = 3;
@@ -261,7 +261,7 @@ public class ShogiPiece {
             CirclePaint.setColor(Color.RED);
         }
 
-        int[][] moves = m.moves(board, getPiece(), getRow(), getCol());
+        int[][] moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){
             if(moves[i] != null){

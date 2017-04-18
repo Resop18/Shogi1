@@ -26,7 +26,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return playerIdx==gameState.getPlayerTurn();
+        return playerIdx == gameState.getPlayerTurn();
     }
 
     @Override
@@ -62,29 +62,11 @@ public class ShogiLocalGame extends LocalGame {
         else if(action instanceof ShogiMoveAction){
 			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
-           /* if(!gameState.getPlayerTurn()){
-                Log.i("Turn", "CPU");
-            }
-
-            if(sma.currPiece == null && !gameState.getPlayerTurn()){
-                Log.i("Updated Board", "Updating Board");
-                gameState.setCurrentBoard(sma.board);
-                Log.i("Setting New Board", "New Board Set");
-                gameState.setPlayerTurn(true);
-                Log.i("Change Player Turn", "Changed");
-                return true;
-            }else if(sma.currPiece == null){
-                return false;
-            }
-*/
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
             ShogiPiece[] captured = gameState.getPlayerCaptured();
 
             int row = sma.newRow;
             int col = sma.newCol;
-
-
-			//Log.i("currentPiece", currPiece.getPiece());
 
             //If possible captures piece
             if(newBoard[row][col] != null){
@@ -98,24 +80,36 @@ public class ShogiLocalGame extends LocalGame {
                     }
                 }
             }
-            ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
+
             //Create piece in desired place
-            newBoard[row][col] = currPiece;
+            //ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
+            newBoard[row][col] = new ShogiPiece(row, col, sma.currPiece.getPiece());
             newBoard[row][col].promotePiece(sma.currPiece.getPromoted());
             newBoard[row][col].setPlayer(sma.currPiece.getPlayer());
-            newBoard[sma.oldRow][sma.oldCol] = null;
+            newBoard[row][col].setSelected(sma.currPiece.getSelected());
 
-            gameState.setCurrentBoard(newBoard);
-            currPiece.setPlayer(currPiece.getPlayer());
+            if(!(sma.newRow == sma.oldRow && sma.newCol == sma.oldCol)){
+                newBoard[sma.oldRow][sma.oldCol] = null;
+            }
 
             //Force Promotes Piece if in Applicable Area
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
 
-            currPiece.setSelected(false);
-            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
-            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
+            if(!newBoard[row][col].getPlayer()){ Log.i("Is the Piece Selected", ""+newBoard[row][col].getSelected()); }
+
+            if(!newBoard[row][col].getPlayer() && newBoard[row][col].getSelected()){
+                gameState.setCurrentBoard(newBoard);
+                return true;
+            }
+
+
+
+            gameState.setCurrentBoard(newBoard);
+
+            if(gameState.getPlayerTurn() == 1){ gameState.setPlayerTurn(0); }
+            else if(gameState.getPlayerTurn() == 0){ gameState.setPlayerTurn(1); }
             return true;
         }
         return true;

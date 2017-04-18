@@ -116,6 +116,7 @@ public class ShogiGameState extends GameState {
                     this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
                     this.pieces[row][col].setPlayer(orig.pieces[row][col].getPlayer());
                     this.pieces[row][col].promotePiece(orig.pieces[row][col].getPromoted());
+                    this.pieces[row][col].setSelected(orig.pieces[row][col].getSelected());
                 }
             }
         }
