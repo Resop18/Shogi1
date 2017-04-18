@@ -160,7 +160,7 @@ public class ShogiAI {
 
                             //Adds all moves for piece to list of legal moves
                             for(int i = 0; i < 20; i++){
-                                if(possibleMoves[i] == null){ break; }
+                                if(possibleMoves[i] == null){ continue; }
                                 list[a][i][0] = possibleMoves[i][0]; //Add new row to move
                                 list[a][i][1] = possibleMoves[i][1]; //Add new col to move
 

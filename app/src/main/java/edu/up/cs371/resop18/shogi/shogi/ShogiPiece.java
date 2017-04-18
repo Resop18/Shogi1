@@ -306,7 +306,7 @@ public class ShogiPiece {
         Log.i("Moves Length", ""+moves.length);
 
         for(int i = 0; i < moves.length; i++) {
-            if(moves[i] == null){ break; }
+            if(moves[i] == null){ continue; }
             if(moves[i][0] == currRow && moves[i][1] == currCol){
                 return true;
             }
