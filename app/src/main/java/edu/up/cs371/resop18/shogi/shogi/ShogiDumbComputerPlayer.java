@@ -19,6 +19,8 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     int row, col, newRow, newCol; //Declares the old row, old col, new row, and new col
     ShogiPiece piece; //Declares the piece moved
 
+    private boolean pieceSelection = false;
+
     public ShogiDumbComputerPlayer(String name) { super(name); }
 
     @Override
@@ -27,11 +29,11 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
             this.state = (ShogiGameState) info;
 
             if(state.getPlayerTurn() == 1){
-                sleep(500); //Sleeps for 1000 millisecond before making move
+                sleep(1000); //Sleeps for 1000 millisecond before making move
                 dumbAI(); //Makes random move
-                sleep(1000);
+                /*sleep(750);
                 piece.setSelected(false);
-                game.sendAction(new ShogiMoveAction(this, piece, newRow, newCol, newRow, newCol));
+                game.sendAction(new ShogiMoveAction(this, piece, newRow, newCol, newRow, newCol));*/
             }
 
             Log.i("Computer Turn", "Made Move");
@@ -80,8 +82,8 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
         newRow = possibleMoves[randMove][0];
         newCol = possibleMoves[randMove][1];
 
-        piece.setSelected(true);
-        newBoard[row][col].setSelected(true);
+        piece.setSelected(pieceSelection);
+        newBoard[row][col].setSelected(pieceSelection);
 
         game.sendAction(new ShogiMoveAction(this, newBoard[row][col], newRow, newCol, row, col));
     }

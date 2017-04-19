@@ -87,10 +87,11 @@ public class ShogiLocalGame extends LocalGame {
             newBoard[row][col].promotePiece(sma.currPiece.getPromoted());
             newBoard[row][col].setPlayer(sma.currPiece.getPlayer());
             newBoard[row][col].setSelected(sma.currPiece.getSelected());
+            newBoard[sma.oldRow][sma.oldCol] = null;
 
-            if(!(sma.newRow == sma.oldRow && sma.newCol == sma.oldCol)){
+            /*if(!(row == sma.oldRow && col == sma.oldCol)){
                 newBoard[sma.oldRow][sma.oldCol] = null;
-            }
+            }*/
 
             //Force Promotes Piece if in Applicable Area
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
@@ -99,12 +100,10 @@ public class ShogiLocalGame extends LocalGame {
 
             if(!newBoard[row][col].getPlayer()){ Log.i("Is the Piece Selected", ""+newBoard[row][col].getSelected()); }
 
-            if(!newBoard[row][col].getPlayer() && newBoard[row][col].getSelected()){
+            /*if(!newBoard[row][col].getPlayer() && newBoard[row][col].getSelected()){
                 gameState.setCurrentBoard(newBoard);
                 return true;
-            }
-
-
+            }*/
 
             gameState.setCurrentBoard(newBoard);
 
