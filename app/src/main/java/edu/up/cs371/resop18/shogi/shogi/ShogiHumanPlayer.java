@@ -2,7 +2,6 @@ package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -148,7 +147,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 
 		//dont do anything if the user tapped outside the board
-		if(row > 10 || col >= 9){
+		if(row >= 10 || col >= 9){
 			return false;
 		}
 		else if(row < 0 || col < 0){
