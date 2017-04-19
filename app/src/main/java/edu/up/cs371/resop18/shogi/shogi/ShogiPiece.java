@@ -264,13 +264,13 @@ public class ShogiPiece {
         int[][] moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){
-            if(moves[i] != null){
-                int xPos = (int)(ShogiGui.topLeftX + moves[i][1]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
-                int yPos = (int)(ShogiGui.topLeftY + moves[i][0]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
-                int radius = (int)(ShogiGui.spaceDim/3);
+            if(moves[i] == null){ continue; }
 
-                C.drawCircle(xPos, yPos, radius, CirclePaint);
-            }
+            int xPos = (int)(ShogiGui.topLeftX + moves[i][1]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+            int yPos = (int)(ShogiGui.topLeftY + moves[i][0]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+            int radius = (int)(ShogiGui.spaceDim/3);
+
+            C.drawCircle(xPos, yPos, radius, CirclePaint);
         }
     }
 
