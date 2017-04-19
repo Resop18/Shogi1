@@ -150,9 +150,17 @@ public class ShogiGameState extends GameState {
         return playerCaptured;
     }
 
+    public ShogiPiece getPlayerCaptured(int index){
+        return playerCaptured[index];
+    }
+
     //Get Captured Opponent Pieces
     public ShogiPiece[] getOpponentCaptured(){
         return opponentCaptured;
+    }
+
+    public ShogiPiece getOpponentCaptured(int index){
+        return opponentCaptured[index];
     }
 
     //Get Current State of Board
@@ -164,9 +172,13 @@ public class ShogiGameState extends GameState {
         this.pieces = board;
     }
 
-    public void setCaptured(ShogiPiece[] captured)
+    public void setP1Captured(ShogiPiece captured, int index)
     {
-        this.playerCaptured = captured;
+        playerCaptured[index] = captured;
+    }
+
+    public void setP2Captured(ShogiPiece captured, int index) {
+        opponentCaptured[index] = captured;
     }
 
     public boolean getPlayer1HasKing(int player)
