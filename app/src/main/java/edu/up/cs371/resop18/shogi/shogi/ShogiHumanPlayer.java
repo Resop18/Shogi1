@@ -144,10 +144,11 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//get the row and column of the tapped space
 		row = (int)((event.getY() - ShogiGui.topLeftY)/(ShogiGui.spaceDim));
 		col = (int)((event.getX() - ShogiGui.topLeftX)/(ShogiGui.spaceDim));
+		System.out.print("col: " + col +" row: " + row);
 
 
 		//dont do anything if the user tapped outside the board
-		if(row > 10 || col > 9){
+		if(row > 10 || col >= 9){
 			return false;
 		}
 		else if(row < 0 || col < 0){
