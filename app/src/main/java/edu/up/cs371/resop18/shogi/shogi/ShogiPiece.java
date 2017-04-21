@@ -16,6 +16,7 @@ public class ShogiPiece {
     private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
     private boolean player = true; //Denotes if the piece belongs to the player
+    private boolean inCheck = false;
 
     //Defines variables for user later
     private int x;
@@ -154,6 +155,9 @@ public class ShogiPiece {
             }else{
                 shogiPaint.setColor(Color.GREEN);
             }
+            if(inCheck && s[3].equals("King")){
+                shogiPaint.setColor(Color.RED);
+            }
         }else{
             shogiPaint.setColor(0xFFD2B48C);
         }
@@ -184,7 +188,7 @@ public class ShogiPiece {
         canvas.drawPath(shogiPiece, shogiOut);
 
         //Changes color of text on the piece if it is promoted
-        if(promoted && !s[3].equals("King") && !s[3].equals("Gold")){
+        if(promoted && !s[3].equals("King") && !s[3].equals("Gold")) {
             shogiText.setColor(Color.RED);
         }else{
             shogiText.setColor(Color.BLACK);
@@ -289,6 +293,9 @@ public class ShogiPiece {
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
 
+    public void setInCheck(boolean isInCheck){ this.inCheck = isInCheck; }
+
+    public boolean getInCheck(){ return this.inCheck; }
 
     /**
      *

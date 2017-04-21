@@ -149,14 +149,11 @@ public class ShogiAI {
      */
     public int[][][] actList(ShogiPiece[][] board, boolean max){
         LegalMoves m;
-        if(max == true) {
-            m = new LegalMoves(1); //Sets the LegalMoves to look for the AI's moves
-        }
-        else{
-            m = new LegalMoves(0);
-        }
+        int maxPlayer = max ? 1 : 0;
+        m = new LegalMoves(maxPlayer); //Sets the LegalMoves to look for the AI's moves
+
         int[][][] list = new int[numMoves][20][4]; //Create array for moves
-        for(int a = 0; a < 30; a++){
+        for(int a = 0; a < list.length; a++){
             for (ShogiPiece[] aBoard : board) {
                 for (ShogiPiece anABoard : aBoard){
                     if(max) {

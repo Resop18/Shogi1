@@ -78,9 +78,15 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
             if(possibleMoves[a] == null){ break; }
         }
 
-        int randMove = (a == 0) ? 0 : randInt(0, a-1);
-        newRow = possibleMoves[randMove][0];
-        newCol = possibleMoves[randMove][1];
+        while(true){
+            int randMove = (a == 0) ? 0 : randInt(0, a-1);
+            if(possibleMoves[randMove] != null){
+                newRow = possibleMoves[randMove][0];
+                newCol = possibleMoves[randMove][1];
+                break;
+            }
+        }
+
 
         piece.setSelected(pieceSelection);
         newBoard[row][col].setSelected(pieceSelection);

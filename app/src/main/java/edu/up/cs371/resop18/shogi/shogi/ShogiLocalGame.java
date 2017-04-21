@@ -14,6 +14,9 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 public class ShogiLocalGame extends LocalGame {
     private ShogiGameState gameState;
 
+    private int playerCaptured = 9;
+    private int opponentCaptured = 0;
+
     public ShogiLocalGame(){
         this.gameState = new ShogiGameState();
     }
@@ -71,11 +74,26 @@ public class ShogiLocalGame extends LocalGame {
             //If possible captures piece
             if(newBoard[row][col] != null){
                 for(int i = 0; i < gameState.getPlayerCaptured().length; i++){
-                    if(gameState.getPlayerTurn()==0){
+                    if(gameState.getPlayerTurn() == 0){
                         if(gameState.getPlayerCaptured(i) == null){
 
                             gameState.setP1Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
                             if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(1);}
+                            if(newBoard[row][col].getPiece().equals("Pawn")){newBoard[playerCaptured][0] = new ShogiPiece(row, col, "Pawn");}
+                            else if(newBoard[row][col].getPiece().equals("Lance")){newBoard[playerCaptured][1] = new ShogiPiece(row, col, "Lance");}
+                            else if(newBoard[row][col].getPiece().equals("Knight")){newBoard[playerCaptured][2] = new ShogiPiece(row, col, "Knight");}
+                            else if(newBoard[row][col].getPiece().equals("Silver")){newBoard[playerCaptured][3] = new ShogiPiece(row, col, "Silver");}
+                            else if(newBoard[row][col].getPiece().equals("Gold")){newBoard[playerCaptured][4] = new ShogiPiece(row, col, "Gold");}
+                            else if(newBoard[row][col].getPiece().equals("Rook")){newBoard[playerCaptured][5] = new ShogiPiece(row, col, "Rook");}
+                            else if(newBoard[row][col].getPiece().equals("Bishop")){newBoard[playerCaptured][6] = new ShogiPiece(row, col, "Bishop");}
+                            newBoard[row][col] = null;
+                            break;
+                        }
+                    }else if(gameState.getPlayerTurn() == 1){
+                        if(gameState.getPlayerCaptured(i) == null){
+
+                            gameState.setP2Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
+                            if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(0);}
                             if(newBoard[row][col].getPiece().equals("Pawn")){newBoard[9][0] = new ShogiPiece(row, col, "Pawn");}
                             else if(newBoard[row][col].getPiece().equals("Lance")){newBoard[9][1] = new ShogiPiece(row, col, "Lance");}
                             else if(newBoard[row][col].getPiece().equals("Knight")){newBoard[9][2] = new ShogiPiece(row, col, "Knight");}
@@ -104,6 +122,10 @@ public class ShogiLocalGame extends LocalGame {
 
             //Force Promotes Piece if in Applicable Area
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
+                newBoard[row][col].promotePiece(true);
+            }
+
+            if(row < 9 && row >= 6 && !newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
 
