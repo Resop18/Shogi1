@@ -28,6 +28,9 @@ public class ShogiMoveAction extends GameAction {
         this.currPiece = new ShogiPiece(piece.getRow(),piece.getCol(),piece.getPiece());
         this.currPiece.setPlayer(piece.getPlayer());
         this.currPiece.promotePiece(piece.getPromoted());
+
+        if(!this.currPiece.getPlayer()){ this.currPiece.setSelected(piece.getSelected()); }
+
         this.newRow = newR;
         this.newCol = newC;
         this.oldRow = oldR;

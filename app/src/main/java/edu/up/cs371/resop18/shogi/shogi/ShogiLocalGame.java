@@ -14,6 +14,9 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 public class ShogiLocalGame extends LocalGame {
     private ShogiGameState gameState;
 
+    private int playerCaptured = 9;
+    private int opponentCaptured = 0;
+
     public ShogiLocalGame(){
         this.gameState = new ShogiGameState();
     }
@@ -26,7 +29,7 @@ public class ShogiLocalGame extends LocalGame {
 
     @Override
     protected boolean canMove(int playerIdx) {
-        return playerIdx==gameState.getPlayerTurn();
+        return playerIdx == gameState.getPlayerTurn();
     }
 
     @Override
@@ -62,60 +65,81 @@ public class ShogiLocalGame extends LocalGame {
         else if(action instanceof ShogiMoveAction){
 			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
-           /* if(!gameState.getPlayerTurn()){
-                Log.i("Turn", "CPU");
-            }
-
-            if(sma.currPiece == null && !gameState.getPlayerTurn()){
-                Log.i("Updated Board", "Updating Board");
-                gameState.setCurrentBoard(sma.board);
-                Log.i("Setting New Board", "New Board Set");
-                gameState.setPlayerTurn(true);
-                Log.i("Change Player Turn", "Changed");
-                return true;
-            }else if(sma.currPiece == null){
-                return false;
-            }
-*/
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
-            ShogiPiece[] captured = gameState.getPlayerCaptured();
+            //ShogiPiece[] captured = gameState.getPlayerCaptured();
 
             int row = sma.newRow;
             int col = sma.newCol;
 
-
-			//Log.i("currentPiece", currPiece.getPiece());
-
             //If possible captures piece
             if(newBoard[row][col] != null){
-                for(int i = 0; i < captured.length; i++){
-                    if(captured[i] == null){
+                for(int i = 0; i < gameState.getPlayerCaptured().length; i++){
+                    if(gameState.getPlayerTurn() == 0){
+                        if(gameState.getPlayerCaptured(i) == null){
 
-                        captured[i] = new ShogiPiece(i, newBoard[row][col].getPiece());
-                        if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(1);}
-                        newBoard[row][col] = null;
-                        break;
+                            gameState.setP1Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
+                            if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(1);}
+                            if(newBoard[row][col].getPiece().equals("Pawn")){newBoard[playerCaptured][0] = new ShogiPiece(row, col, "Pawn");}
+                            else if(newBoard[row][col].getPiece().equals("Lance")){newBoard[playerCaptured][1] = new ShogiPiece(row, col, "Lance");}
+                            else if(newBoard[row][col].getPiece().equals("Knight")){newBoard[playerCaptured][2] = new ShogiPiece(row, col, "Knight");}
+                            else if(newBoard[row][col].getPiece().equals("Silver")){newBoard[playerCaptured][3] = new ShogiPiece(row, col, "Silver");}
+                            else if(newBoard[row][col].getPiece().equals("Gold")){newBoard[playerCaptured][4] = new ShogiPiece(row, col, "Gold");}
+                            else if(newBoard[row][col].getPiece().equals("Rook")){newBoard[playerCaptured][5] = new ShogiPiece(row, col, "Rook");}
+                            else if(newBoard[row][col].getPiece().equals("Bishop")){newBoard[playerCaptured][6] = new ShogiPiece(row, col, "Bishop");}
+                            newBoard[row][col] = null;
+                            break;
+                        }
+                    }else if(gameState.getPlayerTurn() == 1){
+                        if(gameState.getPlayerCaptured(i) == null){
+
+                            gameState.setP2Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
+                            if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(0);}
+                            if(newBoard[row][col].getPiece().equals("Pawn")){newBoard[9][0] = new ShogiPiece(row, col, "Pawn");}
+                            else if(newBoard[row][col].getPiece().equals("Lance")){newBoard[9][1] = new ShogiPiece(row, col, "Lance");}
+                            else if(newBoard[row][col].getPiece().equals("Knight")){newBoard[9][2] = new ShogiPiece(row, col, "Knight");}
+                            else if(newBoard[row][col].getPiece().equals("Silver")){newBoard[9][3] = new ShogiPiece(row, col, "Silver");}
+                            else if(newBoard[row][col].getPiece().equals("Gold")){newBoard[9][4] = new ShogiPiece(row, col, "Gold");}
+                            else if(newBoard[row][col].getPiece().equals("Rook")){newBoard[9][5] = new ShogiPiece(row, col, "Rook");}
+                            else if(newBoard[row][col].getPiece().equals("Bishop")){newBoard[9][6] = new ShogiPiece(row, col, "Bishop");}
+                            newBoard[row][col] = null;
+                            break;
+                        }
                     }
                 }
             }
-            ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
+
             //Create piece in desired place
-            newBoard[row][col] = currPiece;
+            //ShogiPiece currPiece = new ShogiPiece(sma.oldRow, sma.oldCol, sma.currPiece.getPiece());
+            newBoard[row][col] = new ShogiPiece(row, col, sma.currPiece.getPiece());
             newBoard[row][col].promotePiece(sma.currPiece.getPromoted());
             newBoard[row][col].setPlayer(sma.currPiece.getPlayer());
+            newBoard[row][col].setSelected(sma.currPiece.getSelected());
             newBoard[sma.oldRow][sma.oldCol] = null;
 
-            gameState.setCurrentBoard(newBoard);
-            currPiece.setPlayer(currPiece.getPlayer());
+            /*if(!(row == sma.oldRow && col == sma.oldCol)){
+                newBoard[sma.oldRow][sma.oldCol] = null;
+            }*/
 
             //Force Promotes Piece if in Applicable Area
             if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
 
-            currPiece.setSelected(false);
-            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
-            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
+            if(row < 9 && row >= 6 && !newBoard[row][col].getPlayer()){
+                newBoard[row][col].promotePiece(true);
+            }
+
+            if(!newBoard[row][col].getPlayer()){ Log.i("Is the Piece Selected", ""+newBoard[row][col].getSelected()); }
+
+            /*if(!newBoard[row][col].getPlayer() && newBoard[row][col].getSelected()){
+                gameState.setCurrentBoard(newBoard);
+                return true;
+            }*/
+
+            gameState.setCurrentBoard(newBoard);
+
+            if(gameState.getPlayerTurn() == 1){ gameState.setPlayerTurn(0); }
+            else if(gameState.getPlayerTurn() == 0){ gameState.setPlayerTurn(1); }
             return true;
         }
         return true;

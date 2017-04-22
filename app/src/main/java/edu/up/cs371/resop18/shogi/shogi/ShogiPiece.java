@@ -4,8 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.Log;
 
-/*
+/**
  * @author Ryan Fredrickson
  * @author Chase Des Laurier
  * @author Javier Resop
@@ -15,6 +16,7 @@ public class ShogiPiece {
     private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
     private boolean player = true; //Denotes if the piece belongs to the player
+    private boolean inCheck = false;
 
     //Defines variables for user later
     private int x;
@@ -26,7 +28,7 @@ public class ShogiPiece {
     private boolean isCaptured = false;
     private String[] s;
 
-    LegalMoves m;
+    private LegalMoves getLegalMoves;
 
     //Defines the pieces
     private String[][] pieces = {{"王", "將", "王", "King"}, {"飛", "車", "飛", "Rook"}, {"角", "行", "角", "Bishop"},
@@ -38,6 +40,12 @@ public class ShogiPiece {
             {"", "", "", "Gold"}, {"成", "銀", "全", "Silver"}, {"成", "桂", "圭", "Knight"}, {"成", "香", "杏", "Lance"},
             {"と", "金", "と", "Pawn"}};
 
+    /**
+     *
+     * @param initRow the row of the piece
+     * @param initCol the col of the piece
+     * @param piece the type of piece
+     */
     public ShogiPiece(int initRow, int initCol, String piece){
         this.row = initRow;
         this.col = initCol;
@@ -45,9 +53,9 @@ public class ShogiPiece {
         this.y = (int)(ShogiGui.topLeftY + initRow * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting col
 
         if(getPlayer()) {
-            m = new LegalMoves(0);
+            getLegalMoves = new LegalMoves(0);
         }else{
-            m = new LegalMoves(1);
+            getLegalMoves = new LegalMoves(1);
         }
 
         //Defines the Piece
@@ -79,9 +87,9 @@ public class ShogiPiece {
         this.y = (int)yPos;
 
         if(getPlayer()) {
-            m = new LegalMoves(0);
+            getLegalMoves = new LegalMoves(0);
         }else{
-            m = new LegalMoves(1);
+            getLegalMoves = new LegalMoves(1);
         }
 
         //Defines the Piece
@@ -124,9 +132,9 @@ public class ShogiPiece {
         int font = (r/4); //Sets font
         int start = 5; //A sort of padding
 
-        int xText = x - font / 2;
-        int yText1 = y - r / 4 + font;
-        int yText2 = y - r / 4 + 2 * font;
+        int xText = x - font/2;
+        int yText1 = y - r/4 + font;
+        int yText2 = y - r/4 + 2*font;
 
         //Deals with weather the piece is promoted and changes the characters accordingly
         for (String[] aww : promotedPieces) {
@@ -142,7 +150,14 @@ public class ShogiPiece {
 
         //Changes background color of piece if it is selected
         if(selected){
-            shogiPaint.setColor(Color.WHITE);
+            if(player) {
+                shogiPaint.setColor(Color.WHITE);
+            }else{
+                shogiPaint.setColor(Color.GREEN);
+            }
+            if(inCheck && s[3].equals("King")){
+                shogiPaint.setColor(Color.RED);
+            }
         }else{
             shogiPaint.setColor(0xFFD2B48C);
         }
@@ -173,7 +188,7 @@ public class ShogiPiece {
         canvas.drawPath(shogiPiece, shogiOut);
 
         //Changes color of text on the piece if it is promoted
-        if(promoted && !s[3].equals("King") && !s[3].equals("Gold")){
+        if(promoted && !s[3].equals("King") && !s[3].equals("Gold")) {
             shogiText.setColor(Color.RED);
         }else{
             shogiText.setColor(Color.BLACK);
@@ -219,13 +234,9 @@ public class ShogiPiece {
                     n = 3;
                 }else if(s[3].equals("Knight")){
                     n = 2.8;
-                }else if(s[3].equals("Bishop")){
-                    n = 2.5;
                 }else if(s[3].equals("Rook")){
                     n = 2;
-                }else if(s[3].equals("Lance")){
-                    n = 2.5;
-                }else if(s[3].equals("King") || s[3].equals("Gold")){
+                }else if(s[3].equals("Bishop") ||s[3].equals("Lance") || s[3].equals("King") || s[3].equals("Gold")){
                     n = 2.5;
                 }else{
                     n = 3;
@@ -254,16 +265,16 @@ public class ShogiPiece {
             CirclePaint.setColor(Color.RED);
         }
 
-        int[][] moves = m.moves(board, getPiece(), getRow(), getCol());
+        int[][] moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){
-            if(moves[i] != null){
-                int xPos = (int)(ShogiGui.topLeftX + moves[i][1]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
-                int yPos = (int)(ShogiGui.topLeftY + moves[i][0]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
-                int radius = (int)(ShogiGui.spaceDim/3);
+            if(moves[i] == null){ continue; }
 
-                C.drawCircle(xPos, yPos, radius, CirclePaint);
-            }
+            int xPos = (int)(ShogiGui.topLeftX + moves[i][1]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+            int yPos = (int)(ShogiGui.topLeftY + moves[i][0]*ShogiGui.spaceDim + ShogiGui.spaceDim/2);
+            int radius = (int)(ShogiGui.spaceDim/3);
+
+            C.drawCircle(xPos, yPos, radius, CirclePaint);
         }
     }
 
@@ -282,19 +293,27 @@ public class ShogiPiece {
     //ALlows for if piece is selected to be changed
     public void setSelected(boolean value){ this.selected = value; }
 
+    public void setInCheck(boolean isInCheck){ this.inCheck = isInCheck; }
+
+    public boolean getInCheck(){ return this.inCheck; }
+
+    /**
+     *
+     * @param board the current setup of pieces on the board
+     * @param currRow the row of the space that may be legal for this piece to move to
+     * @param currCol the column of the space that may be legal for this piece to move to
+     *
+     * @return true if this is a legal move, false otherwise
+     */
     public boolean legalMove(ShogiPiece[][] board, int currRow, int currCol){
-        int a;
-        if(player){
-            a = 0;
-        }else{
-            a = 1;
-        }
+        int a = player ? 0 : 1;
 
         LegalMoves m = new LegalMoves(a);
         int[][] moves = m.moves(board, s[3], row, col);
+        Log.i("Moves Length", ""+moves.length);
 
-        for(int i = 0; i < 16; i++) {
-            if(moves[i] == null){ break; }
+        for(int i = 0; i < moves.length; i++) {
+            if(moves[i] == null){ continue; }
             if(moves[i][0] == currRow && moves[i][1] == currCol){
                 return true;
             }

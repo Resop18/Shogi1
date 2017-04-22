@@ -2,6 +2,9 @@ package edu.up.cs371.resop18.shogi;
 
 import org.junit.Test;
 
+import edu.up.cs371.resop18.shogi.shogi.LegalMoves;
+import edu.up.cs371.resop18.shogi.shogi.ShogiAI;
+import edu.up.cs371.resop18.shogi.shogi.ShogiAIV2;
 import edu.up.cs371.resop18.shogi.shogi.ShogiGameState;
 import edu.up.cs371.resop18.shogi.shogi.ShogiLocalGame;
 import edu.up.cs371.resop18.shogi.shogi.ShogiPiece;
@@ -68,4 +71,57 @@ public class ShogiTest {
 
         //assertTrue(shogiLocalGame.canMove(1));
     }
+
+    @Test
+    public void testActList() throws Exception {
+        ShogiGameState gameState = new ShogiGameState();
+        ShogiPiece[][] board = gameState.getCurrentBoard();
+        ShogiAI ai = new ShogiAI(gameState, 0);
+        LegalMoves moves = new LegalMoves(1);
+        int[][][] testList = new int[20][20][4];
+
+       for(int a = 0; a < testList.length; a++){
+           for (int j = 0; j < testList[a].length; j++) {
+               for (int k = 0; k < testList[a][j].length; k++){
+				   for(int s = 0; s < 9; s++){
+					   for(int q = 0; q < 9; q++){
+                   			if(board[s][q] != null){
+                       			if(!board[s][q].getPlayer()){
+                           			int[][] possibleMoves = moves.moves(board, board[s][q].getPiece(), board[s][q].getRow(), board[s][q].getCol());
+									for(int i = 0; i < 20; i++){
+										if(possibleMoves[i] == null){
+											break;
+										}
+										System.out.println(board[s][q].getPiece());
+										testList[a][i][0] = possibleMoves[i][0];
+										testList[a][i][1] = possibleMoves[i][1];
+										testList[a][i][2] = board[s][q].getRow();
+										testList[a][i][3] = board[s][q].getCol();
+									}
+								}
+							}
+					   }
+				   }
+               }
+           }
+       }
+
+
+
+
+        int[][][] list = ai.actList(gameState.getCurrentBoard(), true);
+
+        assertArrayEquals(testList,list);
+
+    }
+
+
+	@Test
+	public void testChildList() throws Exception{
+		ShogiGameState gameState = new ShogiGameState();
+		//ShogiPiece[][] board = gameState.getCurrentBoard();
+		ShogiAI ai = new ShogiAI(gameState, 0);
+
+		//ai.childList(board, ai.actList(board));
+	}
 }
