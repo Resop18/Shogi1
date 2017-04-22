@@ -2,6 +2,7 @@ package edu.up.cs371.resop18.shogi.shogi;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +18,17 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
  */
 
 public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener{
-	private GameMainActivity myActivity; //the main activity
-	private ShogiGameState state; //the gamestate, to be updated frequently to remain current
-	private ShogiPiece[][] currPieces; //stores the current placement of pieces
-	private Button optionsButt; //the options button
-	private Vibrator vb; //for vibrating the device
-	private boolean havePieceSelected = false; //keeps track of whether a piece is selected
-	private int rowSel = -1, colSel = -1; //the row and column of the selected piece, if one is selected
-	private ShogiGui gui; //the gui
-	private boolean hasKing = true; //for determining if the king was captured
+	private GameMainActivity myActivity;
+	private ShogiGameState state;
+	private ShogiPiece[][] currPieces;
+	private Button optionsButt;
+	private Button pressmeButt;
+	private Vibrator vb;
+	private boolean havePieceSelected = false;
+	private Integer rowSel, colSel;
+	private Integer reset = null;
+	private ShogiGui gui;
+	private boolean hasKing = true;
 
 
 	/**
@@ -105,6 +108,22 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	public void onClick(View v) {
 		if(v.getId() == R.id.Options){
 			myActivity.setContentView(R.layout.options);
+			pressmeButt = (Button) myActivity.findViewById(R.id.EasterEgg);
+			pressmeButt.setOnClickListener(this);
+
+		}
+		else if(v.getId() == R.id.EasterEgg)
+		{
+			myActivity.setContentView(R.layout.activity_main);
+			optionsButt = (Button)myActivity.findViewById(R.id.Options);
+			optionsButt.setOnClickListener(this);
+			myActivity.findViewById(R.id.ShogiBoard).setOnTouchListener(this);
+
+			//reset the position of the pieces using the most recent state
+			if (state != null) {
+				receiveInfo(state);
+			}
+			havePieceSelected = false;
 		}
 	}
 

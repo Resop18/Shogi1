@@ -3,6 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="541dp"
+        android:layout_height="252dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="329dp"
+            android:layout_weight="1.30"
+            android:text="Button" />
+    </LinearLayout>
+
     <TextView
         android:text="Congrats! You found the options!"
         android:layout_width="wrap_content"
@@ -30,8 +43,8 @@
         android:id="@+id/Easter" />
 
     <Button
-        android:text="Press Me"
+        android:id="@+id/EasterEgg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/EasterEgg" />
+        android:layout_height="80dp"
+        android:text="Go Back" />
 </LinearLayout>
