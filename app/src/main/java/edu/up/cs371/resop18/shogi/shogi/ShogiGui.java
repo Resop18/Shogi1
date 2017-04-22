@@ -88,10 +88,10 @@ public class ShogiGui extends SurfaceView{
 
         //the board and player sides
         canvas.drawRect(50f, 100f, 1500f,250f, captured);
-       /* canvas.drawCircle(230.5f, 275f, 180f, opponent);
+        /*canvas.drawCircle(230.5f, 275f, 180f, opponent);
         canvas.drawText("Opponent", 130f, 200f, text);*/
         canvas.drawRect(50f, 1650f, 1500f,1800f, captured);
-/*        canvas.drawCircle(1319f, 1625f, 180f, player);
+        /*canvas.drawCircle(1319f, 1625f, 180f, player);
         text.setUnderlineText(true);
         canvas.drawText("Player",1250f,1725f,text);*/
         //canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);

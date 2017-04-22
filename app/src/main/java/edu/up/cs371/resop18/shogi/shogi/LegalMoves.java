@@ -30,11 +30,11 @@ public class LegalMoves
         int col = 0;
         int i = 0;
 
-        if(currRow==9){
-            for(row = 0;row<9;row++){
+        if(currRow == 10){
+            for(row = 1; row < 10; row++){
                 for(col = 0; col < 9; col++){
-                    if(board[row][col]==null){
-                        dropMoves[i]=new int[]{row,col};
+                    if(board[row][col] == null){
+                        dropMoves[i] = new int[]{row,col};
                         i++;
                     }
                 }
@@ -43,9 +43,9 @@ public class LegalMoves
         }
 
         if (pieceName.equals("Pawn")) {
-            if (currRow != 0 || currRow != 8) {
+            if (currRow != 1 || currRow != 9) {
                 if (player) {
-                    if (currRow - 1 >= 0) {
+                    if (currRow - 1 >= 1) {
                         if (board[currRow - 1][currCol] == null) {
                             moves[0] = new int[]{currRow - 1, currCol};
                         } else if (board[currRow - 1][currCol] != null && board[currRow - 1][currCol].getPlayer() != player) {
@@ -53,11 +53,11 @@ public class LegalMoves
                         }
                     }
                 } else {
-                    if (currRow + 1 < 9) {
+                    if (currRow + 1 < 11) {
                         if (board[currRow + 1][currCol] == null) {
                             moves[0] = new int[]{currRow + 1, currCol};
                         } else if (board[currRow + 1][currCol] != null) {
-                            if (row + 1 != 8 || row + 1 != 9) {
+                            if (row + 1 != 9 || row + 1 != 10) {
                                 moves[0] = new int[]{currRow + 1, currCol};
                             }
                             if (board[currRow + 1][currCol].getPlayer() != player) {
@@ -102,7 +102,7 @@ public class LegalMoves
 
             row = currRow - 1;
             col = currCol;
-            while (row >= 0) {
+            while (row >= 1) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
@@ -116,7 +116,7 @@ public class LegalMoves
             }
 
             row = currRow + 1;
-            while (row < 9) {
+            while (row < 10) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
