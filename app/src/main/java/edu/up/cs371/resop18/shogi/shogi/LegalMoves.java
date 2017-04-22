@@ -130,12 +130,12 @@ public class LegalMoves
             }
         } else if (pieceName.equals("Lance")) {
             col = currCol;
-            if (player) {
+            if(player){
                 i = 0;
                 row = currRow - 1;
-                while (row >= 0) {
+                while(row >= 1){
                     if (board[row][col] != null) {
-                        if (board[row][col].getPlayer() != player) {
+                        if(board[row][col].getPlayer() != player){
                             moves[i] = new int[]{row, col};
                             i++;
                         }
@@ -148,7 +148,7 @@ public class LegalMoves
             } else {
                 i = 0;
                 row = currRow + 1;
-                while (col < 9) {
+                while (row < 10) {
                     if (board[row][col] != null) {
                         if (board[row][col].getPlayer() != player) {
                             moves[i] = new int[]{row, col};
@@ -166,7 +166,7 @@ public class LegalMoves
 
             row = currRow - 1;
             col = currCol - 1;
-            while (row >= 0 && col >= 0) {
+            while (row >= 1 && col >= 0) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
@@ -182,7 +182,7 @@ public class LegalMoves
 
             row = currRow + 1;
             col = currCol - 1;
-            while (row < 9 && col >= 0) {
+            while (row < 10 && col >= 0) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
@@ -198,7 +198,7 @@ public class LegalMoves
 
             row = currRow - 1;
             col = currCol + 1;
-            while (row >= 0 && col < 9) {
+            while (row >= 1 && col < 9) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
@@ -214,7 +214,7 @@ public class LegalMoves
 
             row = currRow + 1;
             col = currCol + 1;
-            while (row < 9 && col < 9) {
+            while (row < 10 && col < 9) {
                 if (board[row][col] != null) {
                     if (board[row][col].getPlayer() != player) {
                         moves[i] = new int[]{row, col};
@@ -240,7 +240,7 @@ public class LegalMoves
                         }
                     }
 
-                    if (currCol + 1 < 9) {
+                    if (currCol + 1 < 10) {
                         if (board[currRow - 2][currCol + 1] != null) {
                             if (player != board[currRow - 2][currCol + 1].getPlayer()) {
                                 moves[1] = new int[]{currRow - 2, currCol + 1};
@@ -251,7 +251,7 @@ public class LegalMoves
                     }
                 }
             } else {
-                if (currRow + 2 < 9) {
+                if (currRow + 2 < 10) {
                     if (currCol - 1 >= 0) {
                         if (board[currRow + 2][currCol - 1] != null) {
                             if (player != board[currRow + 2][currCol - 1].getPlayer()) {
@@ -276,7 +276,7 @@ public class LegalMoves
         } else if (pieceName.equals("Gold") || pieceName.equals("King")) {
             i = 0;
             if (player) {
-                if (currRow != 0 && currCol != 0) {
+                if (currRow != 1 && currCol != 0) {
                     if (board[currRow - 1][currCol - 1] != null) {
                         if (player != board[currRow - 1][currCol - 1].getPlayer()) {
                             moves[i] = new int[]{currRow - 1, currCol - 1};
@@ -287,7 +287,7 @@ public class LegalMoves
                 }
                 i++;
 
-                if (currRow != 0 && currCol != 8) {
+                if (currRow != 1 && currCol != 8) {
                     if (board[currRow - 1][currCol + 1] != null) {
                         if (player != board[currRow - 1][currCol + 1].getPlayer()) {
                             moves[i] = new int[]{currRow - 1, currCol + 1};
@@ -298,7 +298,7 @@ public class LegalMoves
                 }
                 i++;
             } else {
-                if (currRow != 8 && currCol != 0) {
+                if (currRow != 9 && currCol != 0) {
                     if (board[currRow + 1][currCol - 1] != null) {
                         if (player != board[currRow + 1][currCol - 1].getPlayer()) {
                             moves[i] = new int[]{currRow + 1, currCol - 1};
@@ -309,7 +309,7 @@ public class LegalMoves
                 }
                 i++;
 
-                if (currRow != 8 && currCol != 8) {
+                if (currRow != 9 && currCol != 8) {
                     if (board[currRow + 1][currCol + 1] != null) {
                         if (player != board[currRow + 1][currCol + 1].getPlayer()) {
                             moves[i] = new int[]{currRow + 1, currCol + 1};
@@ -321,7 +321,7 @@ public class LegalMoves
                 i++;
             }
 
-            if (currRow != 0) {
+            if (currRow != 1) {
                 if (board[currRow - 1][currCol] != null) {
                     if (player != board[currRow - 1][currCol].getPlayer()) {
                         moves[i] = new int[]{currRow - 1, currCol};
@@ -333,7 +333,7 @@ public class LegalMoves
             i++;
 
             if (!pieceName.equals("Silver")) {
-                if (currRow != 8) {
+                if (currRow != 9) {
                     if (board[currRow + 1][currCol] != null) {
                         if (player != board[currRow + 1][currCol].getPlayer()) {
                             moves[i] = new int[]{currRow + 1, currCol};
@@ -369,7 +369,7 @@ public class LegalMoves
 
             if (pieceName.equals("King")) {
                 if (player) {
-                    if (currRow + 1 < 9 && currCol - 1 > 0) {
+                    if (currRow + 1 < 10 && currCol - 1 > 0) {
                         if (board[currRow + 1][currCol - 1] != null) {
                             if (player != board[currRow + 1][currCol - 1].getPlayer()) {
                                 moves[i] = new int[]{currRow + 1, currCol - 1};
@@ -379,7 +379,7 @@ public class LegalMoves
                         }
                         i++;
                     }
-                    if (currRow + 1 < 9 && currCol + 1 < 9) {
+                    if (currRow + 1 < 10 && currCol + 1 < 9) {
                         if (board[currRow + 1][currCol + 1] != null) {
                             if (player != board[currRow + 1][currCol + 1].getPlayer()) {
                                 moves[i] = new int[]{currRow + 1, currCol + 1};
@@ -390,7 +390,7 @@ public class LegalMoves
                         i++;
                     }
                 } else {
-                    if (currRow != 0 && currCol != 0 && currRow != 8 && currCol != 8) {
+                    if (currRow != 1 && currCol != 0 && currRow != 8 && currCol != 8) {
                         if (board[currRow - 1][currCol - 1] != null) {
                             if (player != board[currRow - 1][currCol - 1].getPlayer()) {
                                 moves[i] = new int[]{currRow - 1, currCol - 1};

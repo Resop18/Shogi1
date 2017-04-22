@@ -120,7 +120,7 @@ public class ShogiGui extends SurfaceView{
         }
 
 
-        for(i = 0; i < 9; i++) {
+        for(i = 0; i < 11; i++) {
             for(j = 0; j < 9; j++){
                 if(pieces[i][j] != null && pieces[i][j].getSelected()){
                     if(pieces[i][j].getPlayer()){
