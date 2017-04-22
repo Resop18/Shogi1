@@ -27,15 +27,15 @@ public class ShogiGameState extends GameState {
         ShogiPiece aPiece;
         String w = "";
 
-        pieces = new ShogiPiece[10][9];
+        pieces = new ShogiPiece[11][9];
 
-        row = 6;
-        for(col = 0; col < 9; col++){
+        row = 7;
+        for(col=0; col < 9; col++){
             aPiece = new ShogiPiece(row, col, "Pawn");
             pieces[row][col] = aPiece;
         }
 
-        col = 1;
+        col=1;
         aPiece = new ShogiPiece(row+1, col, "Bishop");
         pieces[row+1][col] = aPiece;
 
@@ -60,7 +60,7 @@ public class ShogiGameState extends GameState {
             pieces[row+2][col] = aPiece;
         }
 
-        row = 2;
+        row=3;
         for(col = 0; col < 9; col++){
             aPiece = new ShogiPiece(row, col, "Pawn");
             aPiece.setPlayer(false);
@@ -72,7 +72,7 @@ public class ShogiGameState extends GameState {
         aPiece.setPlayer(false);
         pieces[row-1][col] = aPiece;
 
-        col = 7;
+        col=7;
         aPiece = new ShogiPiece(row-1, col, "Bishop");
         aPiece.setPlayer(false);
         pieces[row-1][col] = aPiece;
@@ -91,7 +91,7 @@ public class ShogiGameState extends GameState {
             }
 
             aPiece = new ShogiPiece(row - 2, col, w);
-            aPiece.setPlayer(false);
+                                                             aPiece.setPlayer(false);
             pieces[row - 2][col] = aPiece;
         }
        /* for(row = 0; row <10; row++){
@@ -109,9 +109,9 @@ public class ShogiGameState extends GameState {
      * Deep Copy Constructor
      */
     public ShogiGameState(ShogiGameState orig){
-        pieces = new ShogiPiece[10][9];
-        for(row = 0; row < 10; row++){
-            for(col = 0; col < 9; col++){
+        pieces = new ShogiPiece[11][9];
+        for(row = 0; row < pieces.length; row++){
+            for(col = 0; col < pieces[row].length; col++){
                 if(orig.pieces[row][col] != null){
                     this.pieces[row][col] = new ShogiPiece(row, col, orig.pieces[row][col].getPiece());
                     this.pieces[row][col].setPlayer(orig.pieces[row][col].getPlayer());

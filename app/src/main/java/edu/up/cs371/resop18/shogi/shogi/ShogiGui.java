@@ -27,8 +27,8 @@ public class ShogiGui extends SurfaceView{
     public static final float spaceDim = 150; //150 is height/width of rows & cols
     public static final float backBoardTopLeftX = 20; //20 is good
     public static final float backBoardTopLeftY = 125; //100 is good
-    public static final float topLeftX = backBoardTopLeftX + spaceDim / 2; //95 is good
-    public static final float topLeftY = backBoardTopLeftY + spaceDim; //350 is good
+    public static final float topLeftX = 25 + spaceDim / 2; //95 is good
+    public static final float topLeftY = 125; //350 is good
     public boolean pieceIsSelected = false;
     private Bitmap background; //the bamboo background; made global so it wont have to be redrawn every onDraw
     private Bitmap board; // make  a board
@@ -111,7 +111,7 @@ public class ShogiGui extends SurfaceView{
 
 
         //This draws the pieces from the array
-        for(i = 0; i < 10; i++) {
+        for(i = 0; i < 11; i++) {
             for(j = 0; j < 9; j++){
                 if(pieces[i][j] != null){
                     pieces[i][j].drawShogiPiece(canvas);

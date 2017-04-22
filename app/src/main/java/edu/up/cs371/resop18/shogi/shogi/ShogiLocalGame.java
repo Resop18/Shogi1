@@ -14,7 +14,7 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 public class ShogiLocalGame extends LocalGame {
     private ShogiGameState gameState;
 
-    private int playerCaptured = 9;
+    private int playerCaptured = 10;
     private int opponentCaptured = 0;
 
     public ShogiLocalGame(){
@@ -94,13 +94,34 @@ public class ShogiLocalGame extends LocalGame {
 
                             gameState.setP2Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
                             if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(0);}
-                            if(newBoard[row][col].getPiece().equals("Pawn")){newBoard[9][0] = new ShogiPiece(row, col, "Pawn");}
-                            else if(newBoard[row][col].getPiece().equals("Lance")){newBoard[9][1] = new ShogiPiece(row, col, "Lance");}
-                            else if(newBoard[row][col].getPiece().equals("Knight")){newBoard[9][2] = new ShogiPiece(row, col, "Knight");}
-                            else if(newBoard[row][col].getPiece().equals("Silver")){newBoard[9][3] = new ShogiPiece(row, col, "Silver");}
-                            else if(newBoard[row][col].getPiece().equals("Gold")){newBoard[9][4] = new ShogiPiece(row, col, "Gold");}
-                            else if(newBoard[row][col].getPiece().equals("Rook")){newBoard[9][5] = new ShogiPiece(row, col, "Rook");}
-                            else if(newBoard[row][col].getPiece().equals("Bishop")){newBoard[9][6] = new ShogiPiece(row, col, "Bishop");}
+                            if(newBoard[row][col].getPiece().equals("Pawn")){
+                                newBoard[opponentCaptured][0] = new ShogiPiece(row, col, "Pawn");
+                                newBoard[opponentCaptured][0].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Lance")){
+                                newBoard[opponentCaptured][1] = new ShogiPiece(row, col, "Lance");
+                                newBoard[opponentCaptured][1].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Knight")){
+                                newBoard[opponentCaptured][2] = new ShogiPiece(row, col, "Knight");
+                                newBoard[opponentCaptured][2].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Silver")){
+                                newBoard[opponentCaptured][3] = new ShogiPiece(row, col, "Silver");
+                                newBoard[opponentCaptured][3].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Gold")){
+                                newBoard[opponentCaptured][4] = new ShogiPiece(row, col, "Gold");
+                                newBoard[opponentCaptured][4].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Rook")){
+                                newBoard[opponentCaptured][5] = new ShogiPiece(row, col, "Rook");
+                                newBoard[opponentCaptured][5].setPlayer(false);
+                            }
+                            else if(newBoard[row][col].getPiece().equals("Bishop")){
+                                newBoard[opponentCaptured][6] = new ShogiPiece(row, col, "Bishop");
+                                newBoard[opponentCaptured][6].setPlayer(false);
+                            }
                             newBoard[row][col] = null;
                             break;
                         }
@@ -121,11 +142,11 @@ public class ShogiLocalGame extends LocalGame {
             }*/
 
             //Force Promotes Piece if in Applicable Area
-            if(row < 3 && row >= 0 && newBoard[row][col].getPlayer()){
+            if(row < 4 && row >= 1 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
 
-            if(row < 9 && row >= 6 && !newBoard[row][col].getPlayer()){
+            if(row < 10 && row >= 7 && !newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
             }
 
