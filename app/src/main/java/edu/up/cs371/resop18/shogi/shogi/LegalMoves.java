@@ -8,12 +8,10 @@ package edu.up.cs371.resop18.shogi.shogi;
  * @author Jake Nguyen
  */
 
-public class LegalMoves
-{
+public class LegalMoves{
     private boolean player;
 
-    public LegalMoves(int n)
-    {
+    public LegalMoves(int n){
         if (n == 0) {
             this.player = true;
         } else if (n == 1) {
@@ -21,8 +19,7 @@ public class LegalMoves
         }
     }
 
-    public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol)
-    {
+    public int[][] moves(ShogiPiece[][] board, String pieceName, int currRow, int currCol){
         int[][] moves = new int[20][];
         int[][] dropMoves = new int[81][];
 
@@ -42,7 +39,7 @@ public class LegalMoves
             return dropMoves;
         }
 
-        if (pieceName.equals("Pawn")) {
+        if(pieceName.equals("Pawn")){
             if (currRow != 1 || currRow != 9) {
                 if (player) {
                     if (currRow - 1 >= 1) {
@@ -513,32 +510,28 @@ public class LegalMoves
             } else if (pieceName.equals("Bishop")) {
                 i = 16;
                 if(currRow-1 >= 1) {
-                    if (board[currRow - 1][currCol] == null || !board[currRow - 1][currCol].getPlayer()) {
+                    if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player) {
                         moves[i] = new int[]{currRow - 1, currCol};
                         i++;
                     }
                 }
                 if(currRow+1 < 10){
-                    if(board[currRow+1][currCol] == null || !board[currRow+1][currCol].getPlayer()){
+                    if(board[currRow+1][currCol] == null || board[currRow+1][currCol].getPlayer() != player){
                         moves[i] = new int[]{currRow+1, currCol};
                         i++;
                     }
                 }
                 if(currCol-1 >= 0) {
-                    if (board[currRow][currCol-1] == null || !board[currRow][currCol-1].getPlayer()) {
+                    if (board[currRow][currCol-1] == null || board[currRow][currCol-1].getPlayer() != player) {
                         moves[i] = new int[]{currRow, currCol-1};
                         i++;
                     }
                 }
                 if(currRow+1 < 9){
-                    if(board[currRow][currCol+1] == null || !board[currRow][currCol+1].getPlayer()){
+                    if(board[currRow][currCol+1] == null || board[currRow][currCol+1].getPlayer() != player){
                         moves[i] = new int[]{currRow, currCol+1};
                     }
                 }
-
-                //int[][] array1and2 = new int[moves.length + newMoves.length][];
-                //System.arraycopy(moves, 0, array1and2, 0, moves.length);
-                //System.arraycopy(newMoves, 17, moves, 17, newMoves.length);
                 return moves;
             } else if (pieceName.equals("Rook")) {
                 int[][] newMoves = new int[][]{{currRow + 1, currCol + 1}, {currRow - 1, currCol - 1}, {currRow - 1, currCol + 1}, {currRow + 1, currCol - 1}};
