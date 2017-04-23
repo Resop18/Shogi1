@@ -240,8 +240,8 @@ public class LegalMoves
                         }
                     }
 
-                    if (currCol + 1 < 10) {
-                        if (board[currRow - 2][currCol + 1] != null) {
+                    if (currCol + 1 < 9) {
+                        if(board[currRow - 2][currCol + 1] != null){
                             if (player != board[currRow - 2][currCol + 1].getPlayer()) {
                                 moves[1] = new int[]{currRow - 2, currCol + 1};
                             }
@@ -251,7 +251,7 @@ public class LegalMoves
                     }
                 }
             } else {
-                if (currRow + 2 < 10) {
+                if (currRow + 2 < 11) {
                     if (currCol - 1 >= 0) {
                         if (board[currRow + 2][currCol - 1] != null) {
                             if (player != board[currRow + 2][currCol - 1].getPlayer()) {
@@ -412,7 +412,7 @@ public class LegalMoves
                 }
             }
         } else if (pieceName.equals("Silver")) {
-            if (currRow - 1 < 0) {
+            if (currRow - 1 < 1) {
 
                 if (currCol - 1 < 0) { //check the top left
                     if (board[currRow + 1][currCol + 1] == null || board[currRow + 1][currCol + 1].getPlayer() != player) {
@@ -431,7 +431,7 @@ public class LegalMoves
                     }
                 }
 
-            } else if (currRow + 1 >= 8) {
+            } else if (currRow + 1 >= 9) {
 
                 if (currCol - 1 <= 0) {
                     if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player)
@@ -511,37 +511,35 @@ public class LegalMoves
             if (pieceName.equals("Pawn") || pieceName.equals("Silver") || pieceName.equals("Knight") || pieceName.equals("Lance")) {
                 return moves(board, "Gold", currRow, currCol);
             } else if (pieceName.equals("Bishop")) {
-                int[][] newMoves = new int[4][];
-                if (player) {
-                    if (row == 0) {
-                        if (col == 8) {
-                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol - 1}};
-                        } else if (col == 0) {
-                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol + 1}};
-                        } else {
-                            newMoves = new int[][]{{currRow + 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
-                        }
-                    } else {
-                        newMoves = new int[][]{{currRow + 1, currCol}, {currRow - 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
+                i = 16;
+                if(currRow-1 >= 1) {
+                    if (board[currRow - 1][currCol] == null || !board[currRow - 1][currCol].getPlayer()) {
+                        moves[i] = new int[]{currRow - 1, currCol};
+                        i++;
                     }
-                } else {
-                    if (row == 8) {
-                        if (col == 8) {
-                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol - 1}};
-                        } else if (col == 0) {
-                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol + 1}};
-                        } else {
-                            newMoves = new int[][]{{currRow - 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
-                        }
-                    } else {
-                        newMoves = new int[][]{{currRow + 1, currCol}, {currRow - 1, currCol}, {currRow, currCol + 1}, {currRow, currCol - 1}};
+                }
+                if(currRow+1 < 10){
+                    if(board[currRow+1][currCol] == null || !board[currRow+1][currCol].getPlayer()){
+                        moves[i] = new int[]{currRow+1, currCol};
+                        i++;
+                    }
+                }
+                if(currCol-1 >= 0) {
+                    if (board[currRow][currCol-1] == null || !board[currRow][currCol-1].getPlayer()) {
+                        moves[i] = new int[]{currRow, currCol-1};
+                        i++;
+                    }
+                }
+                if(currRow+1 < 9){
+                    if(board[currRow][currCol+1] == null || !board[currRow][currCol+1].getPlayer()){
+                        moves[i] = new int[]{currRow, currCol+1};
                     }
                 }
 
-                int[][] array1and2 = new int[moves.length + newMoves.length][];
-                System.arraycopy(moves, 0, array1and2, 0, moves.length);
-                System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
-                return array1and2;
+                //int[][] array1and2 = new int[moves.length + newMoves.length][];
+                //System.arraycopy(moves, 0, array1and2, 0, moves.length);
+                //System.arraycopy(newMoves, 17, moves, 17, newMoves.length);
+                return moves;
             } else if (pieceName.equals("Rook")) {
                 int[][] newMoves = new int[][]{{currRow + 1, currCol + 1}, {currRow - 1, currCol - 1}, {currRow - 1, currCol + 1}, {currRow + 1, currCol - 1}};
                 int[][] array1and2 = new int[moves.length + newMoves.length][];

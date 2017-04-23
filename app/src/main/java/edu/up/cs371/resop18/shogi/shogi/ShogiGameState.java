@@ -4,6 +4,7 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
 
 /**
  * @author Ryan Fredrickson
+ * @author Javier Resop
  */
 
 public class ShogiGameState extends GameState {
@@ -30,12 +31,12 @@ public class ShogiGameState extends GameState {
         pieces = new ShogiPiece[11][9];
 
         row = 7;
-        for(col=0; col < 9; col++){
+        for(col = 0; col < 9; col++){
             aPiece = new ShogiPiece(row, col, "Pawn");
             pieces[row][col] = aPiece;
         }
 
-        col=1;
+        col = 1;
         aPiece = new ShogiPiece(row+1, col, "Bishop");
         pieces[row+1][col] = aPiece;
 
@@ -60,7 +61,7 @@ public class ShogiGameState extends GameState {
             pieces[row+2][col] = aPiece;
         }
 
-        row=3;
+        row = 3;
         for(col = 0; col < 9; col++){
             aPiece = new ShogiPiece(row, col, "Pawn");
             aPiece.setPlayer(false);
@@ -72,7 +73,7 @@ public class ShogiGameState extends GameState {
         aPiece.setPlayer(false);
         pieces[row-1][col] = aPiece;
 
-        col=7;
+        col = 7;
         aPiece = new ShogiPiece(row-1, col, "Bishop");
         aPiece.setPlayer(false);
         pieces[row-1][col] = aPiece;
@@ -91,10 +92,10 @@ public class ShogiGameState extends GameState {
             }
 
             aPiece = new ShogiPiece(row - 2, col, w);
-                                                             aPiece.setPlayer(false);
+            aPiece.setPlayer(false);
             pieces[row - 2][col] = aPiece;
         }
-       /* for(row = 0; row <10; row++){
+        /*for(row = 0; row < 10; row++){
             for(col = 0; col < 9; col++){
                 if(pieces[row][col] != null){
 
@@ -177,9 +178,7 @@ public class ShogiGameState extends GameState {
         playerCaptured[index] = captured;
     }
 
-    public void setP2Captured(ShogiPiece captured, int index) {
-        opponentCaptured[index] = captured;
-    }
+    public void setP2Captured(ShogiPiece captured, int index) { opponentCaptured[index] = captured; }
 
     public boolean getPlayer1HasKing(int player)
     {

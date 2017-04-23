@@ -16,8 +16,8 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
     private ShogiGameState state; //Declaration of ShogiGameState
     private ShogiPiece[][] board; //Declaration of the board
     private LegalMoves getLegalMoves = new LegalMoves(1); //Sets LegalMoves for dumb AI
-    int row, col, newRow, newCol; //Declares the old row, old col, new row, and new col
-    ShogiPiece piece; //Declares the piece moved
+    private int row, col, newRow, newCol; //Declares the old row, old col, new row, and new col
+    private ShogiPiece piece; //Declares the piece moved
 
     private boolean pieceSelection = false;
 
@@ -49,7 +49,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
          * until a legal move can be make with a piece that belongs to the AI
          */
         while(true){
-            row = randInt(0, 8); //Randomly gets a row on the board
+            row = randInt(1, 9); //Randomly gets a row on the board
             col = randInt(0, 8); //Randomly gets a col on the board
 
             /*
