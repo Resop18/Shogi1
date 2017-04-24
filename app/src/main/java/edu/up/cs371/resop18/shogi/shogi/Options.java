@@ -18,6 +18,8 @@ import edu.up.cs371.resop18.shogi.R;
  * @author Javier Resop
  */
 
+
+
 public class Options extends AppCompatActivity {
 
     private SeekBar volumeSeekbar = null;
