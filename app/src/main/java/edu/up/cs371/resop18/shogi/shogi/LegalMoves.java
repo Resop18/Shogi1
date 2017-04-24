@@ -533,12 +533,36 @@ public class LegalMoves{
                     }
                 }
                 return moves;
-            } else if (pieceName.equals("Rook")) {
-                int[][] newMoves = new int[][]{{currRow + 1, currCol + 1}, {currRow - 1, currCol - 1}, {currRow - 1, currCol + 1}, {currRow + 1, currCol - 1}};
-                int[][] array1and2 = new int[moves.length + newMoves.length][];
-                System.arraycopy(moves, 0, array1and2, 0, moves.length);
-                System.arraycopy(newMoves, 0, array1and2, moves.length, newMoves.length);
-                return array1and2;
+            } else if (pieceName.equals("Rook")){
+                i = 16;
+                if(currRow+1 < 10 && currCol+1 < 9){
+                    if(board[currRow+1][currCol+1] == null || board[currRow+1][currCol+1].getPlayer() != player){
+                        moves[i] = new int[]{currRow+1, currCol+1};
+                        i++;
+                    }
+                }
+
+                if(currRow+1 < 10 && currCol-1 > 0){
+                    if(board[currRow+1][currCol-1] == null || board[currRow+1][currCol-1].getPlayer() != player){
+                        moves[i] = new int[]{currRow+1, currCol-1};
+                        i++;
+                    }
+                }
+
+                if(currRow-1 > 1 && currCol+1 < 9){
+                    if(board[currRow-1][currCol+1] == null || board[currRow-1][currCol+1].getPlayer() != player){
+                        moves[i] = new int[]{currRow-1, currCol+1};
+                        i++;
+                    }
+                }
+
+                if(currRow-1 > 1 && currCol-1 > 0){
+                    if(board[currRow-1][currCol-1] == null || board[currRow-1][currCol-1].getPlayer() != player){
+                        moves[i] = new int[]{currRow-1, currCol-1};
+                    }
+                }
+
+                return moves;
             }
         }
 
