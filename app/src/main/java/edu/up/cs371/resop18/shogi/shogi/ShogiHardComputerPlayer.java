@@ -20,6 +20,7 @@ public class ShogiHardComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         if(info instanceof ShogiGameState){
             this.state = (ShogiGameState)info;
+            ShogiAI ai = new ShogiAI(this.state, 0);
 
             Log.i("Computer Turn", "Made Move");
         }

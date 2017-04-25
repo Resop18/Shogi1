@@ -46,7 +46,7 @@ public class ShogiMainActivity extends GameMainActivity {
         // - port number as defined above
         GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Shogi", PORT_NUMBER);
 
-        defaultConfig.setUserModifiable(false);
+        //defaultConfig.setUserModifiable(false);
 
         // Add the default players to the configuration
         defaultConfig.addPlayer("Human", 0); // player 1: a human player

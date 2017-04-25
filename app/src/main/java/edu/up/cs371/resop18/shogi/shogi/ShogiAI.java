@@ -4,7 +4,7 @@ public class ShogiAI {
     public ShogiGameState gameState;
     private ShogiPiece[][] bestChild = new ShogiPiece[10][9];
 
-    protected int numMoves = 30;
+    protected int numMoves = 20;
     protected int oldRow, oldCol;
     protected int newRow, newCol;
     private int count = 0;
@@ -148,58 +148,39 @@ public class ShogiAI {
      * @return returns all the legal moves for the current board
      */
     public int[][][] actList(ShogiPiece[][] board, boolean max){
-        LegalMoves m;
         int maxPlayer = max ? 1 : 0;
-        m = new LegalMoves(maxPlayer); //Sets the LegalMoves to look for the AI's moves
+        LegalMoves m = new LegalMoves(maxPlayer); //Sets the LegalMoves to look for the AI's moves
+
+        ShogiPiece piece;
 
         int[][][] list = new int[numMoves][20][4]; //Create array for moves
-        for(int a = 0; a < list.length; a++){
-            for (ShogiPiece[] aBoard : board) {
-                for (ShogiPiece anABoard : aBoard){
-                    if(max) {
-                        if (anABoard != null) {
-                            if (!anABoard.getPlayer()) {
-                                //Gets all moves for current piece
-                                int[][] possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol());
+        int a = 0;
+        for(int row = 1; row < 10; row++){
+            if(a == numMoves){ break; }
+            for(int col = 0; col < board[row].length; col++){
+                if(a == numMoves){ break; }
+                if(board[row][col] != null){
+                    piece = board[row][col];
+                    if (!piece.getPlayer()){
+                        //Gets all moves for current piece
+                        int[][] possibleMoves = m.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
 
-                                //Adds all moves for piece to list of legal moves
-                                for (int i = 0; i < 20; i++) {
-                                    if (possibleMoves[i] == null) {
-                                        continue;
-                                    }
-                                    list[a][i][0] = possibleMoves[i][0]; //Add new row to move
-                                    list[a][i][1] = possibleMoves[i][1]; //Add new col to move
-
-                                    list[a][i][2] = anABoard.getRow(); //Add current row to move
-                                    list[a][i][3] = anABoard.getCol(); //Add current col to move
-                                }
+                        //Adds all moves for piece to list of legal moves
+                        for (int i = 0; i < 20; i++) {
+                            if (possibleMoves[i] == null) {
+                                continue;
                             }
-                        }
-                    } else{
-                        if (anABoard != null) {
-                            if (anABoard.getPlayer()) {
-                                //Gets all moves for current piece
-                                int[][] possibleMoves = m.moves(board, anABoard.getPiece(), anABoard.getRow(), anABoard.getCol());
+                            list[a][i][0] = possibleMoves[i][0]; //Add new row to move
+                            list[a][i][1] = possibleMoves[i][1]; //Add new col to move
 
-                                //Adds all moves for piece to list of legal moves
-                                for (int i = 0; i < 20; i++) {
-                                    if (possibleMoves[i] == null) {
-                                        continue;
-                                    }
-                                    list[a][i][0] = possibleMoves[i][0]; //Add new row to move
-                                    list[a][i][1] = possibleMoves[i][1]; //Add new col to move
-
-                                    list[a][i][2] = anABoard.getRow(); //Add current row to move
-                                    list[a][i][3] = anABoard.getCol(); //Add current col to move
-                                }
-                            }
+                            list[a][i][2] = piece.getRow(); //Add current row to move
+                            list[a][i][3] = piece.getCol(); //Add current col to move
                         }
                     }
                 }
+                a++;
             }
         }
-
-        //System.out.println("Length of actList:" + list.length);
         return list;
     }
 
@@ -271,7 +252,8 @@ public class ShogiAI {
             return 0.5 + Math.random()*Math.random(); //Temporary heuristics until AI is known to work
         }
 
-        double bestVal = MAX ? -10 : +10; //temp max and min value for bestVal
+        double bestVal = MAX ? -100 : +100; //temp max and min value for bestVal
+        bestChild = null;
 
         //Iterates through child next possible states of the board for best child
         for (ShogiPiece[][] aChildList : childList) {
@@ -295,13 +277,6 @@ public class ShogiAI {
             }
         }
 
-        //Returns alpha, beta, or bestVal depending on who is the maximizing player
-        /*if(depth > 0){
-            return MAX ? alpha : beta;
-        }else */if(depth == 0) {
-            System.out.println("Best Child:");
-            printBoard(bestChild);
-        }
         return bestVal; //returns bestVal
     }
 }
