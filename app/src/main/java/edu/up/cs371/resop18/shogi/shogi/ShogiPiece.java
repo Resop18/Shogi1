@@ -15,7 +15,7 @@ import android.util.Log;
 public class ShogiPiece {
     private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
-    private boolean player = true; //Denotes if the piece belongs to the player
+    private boolean player = true; //true --> player 0  ;  false --> player 1
     private boolean inCheck = false;
 
     //Defines variables for user later
@@ -310,7 +310,7 @@ public class ShogiPiece {
 
         LegalMoves m = new LegalMoves(a);
         int[][] moves = m.moves(board, s[3], row, col);
-        Log.i("Moves Length", ""+moves.length);
+        //Log.i("Moves Length", ""+moves.length);
 
         for(int i = 0; i < moves.length; i++) {
             if(moves[i] == null){ continue; }

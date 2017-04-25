@@ -36,7 +36,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
                 game.sendAction(new ShogiMoveAction(this, piece, newRow, newCol, newRow, newCol));*/
             }
 
-            Log.i("Computer Turn", "Made Move");
+            //Log.i("Computer Turn", "Made Move");
         }
     }
 
