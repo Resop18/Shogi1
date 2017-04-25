@@ -1,49 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="541dp"
-        android:layout_height="252dp"
-        android:orientation="horizontal">
-
-    </LinearLayout>
-
-    <edu.up.cs371.resop18.shogi.shogi.RuleOptions
-        android:id="@+id/surfaceView"
-        android:layout_width="match_parent"
-        android:layout_height="500dp" />
-
-    <SeekBar
-        android:layout_width="match_parent"
-        android:id="@+id/vol"
-        android:layout_height="50dp"
-        android:max="100"
-        android:progress="50" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01" />
 
-    <Spinner
+    <LinearLayout
+        android:layout_width="1335dp"
+        android:layout_height="122dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_weight="0.01">
+
+        <HorizontalScrollView
+            android:layout_width="615dp"
+            android:layout_height="172dp"
+            android:layout_weight="0.20">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <edu.up.cs371.resop18.shogi.shogi.RuleOptions
+                    android:id="@+id/surfaceView"
+                    android:layout_width="1670dp"
+                    android:layout_height="132dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="208dp"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <edu.up.cs371.resop18.shogi.shogi.RuleOptionsPromote
+                    android:id="@+id/ruleOptions"
+                    android:layout_width="1380dp"
+                    android:layout_height="189dp" />
+            </LinearLayout>
+
+
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <Space
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/Easter" />
+        android:layout_weight="0.03" />
+
+    <Spinner
+        android:id="@+id/Easter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/EasterEgg"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="64dp"
         android:text="Go Back" />
 
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="400dp"
-        android:background="@android:color/holo_purple"
-        android:text="Congrats! You found the options!"
-        android:textSize="50sp" />
 </LinearLayout>
