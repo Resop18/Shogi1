@@ -93,7 +93,7 @@ public class Options extends AppCompatActivity {
     {
         try
         {
-            volumeSeekbar = (SeekBar)findViewById(R.id.vol);
+            //volumeSeekbar = (SeekBar)findViewById(R.id.vol);
             audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             volumeSeekbar.setMax(audioManager
                     .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
