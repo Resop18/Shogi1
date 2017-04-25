@@ -28,7 +28,7 @@
 
                 <edu.up.cs371.resop18.shogi.shogi.RuleOptions
                     android:id="@+id/surfaceView"
-                    android:layout_width="1583dp"
+                    android:layout_width="1670dp"
                     android:layout_height="132dp" />
             </LinearLayout>
         </HorizontalScrollView>
@@ -50,8 +50,8 @@
 
                 <edu.up.cs371.resop18.shogi.shogi.RuleOptionsPromote
                     android:id="@+id/ruleOptions"
-                    android:layout_width="1528dp"
-                    android:layout_height="119dp" />
+                    android:layout_width="1380dp"
+                    android:layout_height="189dp" />
             </LinearLayout>
 
 
