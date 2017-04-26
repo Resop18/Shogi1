@@ -1,7 +1,4 @@
 package edu.up.cs371.resop18.shogi.shogi;
-/*
- * @author Jake Ngyen
- */
 
 /**
  * @author Ryan Fredrickson

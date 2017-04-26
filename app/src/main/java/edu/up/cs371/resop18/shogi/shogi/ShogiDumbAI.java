@@ -22,6 +22,11 @@ public class ShogiDumbAI {
 
     public int randInt(int min, int max){ return new Random().nextInt((max - min) + 1) + min; }
 
+    /**
+     * Will make random check positions on the board until it can find a piece that can move and then make random move
+     *
+     * @param player
+     */
     public void dumbAI(GamePlayer player){
         ShogiPiece[][] newBoard = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
@@ -77,23 +82,52 @@ public class ShogiDumbAI {
         game.sendAction(new ShogiMoveAction(player, newBoard[row][col], newRow, newCol, row, col));
     }
 
+    /**
+     * Will dermine if a piece can move and, if not, will make a random move
+     *
+     * @param player
+     */
     public void smartAI(GamePlayer player){
-        ShogiPiece[][] newBoard = state.getCurrentBoard(); //Gets current board
+        ShogiPiece[][] board = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
-    }
-
-    public boolean canCapture(ShogiPiece[][] board){
-        for(int i = 1; i < board.length - 1; i++){
-            for(int j = 0; j < board[i].length; j++){
-                if(board[i][j] == null){ continue; }
-                int[][] moves = getLegalMoves.moves(board, board[i][j].getPiece(), board[i][j].getRow(), board[i][j].getCol());
-                for(int a = 0; a < moves.length; a++){
-                    if(moves[i] == null){ continue; }
-                    int newRow = moves[a][0];
-                    int newCol = moves[a][1];
-                    if(board[newRow][newCol].getPlayer()){ return true; }
+        int[] pieceToCapture = new int[2];
+        for(int row = 1; row < board.length-1; row++){
+            for(int col = 0; col < board[row].length; col++){
+                if(board[row][col] == null){ continue; }
+                if(canCapture(board, row, col)){
+                    possibleMoves = getLegalMoves.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
+                    for(int i = 0; i < possibleMoves.length; i++){
+                        if(possibleMoves[i] == null){ continue; }
+                        int newRow = possibleMoves[i][0];
+                        int newCol = possibleMoves[i][1];
+                        if(piece.getPlayer() != board[newRow][newCol].getPlayer()){
+                            game.sendAction(new ShogiMoveAction(player, board[row][col], newRow, newCol, row, col));
+                            return;
+                        }
+                    }
                 }
             }
+        }
+
+        dumbAI(player);
+    }
+
+    /**
+     * Check if a piece at a certain location can capture an enemy piece
+     *
+     * @param board current board
+     * @param row row of piece to check
+     * @param col col of piece to check
+     * @return boolean if piece can capture enemy piece
+     */
+    public boolean canCapture(ShogiPiece[][] board, int row, int col){
+        piece = board[row][col];
+        int[][] moves = getLegalMoves.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
+        for(int a = 0; a < moves.length; a++){
+            if(moves[a] == null){ continue; }
+            int newRow = moves[a][0];
+            int newCol = moves[a][1];
+            if(piece.getPlayer() != board[newRow][newCol].getPlayer()){ return true; }
         }
         return false;
     }
