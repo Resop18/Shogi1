@@ -127,6 +127,7 @@ public class ShogiDumbAI {
             if(moves[a] == null){ continue; }
             int newRow = moves[a][0];
             int newCol = moves[a][1];
+            if(board[newRow][newCol] == null){ continue; }
             if(piece.getPlayer() != board[newRow][newCol].getPlayer()){ return true; }
         }
         return false;

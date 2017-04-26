@@ -1,5 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import edu.up.cs371.resop18.shogi.game.Game;
 import edu.up.cs371.resop18.shogi.game.GameComputerPlayer;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
@@ -35,5 +36,9 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
                 ai.smartAI(this);
             }
         }
+    }
+
+    public Game getGame(){
+        return game;
     }
 }

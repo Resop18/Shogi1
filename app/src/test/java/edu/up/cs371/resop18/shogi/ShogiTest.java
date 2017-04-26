@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import edu.up.cs371.resop18.shogi.shogi.LegalMoves;
 import edu.up.cs371.resop18.shogi.shogi.ShogiAI;
-import edu.up.cs371.resop18.shogi.shogi.ShogiAIV2;
+import edu.up.cs371.resop18.shogi.shogi.ShogiDumbAI;
+import edu.up.cs371.resop18.shogi.shogi.ShogiDumbComputerPlayer;
 import edu.up.cs371.resop18.shogi.shogi.ShogiGameState;
 import edu.up.cs371.resop18.shogi.shogi.ShogiLocalGame;
+import edu.up.cs371.resop18.shogi.shogi.ShogiMoveAction;
 import edu.up.cs371.resop18.shogi.shogi.ShogiPiece;
 
 import static org.junit.Assert.*;
@@ -117,11 +119,14 @@ public class ShogiTest {
 
 
 	@Test
-	public void testChildList() throws Exception{
+	public void testCanCapture() throws Exception{
 		ShogiGameState gameState = new ShogiGameState();
-		//ShogiPiece[][] board = gameState.getCurrentBoard();
-		ShogiAI ai = new ShogiAI(gameState, 0);
+        ShogiDumbComputerPlayer player = new ShogiDumbComputerPlayer("CPU");
+        ShogiPiece[][] board = gameState.getCurrentBoard();
 
-		//ai.childList(board, ai.actList(board));
+        player.getGame().sendAction(new ShogiMoveAction(player, board[7][2], 6, 2, 7, 2));
+
+        ShogiDumbAI ai = new ShogiDumbAI(gameState, player.getGame());
+        assertFalse(ai.canCapture(gameState.getCurrentBoard(), 3, 0));
 	}
 }
