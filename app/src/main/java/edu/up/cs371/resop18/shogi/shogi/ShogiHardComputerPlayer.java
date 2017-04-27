@@ -1,7 +1,5 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.util.Log;
-
 import edu.up.cs371.resop18.shogi.game.GameComputerPlayer;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
@@ -20,13 +18,14 @@ public class ShogiHardComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         if(info instanceof ShogiGameState){
             this.state = (ShogiGameState)info;
-            sleep(2000); //Sleeps for 2 second before making move
 
-            //Smart AI, which will check if an enemy piece can be captured, otherwhite randomly makes moves
-            ShogiDumbAI ai = new ShogiDumbAI(state, game);
-            ai.smartAI(this);
+            if(state.getPlayerTurn() == 1){
+                sleep(2000); //Sleeps for 2 second before making move
 
-            Log.i("Computer Turn", "Made Move");
+                //Smart AI, which will check if an enemy piece can be captured, otherwhite randomly makes moves
+                ShogiDumbAI ai = new ShogiDumbAI(state, game);
+                ai.smartAI(this);
+            }
         }
     }
 }

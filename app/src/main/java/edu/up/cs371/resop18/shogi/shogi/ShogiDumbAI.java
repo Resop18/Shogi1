@@ -90,14 +90,11 @@ public class ShogiDumbAI {
      * @param player
      */
     public void smartAI(GamePlayer player){
-        double start = (double)System.currentTimeMillis();
-
         ShogiPiece[][] board = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
         for(int row = 1; row < board.length-1; row++){
             for(int col = 0; col < board[row].length; col++){
-                if(board[row][col] == null){ continue; }
-                if(board[row][col].getPlayer()){ continue; }
+                if(board[row][col] == null || board[row][col].getPlayer()){ continue; }
                 if(canCapture(board, row, col)){
                     piece = board[row][col];
                     possibleMoves = getLegalMoves.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
@@ -116,9 +113,6 @@ public class ShogiDumbAI {
         }
 
         dumbAI(player);
-
-        double end = (double)System.currentTimeMillis();
-        printTime(start, end);
     }
 
     /**
