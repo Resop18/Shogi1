@@ -20,7 +20,11 @@ public class ShogiHardComputerPlayer extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         if(info instanceof ShogiGameState){
             this.state = (ShogiGameState)info;
-            ShogiAI ai = new ShogiAI(this.state, 0);
+            sleep(1000); //Sleeps for 1 second before making move
+
+            //Smart AI, which will check if an enemy piece can be captured, otherwhite randomly makes moves
+            ShogiDumbAI ai = new ShogiDumbAI(state, game);
+            ai.smartAI(this);
 
             Log.i("Computer Turn", "Made Move");
         }

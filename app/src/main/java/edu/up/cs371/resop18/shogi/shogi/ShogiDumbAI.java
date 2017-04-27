@@ -1,5 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.util.Log;
+
 import java.util.Random;
 
 import edu.up.cs371.resop18.shogi.game.Game;
@@ -88,9 +90,10 @@ public class ShogiDumbAI {
      * @param player
      */
     public void smartAI(GamePlayer player){
+        double start = (double)System.currentTimeMillis();
+
         ShogiPiece[][] board = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
-        int[] pieceToCapture = new int[2];
         for(int row = 1; row < board.length-1; row++){
             for(int col = 0; col < board[row].length; col++){
                 if(board[row][col] == null){ continue; }
@@ -102,6 +105,8 @@ public class ShogiDumbAI {
                         int newCol = possibleMoves[i][1];
                         if(piece.getPlayer() != board[newRow][newCol].getPlayer()){
                             game.sendAction(new ShogiMoveAction(player, board[row][col], newRow, newCol, row, col));
+                            double end = (double)System.currentTimeMillis();
+                            printTime(start, end);
                             return;
                         }
                     }
@@ -110,6 +115,9 @@ public class ShogiDumbAI {
         }
 
         dumbAI(player);
+
+        double end = (double)System.currentTimeMillis();
+        printTime(start, end);
     }
 
     /**
@@ -132,4 +140,6 @@ public class ShogiDumbAI {
         }
         return false;
     }
+
+    public void printTime(double start, double end){ Log.i("AI Time", "" + (end-start)/1000 + " seconds."); }
 }
