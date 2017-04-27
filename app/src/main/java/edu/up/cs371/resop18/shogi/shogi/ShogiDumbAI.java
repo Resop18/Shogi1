@@ -97,16 +97,17 @@ public class ShogiDumbAI {
         for(int row = 1; row < board.length-1; row++){
             for(int col = 0; col < board[row].length; col++){
                 if(board[row][col] == null){ continue; }
+                if(board[row][col].getPlayer()){ continue; }
                 if(canCapture(board, row, col)){
+                    piece = board[row][col];
                     possibleMoves = getLegalMoves.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
                     for(int i = 0; i < possibleMoves.length; i++){
                         if(possibleMoves[i] == null){ continue; }
                         int newRow = possibleMoves[i][0];
                         int newCol = possibleMoves[i][1];
-                        if(piece.getPlayer() != board[newRow][newCol].getPlayer()){
+                        if(board[newRow][newCol] == null){ continue; }
+                        if(board[row][col].getPlayer() != board[newRow][newCol].getPlayer()){
                             game.sendAction(new ShogiMoveAction(player, board[row][col], newRow, newCol, row, col));
-                            double end = (double)System.currentTimeMillis();
-                            printTime(start, end);
                             return;
                         }
                     }
@@ -138,6 +139,7 @@ public class ShogiDumbAI {
             if(board[newRow][newCol] == null){ continue; }
             if(piece.getPlayer() != board[newRow][newCol].getPlayer()){ return true; }
         }
+        piece = null;
         return false;
     }
 
