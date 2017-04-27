@@ -221,7 +221,12 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			//move for the currently selected piece. If it is, move the piece
 			else if(currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
 
-				game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+				if(rowSel == 10){
+					game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+				}
+				else {
+					game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+				}
 
 				//reset
 				havePieceSelected = false;

@@ -47,22 +47,85 @@ public class ShogiLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         //Shogi Drop Action
         if(action instanceof ShogiDropAction){
+			int count = 0;
+			ShogiPiece[] p2Cap = gameState.getOpponentCaptured();
+			ShogiPiece[] p1Cap = gameState.getPlayerCaptured();
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
 
             ShogiDropAction act = (ShogiDropAction)action;
             int row = act.newRow;
             int col = act.newCol;
+			String pieceName = newBoard[act.oldRow][act.oldCol].getPiece();
             if(newBoard[row][col] == null){ //Checks to see if move is legal
-                newBoard[row][col] = new ShogiPiece(row, col, newBoard[act.oldRow][act.oldCol].getPiece());
+                newBoard[row][col] = new ShogiPiece(row, col, pieceName);
             }else{
                 return false;
             }
-            if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
-            else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
-            return true;
-        }
-        //Shogi Move Action
-        else if(action instanceof ShogiMoveAction){
+            for(int i = 0; i < 19; i++) {
+				if(gameState.getPlayerTurn()==0){
+					if(p1Cap[i] != null) {
+						if (p1Cap[i].getPiece().equals(pieceName)) {
+							count++;
+						}
+					}
+				}
+				else{
+					if(p2Cap[i]!=null) {
+						if (p2Cap[i].getPiece().equals(pieceName)) {
+							count++;
+						}
+					}
+				}
+			}
+			if(gameState.getPlayerTurn()==0){
+				if(count==1) {
+					for (int i = 0; i < 9; i++) {
+						if(newBoard[act.oldRow][i]!=null){
+							if (newBoard[act.oldRow][i].getPiece().equals(pieceName)) {
+								newBoard[act.oldRow][i] = null;
+								break;
+							}
+						}
+					}
+				}
+				for(int i = 0; i < 19; i++){
+					if(p1Cap[i]!=null) {
+						if (p1Cap[i].getPiece().equals(pieceName)) {
+							p1Cap[i] = null;
+							break;
+						}
+					}
+				}
+
+			}
+			else{
+				if(count==1) {
+					for(int i = 0; i < 9; i++){
+						if(newBoard[act.oldRow][i]!=null) {
+							if (newBoard[act.oldRow][i].getPiece().equals(pieceName)) {
+								newBoard[act.oldRow][i] = null;
+								break;
+							}
+						}
+					}
+				}
+				for(int i = 0; i < 19; i++){
+					if(p2Cap[i]!=null) {
+						if (p2Cap[i].getPiece().equals(pieceName)) {
+							p1Cap[i] = null;
+							break;
+						}
+					}
+				}
+
+			}
+
+			if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
+			else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
+			return true;
+		}
+		//Shogi Move Action
+		else if(action instanceof ShogiMoveAction){
 			ShogiMoveAction sma = ((ShogiMoveAction)action);
 
             ShogiPiece[][] newBoard = gameState.getCurrentBoard();
@@ -90,7 +153,7 @@ public class ShogiLocalGame extends LocalGame {
                             break;
                         }
                     }else if(gameState.getPlayerTurn() == 1){
-                        if(gameState.getPlayerCaptured(i) == null){
+                        if(gameState.getOpponentCaptured(i) == null){
 
                             gameState.setP2Captured(new ShogiPiece(i, newBoard[row][col].getPiece()), i);
                             if(newBoard[row][col].getPiece().equals("King")){gameState.setPlayerHasKing(0);}
