@@ -26,7 +26,7 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
             this.state = (ShogiGameState) info;
 
             if(state.getPlayerTurn() == 1){
-                sleep(1000); //Sleeps for 1 second before making move
+                sleep(2500); //Sleeps for 2.5 second before making move
 
                 //Dump AI, which randomly makes moves
                 ShogiDumbAI ai = new ShogiDumbAI(state, game);
