@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.01"
         android:paddingLeft="250dp"
-        android:text="  Shougi Pieces' Legal Move"
+        android:text="  Shogi Pieces' Legal Move"
         android:textColor="#6b6a6a"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.01"
         android:paddingLeft="200dp"
-        android:text="  Promoted Shougi Pieces' Legal Move"
+        android:text="  Promoted Shogi Pieces' Legal Move"
         android:textColor="#6b6a6a"
         android:textSize="24sp"
         android:textStyle="bold" />
