@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/samurai2"
     android:orientation="vertical">
 
     <Space
+        android:layout_width="652dp"
+        android:layout_height="27dp" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.01" />
+        android:layout_weight="0.01"
+        android:text="  Shougi Pieces' Legal Move"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="1335dp"
         android:layout_height="122dp"
+        android:layout_weight="0.01"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_weight="0.01">
+        android:weightSum="1">
 
         <HorizontalScrollView
             android:layout_width="615dp"
@@ -28,40 +39,60 @@
 
                 <edu.up.cs371.resop18.shogi.shogi.RuleOptions
                     android:id="@+id/surfaceView"
-                    android:layout_width="1670dp"
-                    android:layout_height="132dp" />
+                    android:layout_width="1683dp"
+                    android:layout_height="145dp" />
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="672dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:text="  Promoted Shougi Pieces' Legal Move"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="208dp"
+        android:layout_height="164dp"
+        android:background="@drawable/bam1"
         android:orientation="horizontal">
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bam1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal" >
+                android:background="@drawable/bam1"
+                android:orientation="horizontal">
 
                 <edu.up.cs371.resop18.shogi.shogi.RuleOptionsPromote
                     android:id="@+id/ruleOptions"
                     android:layout_width="1380dp"
-                    android:layout_height="189dp" />
+                    android:layout_height="173dp" />
             </LinearLayout>
 
 
         </HorizontalScrollView>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.22"
+        android:text="TextView" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_weight="0.03" />
+        android:layout_weight="0.01" />
 
     <Spinner
         android:id="@+id/Easter"

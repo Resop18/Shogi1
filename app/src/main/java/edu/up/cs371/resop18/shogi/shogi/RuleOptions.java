@@ -24,8 +24,8 @@ public class RuleOptions extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
-        Bitmap myImageBMP = BitmapFactory.decodeResource(getResources(), R.drawable.p1);
-        canvas.drawColor(Color.GREEN);
+        Bitmap myImageBMP = BitmapFactory.decodeResource(getResources(), R.drawable.p111);
+        //canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(myImageBMP, 10, 10, null);
 
 

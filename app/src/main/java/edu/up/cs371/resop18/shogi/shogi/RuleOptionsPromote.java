@@ -23,11 +23,12 @@ public class RuleOptionsPromote extends SurfaceView {
 
     @Override
     public void onDraw(Canvas canvas)
-    {canvas.drawColor(Color.GREEN);
+    {
+        //canvas.drawColor(Color.WHITE);
 
 
-        Bitmap myImageBMP2 = BitmapFactory.decodeResource(getResources(), R.drawable.p2);
-        canvas.drawColor(Color.GREEN);
+        Bitmap myImageBMP2 = BitmapFactory.decodeResource(getResources(), R.drawable.p222);
+        //canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(myImageBMP2, 10, 10, null);
 
 
