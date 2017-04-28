@@ -2,6 +2,8 @@ package edu.up.cs371.resop18.shogi.shogi;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 import edu.up.cs371.resop18.shogi.game.GamePlayer;
 import edu.up.cs371.resop18.shogi.game.LocalGame;
 import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
@@ -11,7 +13,8 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  * @author Javier Resop
  */
 
-public class ShogiLocalGame extends LocalGame {
+public class ShogiLocalGame extends LocalGame implements Serializable{
+	private static final long serialVersionUID = 42978563847L;
     private ShogiGameState gameState;
 
     private int playerCaptured = 10;

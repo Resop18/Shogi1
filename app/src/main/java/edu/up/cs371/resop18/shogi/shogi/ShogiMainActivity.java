@@ -1,5 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
@@ -12,7 +13,9 @@ import edu.up.cs371.resop18.shogi.game.config.GamePlayerType;
  * @author Javier Resop
  */
 
-public class ShogiMainActivity extends GameMainActivity {
+public class ShogiMainActivity extends GameMainActivity implements Serializable
+{
+    private static final long serialVersionUID = 42978563847L;
     private static final int PORT_NUMBER = 3452;
 
 

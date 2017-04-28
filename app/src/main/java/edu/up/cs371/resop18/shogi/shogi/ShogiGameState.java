@@ -1,5 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import java.io.Serializable;
+
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
 
 /**
@@ -7,7 +9,9 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
  * @author Javier Resop
  */
 
-public class ShogiGameState extends GameState {
+public class ShogiGameState extends GameState implements Serializable{
+    private static final long serialVersionUID = 42978563847L;
+
     ShogiPiece[][] pieces; //Keeps track of pieces on the board
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces

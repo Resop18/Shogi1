@@ -1,5 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import java.io.Serializable;
+
 import edu.up.cs371.resop18.shogi.game.GamePlayer;
 import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 
@@ -9,7 +11,8 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
  * @author Javier Resop
  */
 
-public class ShogiMoveAction extends GameAction {
+public class ShogiMoveAction extends GameAction implements Serializable{
+    private static final long serialVersionUID = 42978563847L;
 
     private ShogiPiece capturedPiece;
     public int newRow, newCol, oldRow, oldCol;

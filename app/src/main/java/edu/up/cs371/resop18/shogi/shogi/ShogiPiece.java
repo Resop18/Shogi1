@@ -6,13 +6,17 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * @author Ryan Fredrickson
  * @author Chase Des Laurier
  * @author Javier Resop
  */
 
-public class ShogiPiece {
+public class ShogiPiece implements Serializable{
+    private static final long serialVersionUID = 42978563847L;
+
     private boolean shortHand = true; //Denotes whether to use short hand (i.e. single character+english) --- Leave Here
     private boolean useEnglish = false; //Denotes whether to use english letter --- Leave Here
     private boolean player = true; //true --> player 0  ;  false --> player 1

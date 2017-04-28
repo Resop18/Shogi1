@@ -1,11 +1,14 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import java.io.Serializable;
+
 /**
  * @author Ryan Fredrickson
  * @author Jake Nguyen
  */
 
-public class LegalMoves{
+public class LegalMoves implements Serializable{
+    private static final long serialVersionUID = 42978563847L;
     private boolean player;
 
     public LegalMoves(int n){
@@ -524,7 +527,7 @@ public class LegalMoves{
                         i++;
                     }
                 }
-                if(currRow+1 < 9){
+                if(currCol+1 < 9){
                     if(board[currRow][currCol+1] == null || board[currRow][currCol+1].getPlayer() != player){
                         moves[i] = new int[]{currRow, currCol+1};
                     }

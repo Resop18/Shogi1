@@ -9,6 +9,7 @@ import android.widget.Button;
 import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameHumanPlayer;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
+import edu.up.cs371.resop18.shogi.game.ProxyPlayer;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
