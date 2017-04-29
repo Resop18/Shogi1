@@ -1,5 +1,7 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
@@ -15,10 +17,11 @@ public class ShogiGameState extends GameState implements Serializable{
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces
     private int currentPlayersTurn;
-    private int p1 = 0;
-    private int p2 = 1;//Boolean for player's turns
     private boolean[] playerHasKing = {true, true};
-    
+    boolean pZeroInCheck; //indicates whether the player whose index is 0 is in check
+    boolean pOneInCheck; //indicates whether the player whose index is 1 is in check
+
+
     private int row, col; //for iterating and managing Pieces
 
     /*
@@ -192,4 +195,100 @@ public class ShogiGameState extends GameState implements Serializable{
     {
         this.playerHasKing[player] = false;
     }
+
+
+    /**
+     * used for determining if a given player is in check. see determinePlayerInCheck
+     * method below for actually calculating whether a player's king is in check
+     *
+     * @param idx the index of the player whose status of check we want to get.
+     *            MUST BE 0 OR 1, or else problems will occur
+     * @return whether the specified player is in check
+     */
+    public boolean getPlayerInCheck(int idx) {
+
+        if(idx == 0) return pZeroInCheck;
+        else return pOneInCheck;
+
+    }
+
+
+    /**
+     * this method changes the status of a player, whether their king is in check.
+     * Returns without doing anything if the idx parameter is not 0 or 1.
+     *
+     * @param idx //the index of the player whose status of check is being changed
+     * @param value //the value to change the given player's state to
+     */
+    public void setPlayerInCheck(int idx, boolean value) {
+
+        if(idx == 0) pZeroInCheck = value;
+        else if(idx == 1) pOneInCheck = value;
+        else return;
+
+    }
+
+
+    /**
+     * this method determines whether a player's king is in check.
+     *
+     * @param idx the index of the player whom we want to know is in check
+     * @param board the state of the board in which we want to determine
+     *              if the specified player is in check
+     *
+     * @return true if the specified player's king is in check, false if not
+     */
+    public boolean determinePlayerInCheck(int idx, ShogiPiece[][] board) {
+
+        //necessary variables
+        int r = 0, c = 0; //for iterating through the board
+        ShogiPiece king = null; //the to-be-found king of the specified player
+        boolean thisPlayerPiece; //for determining if the king is the specified player's
+        boolean foundKing = false; //for determining whether we found the king yet
+        boolean playerInCheck = false;
+
+        //determine which player's piece we should be looking for
+        if(idx == 0) thisPlayerPiece = true;
+        else thisPlayerPiece = false;
+
+        //go through the board and find the king
+        for(r = 1; r < 10; r++) {
+            for(c = 0; c < 9; c++) {
+                if(board[r][c] != null &&
+                        board[r][c].getPiece().equals("King") &&
+                        board[r][c].getPlayer() == thisPlayerPiece) {
+                    king = board[r][c];
+                    foundKing = true;
+                    break;
+                }
+            }
+            if(foundKing) break;
+        }
+
+
+        //determine if the king is in check. Either way, update the gamestate
+        // so that it reflects this player's status of check
+        for(r = 1; r < 10; r++) {
+            for(c = 0; c < 9; c++) {
+                if (board[r][c] != null &&
+                        board[r][c].getPlayer() != thisPlayerPiece &&
+                        king != null &&
+                        board[r][c].legalMove(board,
+                                king.getRow(), king.getCol())) {
+
+                    playerInCheck = true;
+
+                    break;
+                }
+            }
+            if(playerInCheck) break; //don't continue if player is already in check
+        }
+
+        setPlayerInCheck(idx, playerInCheck);
+
+        Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
+
+        return playerInCheck;
+
+    }//playerKingInCheck
 }

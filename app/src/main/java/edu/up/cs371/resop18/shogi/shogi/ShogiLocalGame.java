@@ -1,5 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.app.AlertDialog;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -206,6 +207,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
             newBoard[row][col].setSelected(sma.currPiece.getSelected());
             newBoard[sma.oldRow][sma.oldCol] = null;
 
+
             /*if(!(row == sma.oldRow && col == sma.oldCol)){
                 newBoard[sma.oldRow][sma.oldCol] = null;
             }*/
@@ -219,64 +221,15 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
                 newBoard[row][col].promotePiece(true);
             }
 
-            /*if(!newBoard[row][col].getPlayer() && newBoard[row][col].getSelected()){
-                gameState.setCurrentBoard(newBoard);
-                return true;
-            }*/
 
-
-            //---------------------------------------------------------------------------
-            //CHECK AND CHECKMATE FUNCTIONALITY
-
-            boolean kingInCheck = false;
-
-            //check if the person who moved checked the other player's king
-
-            //find the king of the player who is not making this move
-            int r = 1, c = 0;
-            ShogiPiece otherKing = null; //the king of the player who is not making this move
-            boolean notMovingPlayer; //helps find the king of the player who is not moving
-            boolean foundKing = false;
-            if(gameState.getPlayerTurn() == 0) notMovingPlayer = false;
-            else notMovingPlayer = true;
-            for(r = 1; r < 10; r++) {
-                for(c = 0; c < 8; c++) {
-                    if(newBoard[r][c] != null &&
-                            newBoard[r][c].getPiece().equals("King") &&
-                            newBoard[r][c].getPlayer() == notMovingPlayer) {
-                        otherKing = newBoard[r][c];
-                        foundKing = true;
-                        break;
-                    }
-                    if(foundKing) break;
-                }
+            //if the player who moved is in check afterwards, notify the player
+            //and don't let the move go through
+            if(gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard)) {
+                
             }
-
-            //check all pieces of the player who is moving and see if
-            //the other player's king's location is a legal move, and
-            //if so then the king is in check
-            for(r = 1; r < 10; r++) {
-                for(c = 0; c < 8; c++) {
-                    if(newBoard[r][c] != null &&
-                            newBoard[r][c].getPlayer() != notMovingPlayer &&
-                            otherKing != null && //prevents a crash when a king is captured
-                            newBoard[r][c].legalMove(newBoard, otherKing.getRow(), otherKing.getCol())) {
-                        kingInCheck = true;
-                        break;
-                    }
-                }
-                if(kingInCheck) break;
-            }
-
-            Log.i("SLG", "non-moving player's king in check: " + kingInCheck);
-
-
-
-            //check if the
-            //---------------------------------------------------------------------------
-
 
             gameState.setCurrentBoard(newBoard);
+
 
             if(gameState.getPlayerTurn() == 1){ gameState.setPlayerTurn(0); }
             else if(gameState.getPlayerTurn() == 0){ gameState.setPlayerTurn(1); }
