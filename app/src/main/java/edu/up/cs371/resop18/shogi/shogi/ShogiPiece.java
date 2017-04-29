@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
 
 import java.io.Serializable;
 
@@ -159,11 +158,12 @@ public class ShogiPiece implements Serializable{
             }else{
                 shogiPaint.setColor(Color.GREEN);
             }
-            if(inCheck && s[3].equals("King")){
-                shogiPaint.setColor(Color.RED);
-            }
         }else{
             shogiPaint.setColor(0xFFD2B48C);
+        }
+
+        if(inCheck && s[3].equals("King")){
+            shogiPaint.setColor(Color.RED);
         }
 
         //Sets info for outline of Shogi Piece

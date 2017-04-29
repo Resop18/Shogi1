@@ -101,6 +101,27 @@ public class ShogiDumbAI {
     public void smartAI(GamePlayer player){
         ShogiPiece[][] board = state.getCurrentBoard(); //Gets current board
         int[][] possibleMoves; //Declaration of possible moves
+
+        piece = null;
+
+        for(int row = 1; row < board.length-1; row++){
+            if(piece != null){ break; }
+            for(int col = 0; col < board.length; col++){
+                if(board[row][col].getPiece().equals("King")){
+                    piece = board[row][col];
+                    break;
+                }
+            }
+        }
+
+        if(piece != null){
+            if(state.determinePlayerInCheck(1, board, piece.getRow(), piece.getCol())){
+
+            }
+        }
+
+
+        piece = null;
         for(int row = 1; row < board.length-1; row++){
             for(int col = 0; col < board[row].length; col++){
                 if(board[row][col] == null || board[row][col].getPlayer()){ continue; }
