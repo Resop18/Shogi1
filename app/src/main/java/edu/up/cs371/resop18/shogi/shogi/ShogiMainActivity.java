@@ -1,8 +1,12 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
 import edu.up.cs371.resop18.shogi.game.GamePlayer;
 import edu.up.cs371.resop18.shogi.game.LocalGame;
@@ -17,10 +21,13 @@ public class ShogiMainActivity extends GameMainActivity implements Serializable
 {
     private static final long serialVersionUID = 42978563847L;
     private static final int PORT_NUMBER = 3452;
-
+    private ShogiMusic bgm;
 
     @Override
     public GameConfig createDefaultConfig() {
+        bgm = new ShogiMusic(this);
+        bgm.run();
+
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
