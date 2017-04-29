@@ -10,7 +10,6 @@ import edu.up.cs371.resop18.shogi.game.infoMsg.GameState;
  */
 
 public class ShogiGameState extends GameState implements Serializable{
-    private static final long serialVersionUID = 42978563847L;
 
     ShogiPiece[][] pieces; //Keeps track of pieces on the board
     private ShogiPiece playerCaptured[] = new ShogiPiece[19]; //Keeps track of player's captured pieces

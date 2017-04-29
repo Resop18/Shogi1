@@ -61,6 +61,9 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 			String pieceName = newBoard[act.oldRow][act.oldCol].getPiece();
             if(newBoard[row][col] == null){ //Checks to see if move is legal
                 newBoard[row][col] = new ShogiPiece(row, col, pieceName);
+				if(gameState.getPlayerTurn()==1) {
+					newBoard[row][col].setPlayer(false);
+				}
             }else{
                 return false;
             }

@@ -28,7 +28,18 @@ public class LegalMoves implements Serializable{
         int i = 0;
 
         if(currRow == 10){
-            for(row = 1; row < 10; row++){
+            for(row = 4; row < 10; row++){
+                for(col = 0; col < 9; col++){
+                    if(board[row][col] == null){
+                        dropMoves[i] = new int[]{row,col};
+                        i++;
+                    }
+                }
+            }
+            return dropMoves;
+        }
+        if(currRow == 0){
+            for(row = 6; row > 0; row--){
                 for(col = 0; col < 9; col++){
                     if(board[row][col] == null){
                         dropMoves[i] = new int[]{row,col};

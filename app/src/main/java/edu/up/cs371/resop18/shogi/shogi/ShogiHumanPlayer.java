@@ -144,7 +144,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 
 		//dont do anything when it's not the player's turn
-		if(state.getPlayerTurn() != 0){ return false; }
+		//if(state.getPlayerTurn() != 0){ return false; }
 
 
 		//dont do anything if we dont have the current piece placements
