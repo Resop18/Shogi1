@@ -18,7 +18,7 @@ public class ShogiDumbAI {
     public ShogiDumbAI(ShogiGameState currState, Game currGame){
         this.game = currGame;
         this.state = currState;
-        sleep(500); //Sleeps for 2 second before making move
+        sleep(1000); //Sleeps for 1 second before making move
     }
 
     public void sleep(int time){
