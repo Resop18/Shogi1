@@ -237,7 +237,7 @@ public class LegalMoves implements Serializable{
             }
         } else if (pieceName.equals("Knight")) {
             if (player) {
-                if (currRow - 2 >= 0) {
+                if (currRow - 2 > 0) {
                     if (currCol - 1 >= 0) {
                         if (board[currRow - 2][currCol - 1] != null) {
                             if (player != board[currRow - 2][currCol - 1].getPlayer()) {

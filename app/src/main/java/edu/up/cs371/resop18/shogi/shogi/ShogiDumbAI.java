@@ -1,7 +1,5 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.util.Log;
-
 import java.util.Random;
 
 import edu.up.cs371.resop18.shogi.game.Game;
@@ -20,6 +18,12 @@ public class ShogiDumbAI {
     public ShogiDumbAI(ShogiGameState currState, Game currGame){
         this.game = currGame;
         this.state = currState;
+        sleep(2000); //Sleeps for 2 second before making move
+    }
+
+    public void sleep(int time){
+        try { Thread.sleep(time); }
+        catch (InterruptedException e) { e.printStackTrace(); }
     }
 
     public int randInt(int min, int max){ return new Random().nextInt((max - min) + 1) + min; }
@@ -112,7 +116,27 @@ public class ShogiDumbAI {
             }
         }
 
-        dumbAI(player);
+        int newRow, newCol, row, col;
+        if(hasCapturedPieces() && Math.random() < 0.1){
+            ShogiPiece[] oppCaptured = state.getOpponentCaptured();
+            for(int i = 0; i < oppCaptured.length; i++){
+                if(oppCaptured[i] != null){
+                    piece = oppCaptured[i];
+                    row = oppCaptured[i].getRow();
+                    col = oppCaptured[i].getRow();
+
+                    possibleMoves = getLegalMoves.moves(board, piece.getPiece(), row, col);
+                    for(int iterMoves = 0; iterMoves < possibleMoves.length; iterMoves++){
+                        if(possibleMoves[iterMoves] == null){ continue; }
+                        game.sendAction(new ShogiDropAction(player, piece,
+                                possibleMoves[iterMoves][0], possibleMoves[iterMoves][1], row, col));
+                        return;
+                    }
+                }
+            }
+        }else {
+            dumbAI(player);
+        }
     }
 
     /**
@@ -137,5 +161,15 @@ public class ShogiDumbAI {
         return false;
     }
 
-    public void printTime(double start, double end){ Log.i("AI Time", "" + (end-start)/1000 + " seconds."); }
+    /**
+     *
+     * @return boolean if there is a piece that can be captured
+     */
+    public boolean hasCapturedPieces(){
+        ShogiPiece[] opponentCaptured = state.getOpponentCaptured();
+        for(int i = 0; i < opponentCaptured.length; i++){
+            if(opponentCaptured[i] != null){ return true; }
+        }
+        return false;
+    }
 }

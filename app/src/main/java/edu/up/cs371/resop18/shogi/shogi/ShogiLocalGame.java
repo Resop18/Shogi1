@@ -68,7 +68,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
                 return false;
             }
             for(int i = 0; i < 19; i++) {
-				if(gameState.getPlayerTurn()==0){
+				if(gameState.getPlayerTurn() == 0){
 					if(p1Cap[i] != null) {
 						if (p1Cap[i].getPiece().equals(pieceName)) {
 							count++;
@@ -76,17 +76,17 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 					}
 				}
 				else{
-					if(p2Cap[i]!=null) {
+					if(p2Cap[i] != null) {
 						if (p2Cap[i].getPiece().equals(pieceName)) {
 							count++;
 						}
 					}
 				}
 			}
-			if(gameState.getPlayerTurn()==0){
-				if(count==1) {
+			if(gameState.getPlayerTurn() == 0){
+				if(count == 1) {
 					for (int i = 0; i < 9; i++) {
-						if(newBoard[act.oldRow][i]!=null){
+						if(newBoard[act.oldRow][i] != null){
 							if (newBoard[act.oldRow][i].getPiece().equals(pieceName)) {
 								newBoard[act.oldRow][i] = null;
 								break;
@@ -95,7 +95,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 					}
 				}
 				for(int i = 0; i < 19; i++){
-					if(p1Cap[i]!=null) {
+					if(p1Cap[i] != null) {
 						if (p1Cap[i].getPiece().equals(pieceName)) {
 							p1Cap[i] = null;
 							break;
@@ -105,9 +105,9 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 
 			}
 			else{
-				if(count==1) {
+				if(count == 1) {
 					for(int i = 0; i < 9; i++){
-						if(newBoard[act.oldRow][i]!=null) {
+						if(newBoard[act.oldRow][i] != null) {
 							if (newBoard[act.oldRow][i].getPiece().equals(pieceName)) {
 								newBoard[act.oldRow][i] = null;
 								break;
@@ -116,7 +116,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 					}
 				}
 				for(int i = 0; i < 19; i++){
-					if(p2Cap[i]!=null) {
+					if(p2Cap[i] != null) {
 						if (p2Cap[i].getPiece().equals(pieceName)) {
 							p1Cap[i] = null;
 							break;
