@@ -117,10 +117,10 @@ public class ShogiDumbAI {
         }
 
         int newRow, newCol, row, col;
-        if(hasCapturedPieces() && Math.random() < 0.1){
+        if(hasCapturedPieces() /*&& Math.random() < 0.5*/){
             ShogiPiece[] oppCaptured = state.getOpponentCaptured();
             for(int i = 0; i < oppCaptured.length; i++){
-                if(oppCaptured[i] != null){
+                if(oppCaptured[i] == null){ continue; }
                     piece = oppCaptured[i];
                     row = oppCaptured[i].getRow();
                     col = oppCaptured[i].getRow();
@@ -132,11 +132,9 @@ public class ShogiDumbAI {
                                 possibleMoves[iterMoves][0], possibleMoves[iterMoves][1], row, col));
                         return;
                     }
-                }
             }
-        }else {
-            dumbAI(player);
         }
+        dumbAI(player);
     }
 
     /**
