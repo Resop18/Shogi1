@@ -453,8 +453,8 @@ public class LegalMoves implements Serializable{
                 }
             }else{
                 if (currRow + 1 < 10 &&
-                        (board[currRow - 1][currCol] == null || player != board[currRow - 1][currCol].getPlayer())) {
-                    moves[i] = new int[]{currRow - 1, currCol};
+                        (board[currRow + 1][currCol] == null || player != board[currRow + 1][currCol].getPlayer())) {
+                    moves[i] = new int[]{currRow + 1, currCol};
                     i++;
                 }
             }
