@@ -284,7 +284,11 @@ public class ShogiGameState extends GameState implements Serializable{
             if(playerInCheck) break; //don't continue if player is already in check
         }
 
+        //update the gamestate so that it knows the specified player is in check
         setPlayerInCheck(idx, playerInCheck);
+
+        //change the color of the specified player's king if in check
+        king.setInCheck(playerInCheck);
 
         Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
 

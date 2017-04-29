@@ -224,9 +224,12 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 
             //if the player who moved is in check afterwards, notify the player
             //and don't let the move go through
+            gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard);
+            /*
             if(gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard)) {
                 
             }
+            */
 
             gameState.setCurrentBoard(newBoard);
 
