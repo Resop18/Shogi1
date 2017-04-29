@@ -14,12 +14,12 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.01"
         android:paddingLeft="320dp"
         android:text="Game Guide"
-        android:textColor="#6b6a6a"
+        android:textColor="#e5e5e5"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_weight="0.01" />
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="798dp"
@@ -47,7 +47,7 @@
         android:layout_weight="0.01"
         android:paddingLeft="250dp"
         android:text="  Shogi Pieces' Legal Move"
-        android:textColor="#6b6a6a"
+        android:textColor="#e5e5e5"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
         android:layout_weight="0.01"
         android:paddingLeft="200dp"
         android:text="  Promoted Shogi Pieces' Legal Move"
-        android:textColor="#6b6a6a"
+        android:textColor="#e5e5e5"
         android:textSize="24sp"
         android:textStyle="bold" />
 

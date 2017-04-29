@@ -18,6 +18,8 @@ public class ShogiDumbComputerPlayer extends GameComputerPlayer {
 
     private boolean pieceSelection = false;
 
+
+
     public ShogiDumbComputerPlayer(String name) { super(name); }
 
     @Override

@@ -85,6 +85,12 @@ public class ShogiDumbAI {
         piece.setSelected(false);
         newBoard[row][col].setSelected(false);
 
+        //wait until the human is not in the options menu
+        while(ShogiHumanPlayer.checkOption)
+        {
+            sleep(1000);
+        }
+
         game.sendAction(new ShogiMoveAction(player, newBoard[row][col], newRow, newCol, row, col));
     }
 
@@ -108,6 +114,11 @@ public class ShogiDumbAI {
                         int newCol = possibleMoves[i][1];
                         if(board[newRow][newCol] == null){ continue; }
                         if(board[row][col].getPlayer() != board[newRow][newCol].getPlayer()){
+                            //wait until the human is not in the options menu
+                            while(ShogiHumanPlayer.checkOption)
+                            {
+                                sleep(1000);
+                            }
                             game.sendAction(new ShogiMoveAction(player, board[row][col], newRow, newCol, row, col));
                             return;
                         }
@@ -127,7 +138,13 @@ public class ShogiDumbAI {
 
                     possibleMoves = getLegalMoves.moves(board, piece.getPiece(), row, col);
                     for(int iterMoves = 0; iterMoves < possibleMoves.length; iterMoves++){
-                        if(possibleMoves[iterMoves] == null){ continue; }
+                        if(possibleMoves[iterMoves] == null)
+                        { continue; }
+                        //wait until the human is not in the options menu
+                        while(ShogiHumanPlayer.checkOption)
+                        {
+                            sleep(1000);
+                        }
                         game.sendAction(new ShogiDropAction(player, piece,
                                 possibleMoves[iterMoves][0], possibleMoves[iterMoves][1], row, col));
                         return;

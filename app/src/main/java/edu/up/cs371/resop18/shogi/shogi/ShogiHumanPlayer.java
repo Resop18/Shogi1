@@ -29,6 +29,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private Integer reset = null;
 	private ShogiGui gui;
 	private boolean hasKing = true;
+	public static boolean checkOption = false; //for determining if a player is in the options menu
 
 
 	/**
@@ -68,8 +69,17 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			gui.invalidate();
 		}
 
+
 		return;
 	}
+
+
+
+
+
+
+
+
 
 
 	/**
@@ -87,6 +97,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		activity.setContentView(R.layout.activity_main);
 
 		optionsButt = (Button)myActivity.findViewById(R.id.Options);
+
+
+
+
 
 		optionsButt.setOnClickListener(this);
 		myActivity.findViewById(R.id.ShogiBoard).setOnTouchListener(this);
@@ -107,6 +121,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.Options){
+			checkOption = true;
 			myActivity.setContentView(R.layout.options);
 			pressmeButt = (Button) myActivity.findViewById(R.id.EasterEgg);
 			pressmeButt.setOnClickListener(this);
@@ -114,6 +129,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 		else if(v.getId() == R.id.EasterEgg)
 		{
+			checkOption = false;
 			myActivity.setContentView(R.layout.activity_main);
 			optionsButt = (Button)myActivity.findViewById(R.id.Options);
 			optionsButt.setOnClickListener(this);
