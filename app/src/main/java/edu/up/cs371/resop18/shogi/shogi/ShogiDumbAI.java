@@ -130,6 +130,7 @@ public class ShogiDumbAI {
                     int newRow = possibleMoves[i][0];
                     int newCol = possibleMoves[i][1];
                     game.sendAction(new ShogiMoveAction(player, piece, newRow, newCol, piece.getRow(), piece.getCol()));
+                    state.setPlayerHasKing(1);
                     return;
                 }
             }
