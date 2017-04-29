@@ -268,7 +268,8 @@ public class ShogiPiece implements Serializable{
         }else{
             CirclePaint.setColor(Color.RED);
         }
-
+        int a = player ? 0 : 1;
+        getLegalMoves = new LegalMoves(a);
         int[][] moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){

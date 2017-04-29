@@ -33,7 +33,7 @@ public class ShogiMoveAction extends GameAction implements Serializable{
         this.currPiece.setPlayer(piece.getPlayer());
         this.currPiece.promotePiece(piece.getPromoted());
 
-        if(!this.currPiece.getPlayer()){ this.currPiece.setSelected(piece.getSelected()); }
+        //if(!this.currPiece.getPlayer()){ this.currPiece.setSelected(piece.getSelected()); }
 
         this.newRow = newR;
         this.newCol = newC;

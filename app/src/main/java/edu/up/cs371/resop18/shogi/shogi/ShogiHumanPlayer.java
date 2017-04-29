@@ -68,18 +68,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			gui.pieces = this.currPieces;
 			gui.invalidate();
 		}
-
-
-		return;
 	}
-
-
-
-
-
-
-
-
 
 
 	/**
@@ -97,10 +86,6 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		activity.setContentView(R.layout.activity_main);
 
 		optionsButt = (Button)myActivity.findViewById(R.id.Options);
-
-
-
-
 
 		optionsButt.setOnClickListener(this);
 		myActivity.findViewById(R.id.ShogiBoard).setOnTouchListener(this);
@@ -191,85 +176,154 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 
 		//when a piece on the board is currently selected
-		if(havePieceSelected){
+		if(havePieceSelected) {
 
 			//when a piece is currently selected and
 			//the tapped space contains one of the player's own pieces
-				//old comment: when the user tapped a space that has one of his/her own pieces
-			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
+			//old comment: when the user tapped a space that has one of his/her own pieces
+			if (state.getPlayerTurn() == 0) {
+				if (currPieces[row][col] != null && currPieces[row][col].getPlayer()) {
 
-				//when the player taps the piece that is already selected, deselect it
+					//when the player taps the piece that is already selected, deselect it
 					//old comment: This deals with selected and deselecting currPieces
-				if(currPieces[row][col].getSelected()){
-					currPieces[row][col].setSelected(false);
-					gui.pieceIsSelected = false;
-					havePieceSelected = false;
-				}
-
-
-				//when the player taps a piece of his/hers that is not
-				//the selected piece, deselect the currently selected
-				//piece and select the other tapped piece
-				else {
-
-					//find and deselect the currently selected piece
-					for(int i = 1; i < 11; i++){
-						for(int j = 0; j < 9; j++){
-							if(currPieces[i][j] != null){
-								if(currPieces[i][j].getSelected()){
-									currPieces[i][j].setSelected(false);
-								}
-							}
-						}
+					if (currPieces[row][col].getSelected()) {
+						currPieces[row][col].setSelected(false);
+						gui.pieceIsSelected = false;
+						havePieceSelected = false;
 					}
 
 
-					//select the newly tapped piece
-					currPieces[row][col].setSelected(true);
-					gui.pieceIsSelected = true;
-					rowSel = row;
-					colSel = col;
+					//when the player taps a piece of his/hers that is not
+					//the selected piece, deselect the currently selected
+					//piece and select the other tapped piece
+					else {
+
+						//find and deselect the currently selected piece
+						for (int i = 1; i < 11; i++) {
+							for (int j = 0; j < 9; j++) {
+								if (currPieces[i][j] != null) {
+									if (currPieces[i][j].getSelected()) {
+										currPieces[i][j].setSelected(false);
+									}
+								}
+							}
+						}
+
+
+						//select the newly tapped piece
+						currPieces[row][col].setSelected(true);
+						gui.pieceIsSelected = true;
+						rowSel = row;
+						colSel = col;
+					}
 				}
+
+
+				//if a piece is selected and the tapped space does not contain one of
+				//the human player's pieces, then check if the tapped space is a legal
+				//move for the currently selected piece. If it is, move the piece
+				else if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+
+					if (rowSel == 10) {
+						game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+					} else {
+						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+					}
+
+					//reset
+					havePieceSelected = false;
+					rowSel = -1;
+					colSel = -1;
+				}
+
+
+				//if a piece is selected and the tapped space is not a legal move,
+				//then leave everything as it is
+				else return true;
+
 			}
+			else{
+				if (currPieces[row][col] != null && !currPieces[row][col].getPlayer()) {
+
+					//when the player taps the piece that is already selected, deselect it
+					//old comment: This deals with selected and deselecting currPieces
+					if (currPieces[row][col].getSelected()) {
+						currPieces[row][col].setSelected(false);
+						gui.pieceIsSelected = false;
+						havePieceSelected = false;
+					}
 
 
-			//if a piece is selected and the tapped space does not contain one of
-			//the human player's pieces, then check if the tapped space is a legal
-			//move for the currently selected piece. If it is, move the piece
-			else if(currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+					//when the player taps a piece of his/hers that is not
+					//the selected piece, deselect the currently selected
+					//piece and select the other tapped piece
+					else {
 
-				if(rowSel == 10){
-					game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+						//find and deselect the currently selected piece
+						for (int i = 0; i < 10; i++) {
+							for (int j = 0; j < 9; j++) {
+								if (currPieces[i][j] != null) {
+									if (currPieces[i][j].getSelected()) {
+										currPieces[i][j].setSelected(false);
+									}
+								}
+							}
+						}
+
+
+						//select the newly tapped piece
+						currPieces[row][col].setSelected(true);
+						gui.pieceIsSelected = true;
+						rowSel = row;
+						colSel = col;
+					}
 				}
-				else {
-					game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+
+
+				//if a piece is selected and the tapped space does not contain one of
+				//the human player's pieces, then check if the tapped space is a legal
+				//move for the currently selected piece. If it is, move the piece
+				else if (currPieces[rowSel][colSel].legalMove(currPieces, row, col)) {
+
+					if (rowSel == 0) {
+						game.sendAction(new ShogiDropAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+					} else {
+						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
+					}
+
+					//reset
+					havePieceSelected = false;
+					rowSel = -1;
+					colSel = -1;
 				}
 
-				//reset
-				havePieceSelected = false;
-				rowSel = -1;
-				colSel = -1;
+
+				//if a piece is selected and the tapped space is not a legal move,
+				//then leave everything as it is
+				else return true;
+
 			}
-
-
-			//if a piece is selected and the tapped space is not a legal move,
-			//then leave everything as it is
-			else
-				return true;
-
-		} //havePieceSelected
-
-
+		}
 		//when no piece is currently selected
 		else {
 
 			//when the tapped space is not empty and contains a piece
 			//that belongs to the human player
-			if(currPieces[row][col] != null && currPieces[row][col].getPlayer()){
-				this.currPieces[row][col].setSelected(true);
-				havePieceSelected = true;
-				rowSel = row;
-				colSel = col;
+			if(state.getPlayerTurn() == 0){
+				if(currPieces[row][col] != null && currPieces[row][col].getPlayer()) {
+					this.currPieces[row][col].setSelected(true);
+					havePieceSelected = true;
+					rowSel = row;
+					colSel = col;
+				}
+			}
+			else{
+				if(currPieces[row][col] != null && !currPieces[row][col].getPlayer()) {
+					this.currPieces[row][col].setSelected(true);
+					havePieceSelected = true;
+					rowSel = row;
+					colSel = col;
+				}
 			}
 		}
 
