@@ -553,7 +553,7 @@ public class LegalMoves implements Serializable{
                     }
                 }
 
-                if(currRow+1 < 10 && currCol-1 > 0){
+                if(currRow+1 < 10 && currCol-1 >= 0){
                     if(board[currRow+1][currCol-1] == null || board[currRow+1][currCol-1].getPlayer() != player){
                         moves[i] = new int[]{currRow+1, currCol-1};
                         i++;
@@ -567,7 +567,7 @@ public class LegalMoves implements Serializable{
                     }
                 }
 
-                if(currRow-1 > 1 && currCol-1 > 0){
+                if(currRow-1 > 1 && currCol-1 >= 0){
                     if(board[currRow-1][currCol-1] == null || board[currRow-1][currCol-1].getPlayer() != player){
                         moves[i] = new int[]{currRow-1, currCol-1};
                     }

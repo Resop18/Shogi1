@@ -57,11 +57,13 @@ public class ShogiDumbAI {
                 //Gets the possible moves for the piece selected
                 possibleMoves = getLegalMoves.moves(state.getCurrentBoard(), piece.getPiece(), piece.getRow(), piece.getCol());
 
-                //Selects pawns at a smaller frequency than other pieces
-                if(piece.getPiece().equals("Pawn") && new Random().nextDouble() < 0.15){ break; }
-
-                //Selects the king at a smaller frequency than other pieces
-                if(piece.getPiece().equals("King") && new Random().nextDouble() < 0.15){ break; }
+                //Selects the king or pawn at a smaller frequency than other pieces
+                //Checks if there is a legal move and if there is, it selects that piece
+                if((piece.getPiece().equals("King") || piece.getPiece().equals("Pawn")) && new Random().nextDouble() < 0.15){
+                    for(int a = 0; a < possibleMoves.length; a++){
+                        if(possibleMoves[a] != null){ break; }
+                    }
+                }
 
                 //Breaks if there are legal moves for the piece
                 if(possibleMoves[0] != null){ break; }
