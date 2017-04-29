@@ -420,93 +420,42 @@ public class LegalMoves implements Serializable{
                 }
             }
         } else if (pieceName.equals("Silver")) {
-            if (currRow - 1 < 1) {
+            i = 0;
+            if(currRow-1 > 0 && currCol-1 >= 0 &&
+                    (board[currRow-1][currCol-1] == null || player != board[currRow-1][currCol-1].getPlayer())){
+                moves[i] = new int[]{currRow-1, currCol-1};
+                i++;
+            }
 
-                if (currCol - 1 < 0) { //check the top left
-                    if (board[currRow + 1][currCol + 1] == null || board[currRow + 1][currCol + 1].getPlayer() != player) {
-                        moves[0] = new int[]{currRow + 1, currCol + 1}; //check to draw a dot diaacnos
-                    }
-                } else if (currCol + 1 >= 9) { //check the top right
-                    if (board[currRow + 1][currCol - 1] == null || board[currRow + 1][currCol - 1].getPlayer() != player) {
-                        moves[0] = new int[]{currRow + 1, currCol - 1}; //check to draw a dot diaacnos
-                    }
-                } else { //checktopcentre
-                    if (board[currRow + 1][currCol - 1] == null || board[currRow + 1][currCol - 1].getPlayer() != player) { //leftdot
-                        moves[0] = new int[]{currRow + 1, currCol - 1};
-                    }
-                    if (board[currRow + 1][currCol + 1] == null || board[currRow + 1][currCol + 1].getPlayer() != player) { //rightdot
-                        moves[1] = new int[]{currRow + 1, currCol + 1};
-                    }
-                }
+            if(currRow-1 > 1 && currCol+1 < 9 &&
+                    (board[currRow-1][currCol+1] == null || player != board[currRow-1][currCol+1].getPlayer())){
+                moves[i] = new int[]{currRow-1, currCol+1};
+                i++;
+            }
 
-            } else if (currRow + 1 >= 9) {
+            if(currRow+1 < 10 && currCol+1 > 0 &&
+                    (board[currRow+1][currCol+1] == null || player != board[currRow+1][currCol+1].getPlayer())){
+                moves[i] = new int[]{currRow+1, currCol+1};
+                i++;
+            }
 
-                if (currCol - 1 <= 0) {
-                    if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player)
-                        moves[0] = new int[]{currRow - 1, currCol};
-                    if (board[currRow - 1][currCol + 1] == null || board[currRow - 1][currCol + 1].getPlayer() != player)
-                        moves[1] = new int[]{currRow - 1, currCol + 1};
-                } else if (currCol + 1 >= 9) {
-                    if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player)
-                        moves[0] = new int[]{currRow - 1, currCol};
-                    if (board[currRow - 1][currCol - 1] == null || board[currRow - 1][currCol - 1].getPlayer() != player)
-                        moves[1] = new int[]{currRow - 1, currCol - 1};
-                } else {
-                    if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player)
-                        moves[0] = new int[]{currRow - 1, currCol};
-                    if (board[currRow - 1][currCol - 1] == null || board[currRow - 1][currCol - 1].getPlayer() != player)
-                        moves[1] = new int[]{currRow - 1, currCol - 1};
-                    if (board[currRow - 1][currCol + 1] == null || board[currRow - 1][currCol + 1].getPlayer() != player)
-                        moves[2] = new int[]{currRow - 1, currCol + 1};
-                }
+            if(currRow+1 < 10 && currCol-1 > 0 &&
+                    (board[currRow+1][currCol-1] == null || player != board[currRow+1][currCol-1].getPlayer())){
+                moves[i] = new int[]{currRow+1, currCol-1};
+                i++;
+            }
 
-            } else if (currCol + 1 >= 9) {
-
-                if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player)
-                    moves[0] = new int[]{currRow - 1, currCol};
-                if (board[currRow - 1][currCol - 1] == null || board[currRow - 1][currCol - 1].getPlayer() != player)
-                    moves[1] = new int[]{currRow - 1, currCol - 1};
-                if (board[currRow + 1][currCol - 1] == null || board[currRow + 1][currCol - 1].getPlayer() != player)
-                    moves[2] = new int[]{currRow + 1, currCol - 1};
-
-            } else if (currRow - 1 < 0) {
-
-                if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player) {
-                    moves[0] = new int[]{currRow - 1, currCol};
-                }
-                if (board[currRow - 1][currCol + 1] == null || board[currRow - 1][currCol + 1].getPlayer() != player) {
-                    moves[1] = new int[]{currRow - 1, currCol + 1};
-                }
-                if (board[currRow + 1][currCol + 1] == null || board[currRow + 1][currCol + 1].getPlayer() != player) {
-                    moves[2] = new int[]{currRow + 1, currCol + 1};
-                }
-
-            } else {
-                if (board[currRow - 1][currCol] == null || board[currRow - 1][currCol].getPlayer() != player) {
-                    i = 0;
+            if(player){
+                if (currRow - 1 > 0 &&
+                        (board[currRow - 1][currCol] == null || player != board[currRow - 1][currCol].getPlayer())) {
                     moves[i] = new int[]{currRow - 1, currCol};
                     i++;
-                    if (currCol - 1 >= 0) {
-                        if (board[currRow - 1][currCol - 1] == null || board[currRow - 1][currCol - 1].getPlayer() != player) {
-                            moves[i] = new int[]{currRow - 1, currCol - 1};
-                            i++;
-                        }
-
-                        if (board[currRow + 1][currCol - 1] == null || board[currRow + 1][currCol - 1].getPlayer() != player) {
-                            moves[i] = new int[]{currRow + 1, currCol - 1};
-                            i++;
-                        }
-                    }
-
-                    if (board[currRow - 1][currCol + 1] == null || board[currRow - 1][currCol + 1].getPlayer() != player) {
-                        moves[i] = new int[]{currRow - 1, currCol + 1};
-                        i++;
-                    }
-
-                    if (board[currRow + 1][currCol + 1] == null || board[currRow + 1][currCol + 1].getPlayer() != player) {
-                        moves[i] = new int[]{currRow + 1, currCol + 1};
-                        i++;
-                    }
+                }
+            }else{
+                if (currRow + 1 < 10 &&
+                        (board[currRow - 1][currCol] == null || player != board[currRow - 1][currCol].getPlayer())) {
+                    moves[i] = new int[]{currRow - 1, currCol};
+                    i++;
                 }
             }
         } else {
