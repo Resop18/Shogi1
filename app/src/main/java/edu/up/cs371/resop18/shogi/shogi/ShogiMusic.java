@@ -10,9 +10,11 @@ import edu.up.cs371.resop18.shogi.game.GameMainActivity;
  * @author Javier Resop
  */
 
+//The BackGround Music
 public class ShogiMusic implements Runnable {
 	private MediaPlayer bgm = new MediaPlayer();
 
+	//Creates a MediaPlayer using the GameMainActivity
 	public ShogiMusic(GameMainActivity gma){
 		bgm = MediaPlayer.create(gma, R.raw.bgm);
 		bgm.setAudioStreamType(AudioManager.STREAM_MUSIC);
