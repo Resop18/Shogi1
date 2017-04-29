@@ -7,7 +7,7 @@ import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
 
 /**
- * Created by Javier on 29-Apr-17.
+ * @author Javier Resop
  */
 
 //The BackGround Music

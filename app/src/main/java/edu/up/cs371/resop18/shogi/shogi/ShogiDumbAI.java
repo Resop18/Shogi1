@@ -106,7 +106,8 @@ public class ShogiDumbAI {
 
         for(int row = 1; row < board.length-1; row++){
             if(piece != null){ break; }
-            for(int col = 0; col < board.length; col++){
+            for(int col = 0; col < board[row].length; col++){
+                if(board[row][col] == null){ continue; }
                 if(board[row][col].getPiece().equals("King")){
                     piece = board[row][col];
                     break;
@@ -116,10 +117,23 @@ public class ShogiDumbAI {
 
         if(piece != null){
             if(state.determinePlayerInCheck(1, board, piece.getRow(), piece.getCol())){
+                possibleMoves = getLegalMoves.moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
+                for(int i = 0; i < possibleMoves.length; i++){
+                    if(possibleMoves[i] == null){ continue; }
+                    if(state.determinePlayerInCheck(1, board, possibleMoves[i][0], possibleMoves[i][1])){
+                        possibleMoves[i] = null;
+                    }
+                }
 
+                for(int i = 0; i < possibleMoves.length; i++){
+                    if(possibleMoves[i] == null){ continue; }
+                    int newRow = possibleMoves[i][0];
+                    int newCol = possibleMoves[i][1];
+                    game.sendAction(new ShogiMoveAction(player, piece, newRow, newCol, piece.getRow(), piece.getCol()));
+                    return;
+                }
             }
         }
-
 
         piece = null;
         for(int row = 1; row < board.length-1; row++){
