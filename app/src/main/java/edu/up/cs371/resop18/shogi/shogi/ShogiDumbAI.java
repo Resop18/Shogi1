@@ -86,10 +86,7 @@ public class ShogiDumbAI {
         newBoard[row][col].setSelected(false);
 
         //wait until the human is not in the options menu
-        while(ShogiHumanPlayer.checkOption)
-        {
-            sleep(1000);
-        }
+        while(ShogiHumanPlayer.checkOption){ sleep(1000); }
 
         game.sendAction(new ShogiMoveAction(player, newBoard[row][col], newRow, newCol, row, col));
     }
@@ -115,10 +112,7 @@ public class ShogiDumbAI {
                         if(board[newRow][newCol] == null){ continue; }
                         if(board[row][col].getPlayer() != board[newRow][newCol].getPlayer()){
                             //wait until the human is not in the options menu
-                            while(ShogiHumanPlayer.checkOption)
-                            {
-                                sleep(1000);
-                            }
+                            while(ShogiHumanPlayer.checkOption) { sleep(1000); }
                             game.sendAction(new ShogiMoveAction(player, board[row][col], newRow, newCol, row, col));
                             return;
                         }
@@ -129,22 +123,19 @@ public class ShogiDumbAI {
 
         int newRow, newCol, row, col;
         if(hasCapturedPieces() /*&& Math.random() < 0.5*/){
-            ShogiPiece[] oppCaptured = state.getOpponentCaptured();
+            ShogiPiece[][] oppCaptured = state.getCurrentBoard();
             for(int i = 0; i < oppCaptured.length; i++){
                 if(oppCaptured[i] == null){ continue; }
-                    piece = oppCaptured[i];
-                    row = oppCaptured[i].getRow();
-                    col = oppCaptured[i].getRow();
+                    piece = oppCaptured[0][i];
+                    row = piece.getRow();
+                    col = piece.getCol();
 
                     possibleMoves = getLegalMoves.moves(board, piece.getPiece(), row, col);
                     for(int iterMoves = 0; iterMoves < possibleMoves.length; iterMoves++){
-                        if(possibleMoves[iterMoves] == null)
-                        { continue; }
+                        if(possibleMoves[iterMoves] == null){ continue; }
+
                         //wait until the human is not in the options menu
-                        while(ShogiHumanPlayer.checkOption)
-                        {
-                            sleep(1000);
-                        }
+                        while(ShogiHumanPlayer.checkOption){ sleep(1000); }
                         game.sendAction(new ShogiDropAction(player, piece,
                                 possibleMoves[iterMoves][0], possibleMoves[iterMoves][1], row, col));
                         return;
@@ -181,9 +172,9 @@ public class ShogiDumbAI {
      * @return boolean if there is a piece that can be captured
      */
     public boolean hasCapturedPieces(){
-        ShogiPiece[] opponentCaptured = state.getOpponentCaptured();
-        for(int i = 0; i < opponentCaptured.length; i++){
-            if(opponentCaptured[i] != null){ return true; }
+        ShogiPiece[][] opponentCaptured = state.getCurrentBoard();
+        for(int i = 0; i < opponentCaptured[0].length; i++){
+            if(opponentCaptured[0][i] != null){ return true; }
         }
         return false;
     }
