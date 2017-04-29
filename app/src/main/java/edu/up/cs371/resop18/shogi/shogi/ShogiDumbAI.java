@@ -122,7 +122,7 @@ public class ShogiDumbAI {
         }
 
         int newRow, newCol, row, col;
-        if(hasCapturedPieces() /*&& Math.random() < 0.5*/){
+        if(hasCapturedPieces() && Math.random() < 0.1){
             ShogiPiece[][] oppCaptured = state.getCurrentBoard();
             for(int i = 0; i < oppCaptured.length; i++){
                 if(oppCaptured[i] == null){ continue; }
