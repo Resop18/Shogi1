@@ -312,7 +312,7 @@ public class ShogiGameState extends GameState implements Serializable{
 
         //necessary variables
         int r = 0, c = 0; //for iterating through the board
-        ShogiPiece king = board[row][col]; //the to-be-found king of the specified player
+        //ShogiPiece king = board[row][col]; //the to-be-found king of the specified player
         boolean thisPlayerPiece; //for determining if the king is the specified player's
         boolean playerInCheck = false;
 
@@ -327,9 +327,7 @@ public class ShogiGameState extends GameState implements Serializable{
             for(c = 0; c < 9; c++) {
                 if (board[r][c] != null &&
                         board[r][c].getPlayer() != thisPlayerPiece &&
-                        king != null &&
-                        board[r][c].legalMove(board,
-                                king.getRow(), king.getCol())) {
+                        board[r][c].legalMove(board, row, col)) {
 
                     playerInCheck = true;
 
