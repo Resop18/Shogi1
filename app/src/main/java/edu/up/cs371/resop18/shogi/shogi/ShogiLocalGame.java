@@ -224,8 +224,8 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
             //Also, because the dumb AI does not try to move out of check,
             //doing this with the dumb AI will cause the game to freeze, so
             //dont force the dumb AI to keep making new moves
-            if(gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard) &&
-                    !(sma.getPlayer() instanceof ShogiDumbComputerPlayer)) {
+            if(!(sma.getPlayer() instanceof ShogiDumbComputerPlayer) &&
+                    gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard)) {
 
                 //set up gamestate so that it will trigger an alertdialog
                 //when the human player receives it
@@ -234,6 +234,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
                 return true;
 
             }
+
             else gameState.setCheckAlert(false);
 
 

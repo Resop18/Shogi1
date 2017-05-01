@@ -20,10 +20,13 @@ public class ShogiHardComputerPlayer extends GameComputerPlayer {
             this.state = (ShogiGameState)info;
 
             if(state.getPlayerTurn() == 1){
+                state.setCheckAlert(false);
                 //Smart AI, which will check if an enemy piece can be captured, otherwise randomly makes moves
                 ShogiDumbAI ai = new ShogiDumbAI(state, game);
                 ai.smartAI(this);
             }
+
+
         }
     }
 }

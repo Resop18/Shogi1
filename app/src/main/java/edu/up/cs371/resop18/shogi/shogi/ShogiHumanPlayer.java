@@ -65,6 +65,13 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		//only update the state if info is a gamestate
 		if(info instanceof ShogiGameState){
 
+			// update our state; then update the display
+			this.state = (ShogiGameState)info;
+			this.currPieces = state.getCurrentBoard();
+			gui = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
+			gui.pieces = this.currPieces;
+
+
 			if(state != null && state.getCheckAlert()) {
 
 
@@ -84,11 +91,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				state.setCheckAlert(false);
 			}
 
-			// update our state; then update the display
-			this.state = (ShogiGameState)info;
-			this.currPieces = state.getCurrentBoard();
-			gui = (ShogiGui)myActivity.findViewById(R.id.ShogiBoard);
-			gui.pieces = this.currPieces;
+
 			gui.invalidate();
 		}
 	}
