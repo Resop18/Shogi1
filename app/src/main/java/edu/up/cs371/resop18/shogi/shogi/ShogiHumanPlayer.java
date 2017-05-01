@@ -131,6 +131,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 		else if(v.getId() == R.id.Reset){
 			ShogiMainActivity.bgm.stop();
+			checkOption=false;
 			myActivity.recreate();
 		}
 	}
