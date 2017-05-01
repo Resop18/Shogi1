@@ -1,12 +1,9 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -72,7 +69,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			gui.pieces = this.currPieces;
 
 
-			if(state != null && state.getCheckAlert()) {
+			if(state != null && state.getCheckAlert() && (state.getPlayerTurn() == 0)) {
 
 
 				//display an alert informing the human that the previous move (s)he made

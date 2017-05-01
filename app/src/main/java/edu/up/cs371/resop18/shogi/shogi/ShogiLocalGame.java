@@ -1,8 +1,5 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.app.AlertDialog;
-import android.util.Log;
-
 import java.io.Serializable;
 
 import edu.up.cs371.resop18.shogi.game.GamePlayer;
@@ -126,7 +123,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
 				}
 
 			}
-
+            gameState.setCurrentBoard(newBoard);
 			if(gameState.getPlayerTurn() == 1){gameState.setPlayerTurn(0);}
 			else if(gameState.getPlayerTurn() == 0){gameState.setPlayerTurn(1);}
 			return true;
