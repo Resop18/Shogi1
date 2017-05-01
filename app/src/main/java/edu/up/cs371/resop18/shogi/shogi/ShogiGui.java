@@ -88,14 +88,11 @@ public class ShogiGui extends SurfaceView{
 
         //the board and player sides
         canvas.drawRect(50f, 100f, 1500f,250f, captured);
-        canvas.drawCircle(230.5f, 275f, 180f, opponent);
-        canvas.drawText("Player 2", 130f, 200f, text);
+        canvas.drawCircle(1319, 275f, 180f, opponent);
+        canvas.drawText("Player 2", 1250f, 200f, text);
         canvas.drawRect(50f, 1650f, 1500f,1800f, captured);
         canvas.drawCircle(1319f, 1625f, 180f, player);
         canvas.drawText("Player 1",1250f,1725f,text);
-        //canvas.drawRect(50f, 250f, 1500f, 1650f, shogiboard);
-        //canvas.drawRect(50f, 250f, 1500f, 1650f, square);
-        //canvas.drawCircle(1210, 1710, 20, text);
 
         canvas.drawBitmap(board, 50f, 250f, null);
 
@@ -122,9 +119,7 @@ public class ShogiGui extends SurfaceView{
         for(i = 0; i < 11; i++) {
             for(j = 0; j < 9; j++){
                 if(pieces[i][j] != null && pieces[i][j].getSelected()){
-                    //if(pieces[i][j].getPlayer()){
-                        pieces[i][j].drawMoves(canvas, pieces);
-                    //}
+                    pieces[i][j].drawMoves(canvas, pieces);
                 }
             }
         }

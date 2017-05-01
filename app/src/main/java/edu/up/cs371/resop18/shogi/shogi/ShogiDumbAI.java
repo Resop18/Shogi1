@@ -18,7 +18,7 @@ public class ShogiDumbAI {
     public ShogiDumbAI(ShogiGameState currState, Game currGame){
         this.game = currGame;
         this.state = currState;
-        sleep(500); //Sleeps for 2 second before making move
+        sleep(1000); //Sleeps for 1 second before making move
     }
 
     public void sleep(int time){
@@ -130,6 +130,7 @@ public class ShogiDumbAI {
                     int newRow = possibleMoves[i][0];
                     int newCol = possibleMoves[i][1];
                     game.sendAction(new ShogiMoveAction(player, piece, newRow, newCol, piece.getRow(), piece.getCol()));
+                    state.setPlayerHasKing(1);
                     return;
                 }
             }

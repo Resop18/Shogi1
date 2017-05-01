@@ -126,15 +126,16 @@
         android:layout_height="50dp"
         android:layout_weight="0.01" />
 
-    <Spinner
-        android:id="@+id/Easter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/EasterEgg"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="Go Back" />
+
+    <Button
+        android:id="@+id/Reset"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Reset"/>
 
 </LinearLayout>
