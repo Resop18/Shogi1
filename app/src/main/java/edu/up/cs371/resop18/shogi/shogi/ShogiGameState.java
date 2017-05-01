@@ -18,8 +18,9 @@ public class ShogiGameState extends GameState implements Serializable{
     private ShogiPiece opponentCaptured[] = new ShogiPiece[19]; //Keeps track of opponent's captured pieces
     private int currentPlayersTurn;
     private boolean[] playerHasKing = {true, true};
-    boolean pZeroInCheck; //indicates whether the player whose index is 0 is in check
-    boolean pOneInCheck; //indicates whether the player whose index is 1 is in check
+    private boolean pZeroInCheck; //indicates whether the player whose index is 0 is in check
+    private boolean pOneInCheck; //indicates whether the player whose index is 1 is in check
+    private boolean checkAlert; //used to determine when to display a dialog informing the user that they are in check
 
 
     private int row, col; //for iterating and managing Pieces
@@ -110,6 +111,8 @@ public class ShogiGameState extends GameState implements Serializable{
                 }
             }
         }*/
+
+        checkAlert = false;
     }
 
     /**
@@ -138,6 +141,10 @@ public class ShogiGameState extends GameState implements Serializable{
             }
         }
         this.currentPlayersTurn = orig.currentPlayersTurn;
+
+        this.checkAlert = orig.checkAlert;
+        this.pZeroInCheck = orig.pZeroInCheck;
+        this.pOneInCheck = orig.pOneInCheck;
     }
 
 
@@ -172,8 +179,27 @@ public class ShogiGameState extends GameState implements Serializable{
     }
 
     //Get Current State of Board
-    public ShogiPiece[][] getCurrentBoard(){
-        return pieces;
+    public ShogiPiece[][] getCurrentBoard() {
+
+        //make a new board that is separate from this game state's board
+        ShogiPiece[][] boardDeepCopy = new ShogiPiece[11][9];
+
+        //copy this game state's board into the board copy
+        for(row = 0; row < boardDeepCopy.length; row++){
+            for(col = 0; col < boardDeepCopy[row].length; col++){
+                if(pieces[row][col] != null){
+                    boardDeepCopy[row][col] = new ShogiPiece(row, col, pieces[row][col].getPiece());
+                    boardDeepCopy[row][col].setPlayer(pieces[row][col].getPlayer());
+                    boardDeepCopy[row][col].promotePiece(pieces[row][col].getPromoted());
+                    boardDeepCopy[row][col].setSelected(pieces[row][col].getSelected());
+                    boardDeepCopy[row][col].setInCheck(pieces[row][col].getInCheck());
+                }
+                else boardDeepCopy[row][col] = null;
+            }
+        }
+
+        //give them the deep copy of the current board
+        return boardDeepCopy;
     }
 
     public void setCurrentBoard(ShogiPiece board[][]){
@@ -196,6 +222,10 @@ public class ShogiGameState extends GameState implements Serializable{
     {
         this.playerHasKing[player] = false;
     }
+
+    public boolean getCheckAlert() {return checkAlert; }
+
+    public void setCheckAlert(boolean value) { checkAlert = value; }
 
 
     /**
@@ -290,7 +320,7 @@ public class ShogiGameState extends GameState implements Serializable{
         //change the color of the specified player's king if in check
         king.setInCheck(playerInCheck);
 
-        Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
+        //Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
 
         return playerInCheck;
 
@@ -330,12 +360,12 @@ public class ShogiGameState extends GameState implements Serializable{
                         board[r][c].legalMove(board, row, col)) {
 
                     playerInCheck = true;
-
                     break;
                 }
             }
             if(playerInCheck) break; //don't continue if player is already in check
         }
+
 
         setPlayerInCheck(idx, playerInCheck);
 

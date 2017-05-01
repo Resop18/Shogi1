@@ -208,10 +208,6 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
             newBoard[sma.oldRow][sma.oldCol] = null;
 
 
-            /*if(!(row == sma.oldRow && col == sma.oldCol)){
-                newBoard[sma.oldRow][sma.oldCol] = null;
-            }*/
-
             //Force Promotes Piece if in Applicable Area
             if(row < 4 && row >= 1 && newBoard[row][col].getPlayer()){
                 newBoard[row][col].promotePiece(true);
@@ -222,14 +218,24 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
             }
 
 
-            //if the player who moved is in check afterwards, notify the player
-            //and don't let the move go through
-            gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard);
-            /*
-            if(gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard)) {
-                
+            //if the player who moved is in check afterwards, undo the move
+            //and let the player make a different move by not changing turns
+            //and returning the old game state.
+            //Also, because the dumb AI does not try to move out of check,
+            //doing this with the dumb AI will cause the game to freeze, so
+            //dont force the dumb AI to keep making new moves
+            if(gameState.determinePlayerInCheck(gameState.getPlayerTurn(), newBoard) &&
+                    !(sma.getPlayer() instanceof ShogiDumbComputerPlayer)) {
+
+                //set up gamestate so that it will trigger an alertdialog
+                //when the human player receives it
+                gameState.setCheckAlert(true);
+
+                return true;
+
             }
-            */
+            else gameState.setCheckAlert(false);
+
 
             gameState.setCurrentBoard(newBoard);
 

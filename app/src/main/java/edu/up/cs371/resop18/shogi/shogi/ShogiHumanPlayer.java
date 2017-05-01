@@ -1,7 +1,12 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +64,25 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 
 		//only update the state if info is a gamestate
 		if(info instanceof ShogiGameState){
+
+			if(state != null && state.getCheckAlert()) {
+
+
+				//display an alert informing the human that the previous move (s)he made
+				//was illegal
+				AlertDialog.Builder checkAlertBuilder = new AlertDialog.Builder(myActivity);
+				checkAlertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) { } });
+				checkAlertBuilder.setMessage("You cannot move there because otherwise you would be in check");
+
+				AlertDialog checkAlertDialog = checkAlertBuilder.create();
+				checkAlertDialog.show();
+
+				//reset the game state so that it will not display another
+				//check alert unless human player is in check
+				state.setCheckAlert(false);
+			}
 
 			// update our state; then update the display
 			this.state = (ShogiGameState)info;
