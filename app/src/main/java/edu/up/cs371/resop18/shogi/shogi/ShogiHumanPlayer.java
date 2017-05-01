@@ -1,6 +1,8 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,10 +25,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	private ShogiPiece[][] currPieces;
 	private Button optionsButt;
 	private Button pressmeButt;
+	private Button reset;
 	private Vibrator vb;
 	private boolean havePieceSelected = false;
 	private Integer rowSel, colSel;
-	private Integer reset = null;
 	private ShogiGui gui;
 	private boolean hasKing = true;
 	public static boolean checkOption = false; //for determining if a player is in the options menu
@@ -79,7 +81,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	@Override
 	public void setAsGui(GameMainActivity activity) {
 		// remember the activity
-		myActivity = activity;
+		myActivity = (ShogiMainActivity)activity;
 
 		vb = (Vibrator)myActivity.getSystemService(Context.VIBRATOR_SERVICE);
 		// Load the layout resource for our GUI
@@ -109,8 +111,9 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 			checkOption = true;
 			myActivity.setContentView(R.layout.options);
 			pressmeButt = (Button) myActivity.findViewById(R.id.EasterEgg);
+			reset = (Button)myActivity.findViewById(R.id.Reset);
 			pressmeButt.setOnClickListener(this);
-
+			reset.setOnClickListener(this);
 		}
 		else if(v.getId() == R.id.EasterEgg)
 		{
@@ -125,6 +128,10 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 				receiveInfo(state);
 			}
 			havePieceSelected = false;
+		}
+		else if(v.getId() == R.id.Reset){
+			ShogiMainActivity.bgm.stop();
+			myActivity.recreate();
 		}
 	}
 

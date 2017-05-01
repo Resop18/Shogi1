@@ -22,9 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.up.cs371.resop18.shogi.shogi.Options">
-
-        </activity>
 
         <activity android:name="edu.up.cs371.resop18.shogi.shogi.Game">
 
