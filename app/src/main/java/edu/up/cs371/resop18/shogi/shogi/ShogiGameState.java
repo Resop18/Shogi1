@@ -339,7 +339,7 @@ public class ShogiGameState extends GameState implements Serializable{
 
         setPlayerInCheck(idx, playerInCheck);
 
-        Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
+        //Log.i("ShogiLocalGame", "player " + idx + " in check: " + getPlayerInCheck(idx));
 
         return playerInCheck;
 

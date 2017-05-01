@@ -32,6 +32,7 @@ public class ShogiPiece implements Serializable{
     private String[] s;
 
     private LegalMoves getLegalMoves;
+    private int[][] moves;
 
     //Defines the pieces
     private String[][] pieces = {{"王", "將", "王", "King"}, {"飛", "車", "飛", "Rook"}, {"角", "行", "角", "Bishop"},
@@ -54,6 +55,7 @@ public class ShogiPiece implements Serializable{
         this.col = initCol;
         this.x = (int)(ShogiGui.topLeftX + initCol * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting row
         this.y = (int)(ShogiGui.topLeftY + initRow * ShogiGui.spaceDim + ShogiGui.spaceDim / 2); //Defines starting col
+
 
         if(getPlayer()) {
             getLegalMoves = new LegalMoves(0);
@@ -260,7 +262,6 @@ public class ShogiPiece implements Serializable{
 
     //draws circles in the spaces where a selected piece can move
     public void drawMoves(Canvas C, ShogiPiece[][] board){
-        //canvas.drawCircle(topLeftX + spaceDim / 2, topLeftY + spaceDim / 2, spaceDim / 3, CirclePaint);
         Paint CirclePaint = new Paint();
 
         if(player) {
@@ -270,7 +271,7 @@ public class ShogiPiece implements Serializable{
         }
         int a = player ? 0 : 1;
         getLegalMoves = new LegalMoves(a);
-        int[][] moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
+        moves = getLegalMoves.moves(board, getPiece(), getRow(), getCol());
 
         for(int i = 0; i < moves.length; i++){
             if(moves[i] == null){ continue; }
@@ -312,10 +313,8 @@ public class ShogiPiece implements Serializable{
      */
     public boolean legalMove(ShogiPiece[][] board, int currRow, int currCol){
         int a = player ? 0 : 1;
-
-        LegalMoves m = new LegalMoves(a);
-        int[][] moves = m.moves(board, s[3], row, col);
-        //Log.i("Moves Length", ""+moves.length);
+        getLegalMoves = new LegalMoves(a);
+        moves = getLegalMoves.moves(board, s[3], row, col);
 
         for(int i = 0; i < moves.length; i++) {
             if(moves[i] == null){ continue; }
