@@ -62,7 +62,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 	@Override
 	public void receiveInfo(GameInfo info) {
 
-		//only update the state if info is a gamestate
+		//only update the state if info is a gamestat
 		if(info instanceof ShogiGameState){
 
 			// update our state; then update the display
