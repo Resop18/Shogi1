@@ -10,9 +10,11 @@ import java.io.Serializable;
 public class LegalMoves implements Serializable{
     private static final long serialVersionUID = 42978563847L;
     private boolean player;
+    private int playerIdx;
 
     public LegalMoves(int n){
-        if (n == 0) {
+        this.playerIdx = n;
+        if(n == 0){
             this.player = true;
         } else if (n == 1) {
             this.player = false;
@@ -527,5 +529,24 @@ public class LegalMoves implements Serializable{
         }
 
         return moves;
+    }
+
+    public int[][] kingInCheck(ShogiPiece[][] board, ShogiGameState state, int currRow, int currCol){
+        if(!board[currRow][currCol].getPiece().equals("King")){ return null; }
+
+        ShogiPiece piece = board[currRow][currCol];
+        int[][] possibleMoves;// = moves(board, "King", currRow, currCol);
+
+        if(state.determinePlayerInCheck(playerIdx, board, piece.getRow(), piece.getCol())){
+            possibleMoves = moves(board, piece.getPiece(), piece.getRow(), piece.getCol());
+            for(int i = 0; i < possibleMoves.length; i++){
+                if(possibleMoves[i] == null){ continue; }
+                if(state.determinePlayerInCheck(playerIdx, board, possibleMoves[i][0], possibleMoves[i][1])){
+                    possibleMoves[i] = null;
+                }
+            }
+        }
+
+        return new int[][]{{4}};
     }
 }

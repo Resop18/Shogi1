@@ -1,8 +1,6 @@
 package edu.up.cs371.resop18.shogi.shogi;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,7 +9,6 @@ import android.widget.Button;
 import edu.up.cs371.resop18.shogi.R;
 import edu.up.cs371.resop18.shogi.game.GameHumanPlayer;
 import edu.up.cs371.resop18.shogi.game.GameMainActivity;
-import edu.up.cs371.resop18.shogi.game.ProxyPlayer;
 import edu.up.cs371.resop18.shogi.game.infoMsg.GameInfo;
 
 /**
@@ -131,6 +128,7 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 		}
 		else if(v.getId() == R.id.Reset){
 			ShogiMainActivity.bgm.stop();
+			checkOption=false;
 			myActivity.recreate();
 		}
 	}
@@ -237,6 +235,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 					}
 
+					vb.vibrate(100);
+
 					//reset
 					havePieceSelected = false;
 					rowSel = -1;
@@ -297,6 +297,8 @@ public class ShogiHumanPlayer extends GameHumanPlayer implements View.OnClickLis
 					} else {
 						game.sendAction(new ShogiMoveAction(this, currPieces[rowSel][colSel], row, col, rowSel, colSel));
 					}
+
+					vb.vibrate(100);
 
 					//reset
 					havePieceSelected = false;
