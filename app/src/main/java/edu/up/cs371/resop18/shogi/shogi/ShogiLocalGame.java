@@ -16,7 +16,7 @@ import edu.up.cs371.resop18.shogi.game.actionMsg.GameAction;
 
 public class ShogiLocalGame extends LocalGame implements Serializable{
 	private static final long serialVersionUID = 42978563847L;
-    private ShogiGameState gameState;
+    public ShogiGameState gameState;
 
     private int playerCaptured = 10;
     private int opponentCaptured = 0;
@@ -32,7 +32,7 @@ public class ShogiLocalGame extends LocalGame implements Serializable{
     }
 
     @Override
-    protected boolean canMove(int playerIdx) {
+    public boolean canMove(int playerIdx) {
         return playerIdx == gameState.getPlayerTurn();
     }
 
